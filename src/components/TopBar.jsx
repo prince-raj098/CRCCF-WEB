@@ -1,0 +1,378 @@
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
+import './TopBar.css'
+
+/* ─── Marquee text ─────────────────────────────────────────── */
+const NOTICE =
+  'Welcome to CR Cyber Crime Foundation — a leading IT, software, and cybersecurity organization in India. With 24/7 dedication, CRCCF delivers innovative software products, scalable web and mobile applications, and end-to-end IT solutions.       '
+const TRACK = (NOTICE + NOTICE).repeat(2)
+
+/* ─── Gallery preview thumbnails ──────────────────────── */
+const GALLERY = [
+  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/a86e66dfa_generated_b06e8f70.png', alt: 'Our Student' },
+  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/14024feb9_generated_be8043d0.png', alt: 'Media & Press' },
+  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/41d80063f_generated_ee62a935.png', alt: 'Events' },
+  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/cd99b2cbe_generated_fd487187.png', alt: 'Team Moments' },
+  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/9676c4c3d_generated_77243b6c.png', alt: 'Certificates' },
+  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/4b478b14f_generated_12c36e15.png', alt: 'Client Work' },
+]
+
+/* ─── SVG Analog Clock ──────────────────────────────────────── */
+function AnalogClock() {
+  const [now, setNow] = useState(new Date())
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  const s = now.getSeconds()
+  const m = now.getMinutes()
+  const h = now.getHours() % 12
+
+  const sDeg = s * 6
+  const mDeg = m * 6 + s * 0.1
+  const hDeg = h * 30 + m * 0.5
+
+  const hand = (deg, len) => ({
+    x2: 30 + len * Math.sin((deg * Math.PI) / 180),
+    y2: 30 - len * Math.cos((deg * Math.PI) / 180),
+  })
+
+  const dateStr = now.toLocaleDateString('en-IN', {
+    weekday: 'short', day: '2-digit', month: 'short', year: 'numeric',
+  })
+  const timeStr = now.toLocaleTimeString('en-IN', {
+    hour: '2-digit', minute: '2-digit', hour12: true,
+  })
+
+  return (
+    <div className="clock-body">
+      {/* SVG CLOCK FACE */}
+      <svg viewBox="0 0 60 60" width="36" height="36" className="clock-svg">
+        {/* Outer ring */}
+        <circle cx="30" cy="30" r="29" fill="#0a1628" stroke="rgba(255,255,255,.22)" strokeWidth="1.5" />
+        {/* Inner glow */}
+        <circle cx="30" cy="30" r="26" fill="none" stroke="rgba(26,86,219,.18)" strokeWidth="1" />
+        {/* Hour tick marks */}
+        {[...Array(12)].map((_, i) => {
+          const a = ((i * 30 - 90) * Math.PI) / 180
+          const big = i % 3 === 0
+          const r1 = big ? 22 : 24, r2 = 27
+          return (
+            <line key={i}
+              x1={30 + r1 * Math.cos(a)} y1={30 + r1 * Math.sin(a)}
+              x2={30 + r2 * Math.cos(a)} y2={30 + r2 * Math.sin(a)}
+              stroke={big ? 'rgba(255,255,255,.80)' : 'rgba(255,255,255,.35)'}
+              strokeWidth={big ? 1.6 : 0.9}
+            />
+          )
+        })}
+        {/* Hour hand */}
+        <line x1="30" y1="30" {...hand(hDeg, 14)}
+          stroke="#fff" strokeWidth="2.6" strokeLinecap="round" />
+        {/* Minute hand */}
+        <line x1="30" y1="30" {...hand(mDeg, 19)}
+          stroke="rgba(255,255,255,.90)" strokeWidth="1.8" strokeLinecap="round" />
+        {/* Second hand */}
+        <line x1="30" y1="30" {...hand(sDeg, 22)}
+          stroke="#EF4444" strokeWidth="1.1" strokeLinecap="round" />
+        {/* Centre dot */}
+        <circle cx="30" cy="30" r="2.2" fill="#1A56DB" />
+        <circle cx="30" cy="30" r="1" fill="#fff" />
+      </svg>
+
+      {/* DIGITAL DATE + TIME */}
+      <div className="clock-info">
+        <span className="clock-time">{timeStr}</span>
+        <span className="clock-date">{dateStr}</span>
+      </div>
+    </div>
+  )
+}
+
+/* ─── Gallery Popup ─────────────────────────────────────────── */
+function GalleryPopup({ navigate }) {
+  return (
+    <motion.div
+      className="gallery-popup"
+      onClick={() => navigate('/gallery')}
+      initial={{ opacity: 0, y: -6, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -6, scale: 0.96 }}
+      transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+      style={{ cursor: 'pointer' }}
+    >
+      <div className="gallery-popup-head">
+        <span>📸 Gallery Preview</span>
+        <span className="gallery-popup-count">{GALLERY.length} photos</span>
+      </div>
+      <div className="gallery-popup-grid">
+        {GALLERY.map((img, i) => (
+          <motion.div
+            key={i}
+            className="gallery-thumb"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: i * 0.04, duration: 0.22 }}
+            whileHover={{ scale: 1.06, zIndex: 2 }}
+          >
+            <img src={img.src} alt={img.alt} loading="lazy" />
+            <div className="gallery-thumb-overlay">
+              <span>{img.alt}</span>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      <button onClick={() => navigate('/gallery')} className="gallery-popup-cta" style={{width: '100%', background: 'none', border: 'none', borderTop: '1px solid #F3F4F6', cursor: 'pointer'}}>
+        View Full Gallery →
+      </button>
+    </motion.div>
+  )
+}
+
+/* ─── Reach Us Popup ─────────────────────────────────────────── */
+function ReachUsPopup({ navigate }) {
+  const socialIcons = [
+    { name: 'Facebook', color: '#1877F2', link: 'https://www.facebook.com/people/Crcyber-Crime/61576052739281/' },
+    { name: 'LinkedIn', color: '#0A66C2', link: 'https://www.linkedin.com/company/cr-cyber-crime/posts/?feedView=all' },
+    { name: 'Instagram', color: '#E4405F', link: 'https://www.instagram.com/crcybercrime/' },
+    { name: 'X', color: '#000000', link: 'https://x.com/' }
+  ];
+
+  return (
+    <motion.div
+      className="gallery-popup"
+      onClick={() => navigate('/reachus')}
+      initial={{ opacity: 0, y: -6, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -6, scale: 0.96 }}
+      transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+      style={{ width: '300px', right: 0, cursor: 'pointer' }}
+    >
+      <div className="gallery-popup-head">
+        <span>🌍 Reach Our Support</span>
+      </div>
+      
+      <div style={{ padding: '14px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {/* Quick Contact Info */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', background: 'linear-gradient(135deg, #1A56DB, #1044B8)', padding: '14px', borderRadius: '12px', color: 'white', boxShadow: '0 8px 16px rgba(26,86,219,0.15)' }}>
+           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span style={{ fontWeight: 600 }}>+91 97779 99529</span>
+           </div>
+           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span style={{ fontWeight: 600 }}>hr@crcybercrime.org</span>
+           </div>
+        </div>
+
+        {/* Branches Summary */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          {[
+            { city: 'New York', phone: '+1 (555) 123-4567' },
+            { city: 'London', phone: '+44 20 7123 4567' },
+            { city: 'Singapore', phone: '+65 6789 0123' }
+          ].map((branch, i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', fontSize: '10.5px', background: '#F8FAFC', padding: '10px', borderRadius: '10px', border: '1px solid #F1F5F9' }}>
+              <strong style={{color: '#0F172A', fontSize: '11.5px'}}>{branch.city}</strong>
+              <span style={{color: '#2563EB', marginTop: '3px', fontWeight: 600}}>{branch.phone}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Social Links */}
+        <div style={{ padding: '4px 0' }}>
+           <p style={{ fontSize: '11px', fontWeight: 800, color: '#94A3B8', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Official Community</p>
+           <div style={{ display: 'flex', gap: '12px' }}>
+             {socialIcons.map((s, i) => (
+               <a key={i} href={s.link} target="_blank" rel="noreferrer" 
+                 onClick={(e) => e.stopPropagation()}
+                 style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#F8FAFC', border: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: s.color, transition: 'all 0.2s', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}
+               >
+                 {s.name === 'LinkedIn' && <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.989v-10.131c0-7.88-8.922-7.593-11.02-3.711v-2.158z"/></svg>}
+                 {s.name === 'Instagram' && <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.245 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.245-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.245-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.245 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-1.42.065-2.391.301-3.238 1.295-.847.994-1.083 1.965-1.148 3.385-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.065 1.42.301 2.391 1.295 3.238.994.847 1.965 1.083 3.385 1.148 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.42-.065 2.391-.301 3.238-1.295.847-.994 1.083-1.965 1.148-3.385.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.065-1.42-.301-2.391-1.295-3.238-.994-.847-1.965-1.083-3.385-1.148-1.28-.058-1.688-.072-4.947-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.44-.645 1.44-1.44s-.645-1.44-1.44-1.44z"/></svg>}
+                 {s.name === 'X' && <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.134l4.713 6.176 5.397-6.176zM17.082 19.77h1.833L7.084 4.126H5.117L17.082 19.77z"/></svg>}
+               </a>
+             ))}
+           </div>
+        </div>
+
+        <button 
+          onClick={() => navigate('/reachus')} 
+          style={{ width: '100%', background: '#00D1C1', color: 'white', padding: '12px', borderRadius: '12px', border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: '13px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '2px', boxShadow: '0 6px 20px rgba(0,209,193,0.25)', transition: 'all 0.2s' }}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          Drop Your Message
+        </button>
+      </div>
+      <button onClick={() => navigate('/reachus')} className="gallery-popup-cta" style={{width: '100%', background: 'none', border: 'none', borderTop: '1px solid #F1F5F9', cursor: 'pointer'}}>
+        Connect With Official Channels →
+      </button>
+    </motion.div>
+  )
+}
+
+/* ─── TOP BAR ───────────────────────────────────────────────── */
+export default function TopBar() {
+  /* Clock: visible on load → hides after 2 s → shows on hover */
+  const [clockAutoVisible, setClockAutoVisible] = useState(true)
+  const [clockHovered, setClockHovered] = useState(false)
+  const [galleryHovered, setGalleryHovered] = useState(false)
+  const [reachHovered, setReachHovered] = useState(false)
+
+  const navigate = useNavigate()
+  
+  useEffect(() => {
+    const t = setTimeout(() => setClockAutoVisible(false), 2000)
+    return () => clearTimeout(t)
+  }, [])
+
+  const clockVisible = clockAutoVisible || clockHovered
+
+  // Close popups on click outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.tb-gallery-zone') && !e.target.closest('.tb-reach-zone')) {
+        setGalleryHovered(false)
+        setReachHovered(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const handleGalleryClick = () => {
+    if (window.innerWidth <= 1024) {
+      if (!galleryHovered) {
+        setGalleryHovered(true)
+        setReachHovered(false)
+      } else {
+        navigate('/gallery')
+      }
+    } else {
+      navigate('/gallery')
+    }
+  }
+
+  const handleReachClick = () => {
+    if (window.innerWidth <= 1024) {
+      if (!reachHovered) {
+        setReachHovered(true)
+        setGalleryHovered(false)
+      } else {
+        navigate('/reachus')
+      }
+    } else {
+      navigate('/reachus')
+    }
+  }
+
+  return (
+    <div className="topbar">
+      {/* ── LEFT: FIXED WELCOME LABEL ── */}
+      <div className="tb-welcome">
+        <span className="tb-welcome-dot" />
+        Welcome To CRCCF
+      </div>
+      <div className="tb-welcome-sep" />
+
+      {/* ── SCROLLING ANNOUNCEMENT ── */}
+      <div className="tb-marquee">
+        <div className="tb-track">{TRACK}</div>
+      </div>
+
+      {/* ── RIGHT SIDE ── */}
+      <div className="tb-right">
+
+        {/* CLOCK */}
+        <div
+          className="tb-clock-zone"
+          onMouseEnter={() => setClockHovered(true)}
+          onMouseLeave={() => setClockHovered(false)}
+        >
+          <AnimatePresence mode="wait">
+            {clockVisible ? (
+              /* EXPANDED CLOCK */
+              <motion.div
+                key="clock-full"
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: 'auto' }}
+                exit={{ opacity: 0, width: 0 }}
+                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                style={{ overflow: 'hidden', display: 'flex' }}
+              >
+                <AnalogClock />
+              </motion.div>
+            ) : (
+              /* COLLAPSED — just a small clock icon */
+              <motion.button
+                key="clock-icon"
+                className="tb-icon-btn"
+                title="Date & Time (hover to expand)"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {/* mini clock SVG icon */}
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </motion.button>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <div className="tb-sep" />
+
+        {/* GALLERY ICON */}
+        <div
+          className="tb-gallery-zone"
+          onMouseEnter={() => window.innerWidth > 1024 && setGalleryHovered(true)}
+          onMouseLeave={() => window.innerWidth > 1024 && setGalleryHovered(false)}
+        >
+          <button className="tb-icon-btn tb-gallery-btn" title="Gallery" onClick={handleGalleryClick}>
+            {/* gallery / image icon */}
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </button>
+
+          <AnimatePresence>
+            {galleryHovered && <GalleryPopup navigate={navigate} />}
+          </AnimatePresence>
+        </div>
+
+        <div className="tb-sep" />
+
+        {/* REACH US */}
+        <div 
+          className="tb-reach-zone" 
+          onMouseEnter={() => window.innerWidth > 1024 && setReachHovered(true)} 
+          onMouseLeave={() => window.innerWidth > 1024 && setReachHovered(false)}
+          style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
+        >
+          <button className="tb-reach-btn" onClick={handleReachClick}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            Reach Us
+          </button>
+
+          <AnimatePresence>
+            {reachHovered && <ReachUsPopup navigate={navigate} />}
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  )
+}

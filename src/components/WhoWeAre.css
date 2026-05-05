@@ -1,0 +1,255 @@
+.who-section {
+  background: #F9FAFB;
+}
+
+.who-header {
+  text-align: center;
+  margin-bottom: clamp(28px, 5vw, 48px);
+}
+
+.who-header .section-subtitle {
+  margin: 0 auto;
+}
+
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* ── FLIP CARD CONTAINER ── */
+.who-card-container {
+  perspective: 1000px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  margin-top: 26px;
+  /* Provide space for the overlapping icon cutout */
+  display: flex;
+  flex-direction: column;
+}
+
+.who-card-flipper {
+  display: grid;
+  flex: 1;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  width: 100%;
+  border-radius: 14px;
+}
+
+.who-card-container:hover .who-card-flipper {
+  transform: rotateY(180deg);
+}
+
+.who-card-front,
+.who-card-back {
+  grid-area: 1 / 1;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  padding: 28px;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.who-card-front {
+  transform: rotateY(0deg);
+  z-index: 2;
+  align-items: center;
+  text-align: center;
+  padding-top: 45px;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.who-card-back {
+  transform: rotateY(180deg);
+  align-items: flex-start;
+  padding: 30px 24px;
+}
+
+.who-card-container:hover .who-card-front,
+.who-card-container:hover .who-card-back {
+  box-shadow: 0 10px 36px rgba(0, 0, 0, .10);
+  border-color: rgba(26, 86, 219, .20);
+}
+
+/* ── CARD CONTENTS ── */
+.who-icon-wrapper {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 50%;
+  padding: 6px;
+}
+
+.who-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563EB;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.who-header .accent {
+  color: #2563EB;
+}
+
+.who-title {
+  font-size: clamp(15px, 2.2vw, 19px);
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.who-divider {
+  width: 36px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.who-desc {
+  font-size: clamp(12px, 1.5vw, 14.5px);
+  color: #4B5563;
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .who-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .who-card-container {
+    margin-top: 18px;
+  }
+
+  .who-card-flipper {
+    min-height: 160px;
+  }
+
+  .who-card-front,
+  .who-card-back {
+    padding: 12px 10px;
+    min-height: 160px;
+  }
+
+  .who-card-front {
+    padding-top: 24px;
+  }
+  
+  .who-card-back {
+    padding: 14px 10px;
+  }
+
+  .who-icon-wrapper {
+    top: -15px;
+    padding: 3px;
+  }
+
+  .who-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .who-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .who-title {
+    font-size: clamp(11px, 3vw, 13.5px);
+    margin-bottom: 5px;
+  }
+
+  .who-divider {
+    width: 24px;
+    height: 2px;
+  }
+
+  .who-desc {
+    font-size: clamp(10px, 2.2vw, 11.5px);
+    line-height: 1.4;
+  }
+
+  .who-header .section-subtitle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .who-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .who-card-flipper {
+    min-height: 145px;
+  }
+
+  .who-card-front, .who-card-back {
+    padding: 10px 8px;
+    min-height: 145px;
+  }
+
+  .who-card-front {
+    padding-top: 22px;
+  }
+
+  .who-card-container {
+    margin-top: 16px;
+  }
+
+  .who-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .who-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .who-icon-wrapper {
+    top: -13px;
+    padding: 2px;
+  }
+
+  .who-title {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .who-desc {
+    font-size: 10px;
+    line-height: 1.35;
+  }
+}
