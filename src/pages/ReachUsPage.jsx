@@ -18,15 +18,10 @@ import {
   Edit3,
   MessageSquare,
   MapPin, 
-  ExternalLink,
-  HelpCircle,
-  Building2,
-  HeadphonesIcon,
-  Lock
+
 } from 'lucide-react';
 import TopBar from '../components/TopBar';
 import Navbar from '../components/Navbar';
-import './ReachUs.css';
 
 export default function ReachUsPage() {
   const [formData, setFormData] = useState({
@@ -38,18 +33,23 @@ export default function ReachUsPage() {
 
   const [errors, setErrors] = useState({});
   const [activeSocial, setActiveSocial] = useState(null);
-  const [autoHover, setAutoHover] = useState(false);
+  const [activeBranch, setActiveBranch] = useState(null);
+  const [isAutoHoverActive, setIsAutoHoverActive] = useState(false);
+  const [isIconsVisible, setIsIconsVisible] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     
     // Teaser animation: show hover state for 1.2s shortly after load
     const timer = setTimeout(() => {
-      setAutoHover(true);
-      setTimeout(() => setAutoHover(false), 1200);
+      setIsAutoHoverActive(true);
+      setTimeout(() => setIsAutoHoverActive(false), 1200);
     }, 500);
 
-    const handleClickOutside = () => setActiveSocial(null);
+    const handleClickOutside = () => {
+      setActiveSocial(null);
+      setActiveBranch(null);
+    };
     window.addEventListener('click', handleClickOutside);
     return () => {
       clearTimeout(timer);
@@ -198,25 +198,32 @@ export default function ReachUsPage() {
     }
   };
 
+  const handleBranchTap = (e, index) => {
+    if (window.innerWidth <= 1024) {
+      e.stopPropagation();
+      setActiveBranch(prev => prev === index ? null : index);
+    }
+  };
+
   return (
-    <div className="ru-root">
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] font-['Inter',sans-serif] relative overflow-x-hidden">
       <TopBar />
       <Navbar />
 
       {/* Hero Section */}
-      <section className="ru-hero">
-        <div className="ru-hero-bg"></div>
-        <div className="ru-hero-content">
+      <section className="relative h-[45vh] min-h-[350px] flex items-center justify-center text-center overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/contact.jpg')] bg-cover bg-center brightness-[0.6] z-[1]"></div>
+        <div className="relative z-[2] max-w-[800px] px-[20px] text-[#ffffff]">
           <motion.h1 
-            className="ru-hero-title"
+            className="text-[clamp(36px,5vw,64px)] font-[800] mb-[16px] tracking-[-0.02em]"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Reach <span>Us</span>
+            Reach <span className="text-[#3B82F6] bg-[linear-gradient(to_right,#60A5FA,#93C5FD)] bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">Us</span>
           </motion.h1>
           <motion.p 
-            className="ru-hero-desc"
+            className="text-[clamp(14px,1.8vw,18px)] leading-[1.6] text-[rgba(255,255,255,0.9)] max-w-[600px] mx-auto [&_b]:text-[#60A5FA] [&_b]:font-[700]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -227,103 +234,332 @@ export default function ReachUsPage() {
         </div>
       </section>
 
-      <main className="ru-main">
-        <div className="ru-grid">
+      <main className="max-w-[1200px] mx-auto py-[60px] px-[24px] relative z-[10]">
+        
+        {/* Follow Us Section - ENHANCED SOCIAL TREE */}
+        <section className="mb-[80px] pb-[40px]">
+          <motion.div 
+            className="bg-white rounded-[40px] p-[60px_40px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] overflow-hidden max-[640px]:p-[40px_15px]"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="text-center mb-[30px] relative z-[10]">
+              <h3 className="text-[32px] font-[800] text-[#0F172A] mb-[12px] m-0">Connect With <span className="text-[#2563EB]">Our Community</span></h3>
+              <p className="text-[#64748B] text-[16px] m-0">Stay updated with our latest news and initiatives across all official platforms.</p>
+            </div>
+
+            {/* Tree/Circle Container */}
+            <div className="relative w-full max-w-[900px] mx-auto min-h-[650px] flex items-center justify-center max-[1024px]:min-h-[550px] max-[768px]:h-[450px] max-[768px]:min-h-0 max-[768px]:translate-y-[15px]">
+              
+              {/* Central Hub for Mobile (Circle Center) */}
+              <div className="hidden max-[768px]:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center z-[10] pointer-events-none">
+                <motion.div 
+                  className={`w-[110px] h-[110px] bg-white rounded-full border-2 border-dashed flex flex-col items-center justify-center shadow-[0_10px_25px_rgba(37,99,235,0.15),inset_0_2px_4px_rgba(0,0,0,0.05)] pointer-events-auto cursor-pointer transition-all duration-300 ${isIconsVisible ? 'border-[#10B981] shadow-[0_10px_25px_rgba(16,185,129,0.15)]' : 'border-[#3B82F6]'}`}
+                  onClick={() => setIsIconsVisible(!isIconsVisible)}
+                  animate={{ scale: isIconsVisible ? 1.05 : [1, 1.05, 1] }}
+                  transition={{ scale: isIconsVisible ? { duration: 0.2 } : { duration: 2, repeat: Infinity, ease: "easeInOut" } }}
+                >
+                  <span className={`text-[12px] font-[900] leading-[1.1] uppercase tracking-[-0.01em] text-center transition-colors duration-300 ${isIconsVisible ? 'text-[#10B981]' : 'text-[#1E293B]'}`}>
+                    {isIconsVisible ? 'Tapped to\nConnect' : 'Tap to\nConnect'}
+                  </span>
+                  <span className="text-[8px] font-[700] text-[#64748B] uppercase tracking-[0.1em] mt-[4px] text-center">Collection</span>
+                </motion.div>
+              </div>
+
+              {/* SVG Trunk - Desktop Only */}
+              <div className="absolute inset-0 z-[0] pointer-events-none max-[768px]:hidden">
+                <svg width="100%" height="100%" viewBox="0 0 900 650" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                  <defs>
+                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="3" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <linearGradient id="trunkGradient" x1="450" y1="650" x2="450" y2="500" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#E2E8F0" />
+                      <stop offset="100%" stopColor="#94A3B8" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Trunk base */}
+                  <motion.path 
+                    d="M450 650 V500" 
+                    stroke="url(#trunkGradient)" 
+                    strokeWidth="8" 
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                  />
+                  
+                  {/* Branching lines */}
+                  <g filter="url(#glow)">
+                    {[
+                      "M450 500 C450 400 450 250 450 120",   // 0
+                      "M450 500 C450 350 280 300 220 180",   // 1
+                      "M450 500 C450 350 620 300 680 180",   // 2
+                      "M450 500 C400 450 150 450 120 350",   // 3
+                      "M450 500 C500 450 750 450 780 350",   // 4
+                      "M450 500 C450 450 350 400 320 320",   // 5
+                      "M450 500 C450 450 550 400 580 320",   // 6
+                      "M450 500 C400 500 250 550 200 480",   // 7
+                      "M450 500 C500 500 650 550 700 480",   // 8
+                      "M450 500 C450 480 400 480 450 400",   // 9
+                    ].map((d, i) => (
+                      <motion.path
+                        key={i}
+                        d={d}
+                        stroke={activeSocial === i || isAutoHoverActive ? socialLinks[i].color : "#E2E8F0"}
+                        strokeWidth={activeSocial === i || isAutoHoverActive ? "3" : "1.5"}
+                        strokeDasharray={activeSocial === i || isAutoHoverActive ? "0" : "5 5"}
+                        opacity={activeSocial === i || isAutoHoverActive ? "0.8" : "0.3"}
+                        initial={{ pathLength: 0 }}
+                        whileInView={{ pathLength: 1 }}
+                        transition={{ 
+                          pathLength: { duration: 1.5, delay: 0.5 + (i * 0.1) },
+                          stroke: { duration: 0.3 },
+                          strokeWidth: { duration: 0.3 }
+                        }}
+                      />
+                    ))}
+                  </g>
+
+                  {/* Digital Particles */}
+                  {[...Array(15)].map((_, i) => (
+                    <motion.circle
+                      key={i}
+                      r={Math.random() * 3 + 1}
+                      fill={["#3B82F6", "#818CF8", "#F472B6", "#10B981"][i % 4]}
+                      initial={{ x: 450, y: 500, opacity: 0 }}
+                      animate={{ 
+                        x: 450 + (Math.random() - 0.5) * 800, 
+                        y: 100 + Math.random() * 400, 
+                        opacity: [0, 0.6, 0],
+                        scale: [0, 1, 0.5]
+                      }}
+                      transition={{ 
+                        duration: Math.random() * 5 + 5, 
+                        repeat: Infinity, 
+                        delay: Math.random() * 2 
+                      }}
+                    />
+                  ))}
+                </svg>
+              </div>
+
+              {/* Social Nodes */}
+              {socialLinks.map((s, i) => {
+                // Positions calculation
+                const total = socialLinks.length;
+                const angle = (i / total) * 2 * Math.PI - Math.PI / 2; // start from top center
+                const radius = window.innerWidth <= 480 ? 120 : 140; // Responsive mobile circle radius
+                
+                const desktopPos = [
+                  { top: '5%', left: '50%' },   { top: '15%', left: '25%' },  { top: '15%', left: '75%' },
+                  { top: '40%', left: '13%' },  { top: '40%', left: '87%' },  { top: '35%', left: '35%' },
+                  { top: '35%', left: '65%' },  { top: '60%', left: '22%' },  { top: '60%', left: '78%' },
+                  { top: '50%', left: '50%' },
+                ];
+
+                return (
+                  <motion.div 
+                    key={i} 
+                    className={`
+                      absolute transition-all duration-[0.2s] text-[17px] rounded-[10px] group/social
+                      ${(activeSocial === i || isAutoHoverActive) ? 'z-[100] is-active' : 'z-[5]'} 
+                      ${isAutoHoverActive ? 'is-auto-hover' : ''}
+                      [&.is-active_.social-tooltip]:top-[-125px] [&.is-active_.social-tooltip]:opacity-100 [&.is-active_.social-tooltip]:visible [&.is-active_.social-tooltip]:pointer-events-auto
+                      [&.is-auto-hover_.social-tooltip]:top-[-125px] [&.is-auto-hover_.social-tooltip]:opacity-100 [&.is-auto-hover_.social-tooltip]:visible [&.is-auto-hover_.social-tooltip]:pointer-events-auto
+                      hover:[&_.social-tooltip]:top-[-125px] hover:[&_.social-tooltip]:opacity-100 hover:[&_.social-tooltip]:visible hover:[&_.social-tooltip]:pointer-events-auto
+                      
+                      [&.is-active_.social-layer]:rotate-[-35deg] [&.is-active_.social-layer]:skew-x-[20deg]
+                      [&.is-auto-hover_.social-layer]:rotate-[-35deg] [&.is-auto-hover_.social-layer]:skew-x-[20deg]
+                      hover:[&_.social-layer]:rotate-[-35deg] hover:[&_.social-layer]:skew-x-[20deg]
+
+                      [&.is-active_.social-layer_span:nth-child(1)]:opacity-[0.1]
+                      [&.is-active_.social-layer_span:nth-child(2)]:opacity-[0.3] [&.is-active_.social-layer_span:nth-child(2)]:translate-x-[5px] [&.is-active_.social-layer_span:nth-child(2)]:translate-y-[-5px]
+                      [&.is-active_.social-layer_span:nth-child(3)]:opacity-[0.5] [&.is-active_.social-layer_span:nth-child(3)]:translate-x-[10px] [&.is-active_.social-layer_span:nth-child(3)]:translate-y-[-10px]
+                      [&.is-active_.social-layer_span:nth-child(4)]:opacity-[0.7] [&.is-active_.social-layer_span:nth-child(4)]:translate-x-[15px] [&.is-active_.social-layer_span:nth-child(4)]:translate-y-[-15px]
+                      [&.is-active_.social-layer_span:nth-child(5)]:opacity-[1] [&.is-active_.social-layer_span:nth-child(5)]:translate-x-[20px] [&.is-active_.social-layer_span:nth-child(5)]:translate-y-[-20px]
+
+                      [&.is-auto-hover_.social-layer_span:nth-child(1)]:opacity-[0.1]
+                      [&.is-auto-hover_.social-layer_span:nth-child(2)]:opacity-[0.3] [&.is-auto-hover_.social-layer_span:nth-child(2)]:translate-x-[5px] [&.is-auto-hover_.social-layer_span:nth-child(2)]:translate-y-[-5px]
+                      [&.is-auto-hover_.social-layer_span:nth-child(3)]:opacity-[0.5] [&.is-auto-hover_.social-layer_span:nth-child(3)]:translate-x-[10px] [&.is-auto-hover_.social-layer_span:nth-child(3)]:translate-y-[-10px]
+                      [&.is-auto-hover_.social-layer_span:nth-child(4)]:opacity-[0.7] [&.is-auto-hover_.social-layer_span:nth-child(4)]:translate-x-[15px] [&.is-auto-hover_.social-layer_span:nth-child(4)]:translate-y-[-15px]
+                      [&.is-auto-hover_.social-layer_span:nth-child(5)]:opacity-[1] [&.is-auto-hover_.social-layer_span:nth-child(5)]:translate-x-[20px] [&.is-auto-hover_.social-layer_span:nth-child(5)]:translate-y-[-20px]
+
+                      hover:[&_.social-layer_span:nth-child(1)]:opacity-[0.1]
+                      hover:[&_.social-layer_span:nth-child(2)]:opacity-[0.3] hover:[&_.social-layer_span:nth-child(2)]:translate-x-[5px] hover:[&_.social-layer_span:nth-child(2)]:translate-y-[-5px]
+                      hover:[&_.social-layer_span:nth-child(3)]:opacity-[0.5] hover:[&_.social-layer_span:nth-child(3)]:translate-x-[10px] hover:[&_.social-layer_span:nth-child(3)]:translate-y-[-10px]
+                      hover:[&_.social-layer_span:nth-child(4)]:opacity-[0.7] hover:[&_.social-layer_span:nth-child(4)]:translate-x-[15px] hover:[&_.social-layer_span:nth-child(4)]:translate-y-[-15px]
+                      hover:[&_.social-layer_span:nth-child(5)]:opacity-[1] hover:[&_.social-layer_span:nth-child(5)]:translate-x-[20px] hover:[&_.social-layer_span:nth-child(5)]:translate-y-[-20px]
+
+                      [&.is-active_.social-text]:bottom-[-32px] [&.is-active_.social-text]:opacity-100
+                      [&.is-auto-hover_.social-text]:bottom-[-32px] [&.is-auto-hover_.social-text]:opacity-100
+                      hover:[&_.social-text]:bottom-[-32px] hover:[&_.social-text]:opacity-100
+                    `}
+                    style={{ 
+                      '--brand-color': s.color, 
+                      '--brand-gradient': s.gradient,
+                      top: window.innerWidth <= 768 ? `calc(50% + ${Math.sin(angle) * radius}px)` : desktopPos[i].top,
+                      left: window.innerWidth <= 768 ? `calc(50% + ${Math.cos(angle) * radius}px)` : desktopPos[i].left,
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={(isIconsVisible || (typeof window !== 'undefined' && window.innerWidth > 768)) ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (isIconsVisible ? (i * 0.08) : 0.2 + (i * 0.08)), duration: 0.5, type: 'spring' }}
+                    onClick={(e) => handleSocialClick(e, i)}
+                    onMouseEnter={() => setActiveSocial(i)}
+                    onMouseLeave={() => setActiveSocial(null)}
+                  >
+                    <div className="relative block">
+                      <a className="relative block no-underline group" href={s.link} target="_blank" rel="noopener noreferrer">
+                        {/* Tooltip moved inside the link */}
+                        <div className="social-tooltip absolute top-0 left-1/2 -translate-x-1/2 p-[10px] opacity-0 pointer-events-none rounded-[15px] shadow-[inset_5px_5px_5px_rgba(0,0,0,0.1),inset_-5px_-5px_15px_rgba(255,255,255,0.1),5px_5px_15px_rgba(0,0,0,0.2)] z-[100] w-[180px] transition-all duration-300">
+                          <div className="bg-white rounded-[10px_15px] p-[10px] shadow-[0_10px_20px_rgba(0,0,0,0.05)]">
+                            <div className="flex gap-[10px] items-center">
+                              <div className="user flex gap-[10px] items-center">
+                                <img src="/Logo.png" alt="Logo" className="w-[36px] h-[36px] border border-solid border-[var(--brand-color,#2563EB)] rounded-[8px] bg-white object-contain p-[3px]" />
+                                <div className="flex flex-col gap-0">
+                                  <div className="text-[13px] font-[800] text-[#0F172A]">{s.label}</div>
+                                  <div className="text-[11px] text-[var(--brand-color,#64748B)] font-[600]">{s.handle}</div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="text-[#64748B] pt-[8px] text-[11px] mt-[8px]">Visit Official {s.label}</div>
+                          </div>
+                        </div>
+
+                        <div className="social-layer w-[54px] h-[54px] transition-transform duration-[0.3s] relative max-[640px]:w-[44px] max-[640px]:h-[44px]">
+                          <span className="absolute inset-0 border border-solid border-[var(--brand-color,#2563EB)] rounded-[15px] transition-all duration-300"></span>
+                          <span className="absolute inset-0 border border-solid border-[var(--brand-color,#2563EB)] rounded-[15px] transition-all duration-300"></span>
+                          <span className="absolute inset-0 border border-solid border-[var(--brand-color,#2563EB)] rounded-[15px] transition-all duration-300"></span>
+                          <span className="absolute inset-0 border border-solid border-[var(--brand-color,#2563EB)] rounded-[15px] transition-all duration-300"></span>
+                          <span 
+                            className="absolute inset-0 text-[22px] flex items-center justify-center rounded-[15px] text-white max-[640px]:text-[18px] transition-all duration-300"
+                            style={{ background: s.gradient || s.color }}
+                          >
+                            {s.icon}
+                          </span>
+                        </div>
+                        <div className="social-text absolute left-1/2 bottom-[-5px] opacity-0 font-[700] -translate-x-1/2 transition-all duration-[0.3s] text-[var(--brand-color,#2563EB)] whitespace-nowrap text-[11px]">
+                          {s.label}
+                        </div>
+                      </a>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </section>
+
+        <div className="grid grid-cols-1 gap-[60px] mb-[80px] justify-items-center lg:gap-[80px]">
           {/* Left Column: Form */}
           <motion.div 
-            className="ru-form-container"
+            className="bg-white rounded-[32px] p-[48px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-solid border-[#F1F5F9] max-w-[750px] w-full max-[640px]:p-[32px_20px] max-[640px]:rounded-[24px]"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="ru-form-header">
-              <h2>Say Hello, On Our <span>Support!</span></h2>
+            <div className="text-center mb-[36px] max-[640px]:mb-[28px]">
+              <h2 className="text-[22px] font-[700] text-[#0F172A] m-0 max-[640px]:text-[18px]">Say Hello, On Our <span className="text-[#2563EB]">Support!</span></h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="ru-form">
-              <div className="ru-input-group">
-                <div className="ru-input-wrapper">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-[28px] max-[640px]:gap-[16px]">
+              <div className="flex flex-col gap-[4px]">
+                <div className="relative flex items-center">
                   <input id="name" value={formData.name} onChange={handleChange}
-                    className={`ru-input-styled ${errors.name ? "error" : ""}`}
+                    className={`w-full bg-[#F8FAFC] border border-solid text-[#0F172A] text-[14px] outline-none transition-all duration-[0.3s] rounded-[100px] p-[18px_60px_18px_24px] max-[640px]:p-[14px_50px_14px_20px] max-[640px]:text-[13px] ${errors.name ? "border-[#EF4444]" : "border-[#E2E8F0] hover:border-[#3B82F6] focus:border-[#3B82F6]"}`}
                     placeholder="Full Name"
                   />
-                  <div className="ru-input-icon icon-name"><User size={18} /></div>
+                  <div className="absolute right-[8px] top-[50%] translate-y-[-50%] w-[38px] h-[38px] rounded-[50%] flex items-center justify-center transition-all duration-[0.3s] z-[5] text-[#10B981] border border-solid border-[rgba(16,185,129,0.2)] bg-[rgba(16,185,129,0.05)] max-[640px]:w-[32px] max-[640px]:h-[32px] max-[640px]:right-[6px]"><User size={18} /></div>
                 </div>
-                {errors.name && <p className="ru-error-text">{errors.name}</p>}
+                {errors.name && <p className="text-[#EF4444] text-[12px] mt-[5px] pl-[20px]">{errors.name}</p>}
               </div>
 
-              <div className="ru-input-group">
-                <div className="ru-input-wrapper">
+              <div className="flex flex-col gap-[4px]">
+                <div className="relative flex items-center">
                   <input id="email" value={formData.email} onChange={handleChange}
-                    className={`ru-input-styled ${errors.email ? "error" : ""}`}
+                    className={`w-full bg-[#F8FAFC] border border-solid text-[#0F172A] text-[14px] outline-none transition-all duration-[0.3s] rounded-[100px] p-[18px_60px_18px_24px] max-[640px]:p-[14px_50px_14px_20px] max-[640px]:text-[13px] ${errors.email ? "border-[#EF4444]" : "border-[#E2E8F0] hover:border-[#3B82F6] focus:border-[#3B82F6]"}`}
                     placeholder="Email Address"
                   />
-                  <div className="ru-input-icon icon-email"><Mail size={18} /></div>
+                  <div className="absolute right-[8px] top-[50%] translate-y-[-50%] w-[38px] h-[38px] rounded-[50%] flex items-center justify-center transition-all duration-[0.3s] z-[5] text-[#F59E0B] border border-solid border-[rgba(245,158,11,0.2)] bg-[rgba(245,158,11,0.05)] max-[640px]:w-[32px] max-[640px]:h-[32px] max-[640px]:right-[6px]"><Mail size={18} /></div>
                 </div>
-                {errors.email && <p className="ru-error-text">{errors.email}</p>}
+                {errors.email && <p className="text-[#EF4444] text-[12px] mt-[5px] pl-[20px]">{errors.email}</p>}
               </div>
 
-              <div className="ru-input-group">
-                <div className="ru-input-wrapper">
+              <div className="flex flex-col gap-[4px]">
+                <div className="relative flex items-center">
                   <input id="subject" value={formData.subject} onChange={handleChange}
-                    className={`ru-input-styled ${errors.subject ? "error" : ""}`}
+                    className={`w-full bg-[#F8FAFC] border border-solid text-[#0F172A] text-[14px] outline-none transition-all duration-[0.3s] rounded-[100px] p-[18px_60px_18px_24px] max-[640px]:p-[14px_50px_14px_20px] max-[640px]:text-[13px] ${errors.subject ? "border-[#EF4444]" : "border-[#E2E8F0] hover:border-[#3B82F6] focus:border-[#3B82F6]"}`}
                     placeholder="Subject"
                   />
-                  <div className="ru-input-icon icon-subject"><Edit3 size={18} /></div>
+                  <div className="absolute right-[8px] top-[50%] translate-y-[-50%] w-[38px] h-[38px] rounded-[50%] flex items-center justify-center transition-all duration-[0.3s] z-[5] text-[#3B82F6] border border-solid border-[rgba(59,130,246,0.2)] bg-[rgba(59,130,246,0.05)] max-[640px]:w-[32px] max-[640px]:h-[32px] max-[640px]:right-[6px]"><Edit3 size={18} /></div>
                 </div>
-                {errors.subject && <p className="ru-error-text">{errors.subject}</p>}
+                {errors.subject && <p className="text-[#EF4444] text-[12px] mt-[5px] pl-[20px]">{errors.subject}</p>}
               </div>
 
-              <div className="ru-input-group">
-                <div className="ru-input-wrapper">
+              <div className="flex flex-col gap-[4px]">
+                <div className="relative flex items-center">
                   <textarea id="message" value={formData.message} onChange={handleChange}
-                    className={`ru-textarea-styled ${errors.message ? "error" : ""}`}
+                    className={`w-full bg-[#F8FAFC] border border-solid text-[#0F172A] text-[14px] outline-none transition-all duration-[0.3s] rounded-[24px] p-[22px_60px_22px_24px] min-h-[160px] resize-none max-[640px]:p-[18px_50px_18px_20px] max-[640px]:min-h-[120px] max-[640px]:text-[13px] ${errors.message ? "border-[#EF4444]" : "border-[#E2E8F0] hover:border-[#3B82F6] focus:border-[#3B82F6]"}`}
                     placeholder="Message"
                   />
-                  <div className="ru-input-icon icon-message" style={{ top: '24px' }}><MessageSquare size={18} /></div>
+                  <div className="absolute right-[8px] top-[24px] w-[38px] h-[38px] rounded-[50%] flex items-center justify-center transition-all duration-[0.3s] z-[5] text-[#EF4444] border border-solid border-[rgba(239,68,68,0.2)] bg-[rgba(239,68,68,0.05)] max-[640px]:w-[32px] max-[640px]:h-[32px] max-[640px]:right-[6px]"><MessageSquare size={18} /></div>
                 </div>
-                {errors.message && <p className="ru-error-text">{errors.message}</p>}
+                {errors.message && <p className="text-[#EF4444] text-[12px] mt-[5px] pl-[20px]">{errors.message}</p>}
               </div>
 
-              <button type="submit" className="ru-submit-btn-teal">Send Your Message Now</button>
+              <button type="submit" className="bg-[#2563EB] text-[#ffffff] border-none p-[20px] font-[700] text-[16px] rounded-[100px] cursor-pointer w-full mt-[12px] shadow-[0_10px_20px_-5px_rgba(37,99,235,0.3)] transition-all duration-[0.3s] hover:bg-[#1D4ED8] hover:translate-y-[-2px] hover:shadow-[0_15px_25px_-5px_rgba(37,99,235,0.4)] max-[640px]:p-[16px] max-[640px]:text-[14px]">Send Your Message Now</button>
             </form>
           </motion.div>
 
         </div>
 
         {/* Office Branches Section */}
-        <section className="ru-branches-section">
+        <section className="mt-[40px] pt-[40px]">
           <motion.div 
-            className="ru-branches-header"
+            className="flex items-center gap-[24px] mb-[48px] cursor-default group"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h3>Our Office Branches</h3>
-            <div className="ru-branches-line"></div>
+            <h3 className="text-[28px] font-[800] text-[#0F172A] whitespace-nowrap transition-all duration-[0.4s] relative group-hover:text-[#2563EB] group-hover:translate-x-[5px]">Our Office Branches</h3>
+            <div className="h-[2px] flex-1 bg-[linear-gradient(to_right,#E2E8F0,transparent)] relative overflow-hidden transition-all duration-[0.5s] group-hover:flex-[1.2] after:content-[''] after:absolute after:top-0 after:left-[-100%] after:w-full after:h-full after:bg-[linear-gradient(to_right,transparent,#2563EB,transparent)] group-hover:after:left-[100%] group-hover:after:transition-[left] group-hover:after:duration-[0.8s]"></div>
           </motion.div>
 
-          <div className="ru-branches-grid">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[32px] justify-items-center">
             {branches.map((b, i) => (
               <motion.div 
                 key={i} 
-                className={`ru-branch-card ${autoHover ? 'is-auto-hover' : ''}`}
+                className={`relative w-[280px] h-[380px] bg-white rounded-[20px] overflow-hidden transition-all duration-[0.3s] shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.2)] group cursor-pointer ${isAutoHoverActive || activeBranch === i ? 'is-hovered shadow-[0_20px_40px_rgba(37,99,235,0.2)]' : ''} max-[640px]:w-[220px] max-[640px]:h-[280px]`}
                 initial={{ opacity: 0, scale: 0.9, y: 50 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
+                onClick={(e) => handleBranchTap(e, i)}
               >
-                <div className="ru-card-top">
-                  <div className="ru-branch-icon-box"><MapPin size={32} /></div>
-                  <h4>{b.city}</h4>
+                <div className={`h-[65%] bg-white flex flex-col items-center justify-center p-[20px] text-center transition-[height] duration-[0.3s] group-hover:h-[25%] ${isAutoHoverActive || activeBranch === i ? 'h-[25%]' : ''}`}>
+                  <div className={`w-[64px] h-[64px] bg-[#EFF6FF] text-[#2563EB] rounded-[16px] flex items-center justify-center mb-[20px] transition-all duration-[0.3s] group-hover:scale-[0.7] group-hover:mb-[5px] ${isAutoHoverActive || activeBranch === i ? 'scale-[0.7] mb-[5px]' : ''} max-[640px]:w-[48px] max-[640px]:h-[48px] max-[640px]:mb-[12px]`}><MapPin size={32} /></div>
+                  <h4 className={`text-[20px] font-[800] text-[#0F172A] m-0 transition-all duration-[0.3s] group-hover:text-[16px] ${isAutoHoverActive || activeBranch === i ? 'text-[16px]' : ''} max-[640px]:text-[15px] group-hover:max-[640px]:text-[13px] ${isAutoHoverActive || activeBranch === i ? 'max-[640px]:text-[13px]' : ''}`}>{b.city}</h4>
                 </div>
-                <div className="ru-card-bottom">
-                  <div className="ru-card-content">
-                    <span className="ru-card-title">{b.city}</span>
-                    <p className="ru-card-txt">{b.address}</p>
-                    <a href={`tel:${b.phone}`} className="ru-card-btn">
+                <div className={`h-[35%] bg-[#2563EB] relative transition-[height] duration-[0.3s] group-hover:h-[75%] ${isAutoHoverActive || activeBranch === i ? 'h-[75%]' : ''}
+                  before:content-[""] before:absolute before:bg-transparent before:bottom-[132px] before:h-[60px] before:w-[260px] before:transition-[bottom] before:duration-[0.3s] before:rounded-bl-[20px] before:shadow-[0_30px_0_0_#2563EB] before:pointer-events-none
+                  group-hover:before:bottom-[284px]
+                  ${isAutoHoverActive || activeBranch === i ? 'before:bottom-[284px]' : ''}
+                  max-[640px]:before:w-[calc(100%-20px)] max-[640px]:before:bottom-[97px]
+                  max-[640px]:group-hover:before:bottom-[209px]
+                  ${isAutoHoverActive || activeBranch === i ? 'max-[640px]:before:bottom-[209px]' : ''}
+                `}>
+                  <div className={`flex flex-col justify-center items-center text-white h-full p-[30px_20px] opacity-0 translate-y-[20px] transition-all duration-[0.3s] group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[0.1s] ${isAutoHoverActive || activeBranch === i ? 'opacity-100 translate-y-0 delay-[0.1s]' : ''} max-[640px]:p-[0.4rem]`}>
+                    <span className="font-[700] text-[18px] mb-[12px] max-[640px]:text-[15px] max-[640px]:mb-[8px]">{b.city}</span>
+                    <p className="text-[14px] text-center leading-[1.5] mb-[20px] m-0 max-[640px]:text-[11.5px] max-[640px]:mb-[14px]">{b.address}</p>
+                    <a href={`tel:${b.phone}`} className="text-[13px] text-white no-underline bg-transparent border-[2px] border-solid border-white rounded-[100px] p-[10px_20px] transition-all duration-[0.3s] whitespace-nowrap hover:bg-white hover:text-[#2563EB] max-[640px]:p-[8px_16px] max-[640px]:font-[11px]">
                       <FaPhone size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
                       {b.phone}
                     </a>
@@ -335,19 +571,19 @@ export default function ReachUsPage() {
         </section>
 
         {/* Map Section */}
-        <section className="ru-map-section">
+        <section className="mt-[80px]">
           <motion.div 
-            className="ru-map-container"
+            className="bg-white rounded-[40px] p-[30px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] max-w-[800px] mx-auto"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
           >
-            <div className="ru-map-header">
-              <h3>Locate Our <span>Headquarters</span></h3>
-              <div className="ru-branches-line"></div>
+            <div className="flex items-center gap-[24px] mb-[32px]">
+              <h3 className="text-[24px] font-[800] text-[#0F172A] m-0 whitespace-nowrap">Locate Our <span className="text-[#2563EB]">Headquarters</span></h3>
+              <div className="h-[2px] flex-1 bg-[linear-gradient(to_right,#E2E8F0,transparent)]"></div>
             </div>
-            <div className="ru-map-frame-wrapper">
+            <div className="rounded-[24px] overflow-hidden shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.8202669580455!2d85.80516117523825!3d20.349042381135575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1908e025984c55%3A0xee1fcd1f11e55141!2sDLF%20Cyber%20City!5e0!3m2!1sen!2sin!4v1777900280403!5m2!1sen!2sin" 
                 width="100%" 
@@ -362,59 +598,9 @@ export default function ReachUsPage() {
           </motion.div>
         </section>
 
-        {/* Follow Us Section (Moved to Bottom) */}
-        <section className="ru-social-section">
-          <motion.div 
-            className="ru-follow-card-full"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="ru-social-header">
-              <h3>Connect With <span>Our Community</span></h3>
-              <p>Stay updated with our latest news and initiatives across all official platforms.</p>
-            </div>
-            <div className="ru-social-grid-v2">
-              {socialLinks.map((s, i) => (
-                <div 
-                  key={i} 
-                  className={`tooltip-container ${activeSocial === i ? 'is-active' : ''} ${autoHover ? 'is-auto-hover' : ''}`}
-                  style={{ '--brand-color': s.color, '--brand-gradient': s.gradient }}
-                  onClick={(e) => handleSocialClick(e, i)}
-                >
-                  <div className="tooltip">
-                    <div className="profile">
-                      <div className="user">
-                        <img src="/Logo.png" alt="Logo" className="img" />
-                        <div className="details">
-                          <div className="name">{s.label}</div>
-                          <div className="username">{s.handle}</div>
-                        </div>
-                      </div>
-                      <div className="about">Visit Official {s.label}</div>
-                    </div>
-                  </div>
-                  <div className="custom-text-wrapper">
-                    <a className="icon" href={s.link} target="_blank" rel="noopener noreferrer">
-                      <div className="layer">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span className="brandSVG">
-                          {s.icon}
-                        </span>
-                      </div>
-                      <div className="custom-text">{s.label}</div>
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
+
       </main>
     </div>
   );
 }
+

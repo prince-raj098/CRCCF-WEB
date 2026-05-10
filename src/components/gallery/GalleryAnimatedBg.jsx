@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Camera, Sparkles, Image as ImageIcon, Film, Aperture } from 'lucide-react'
-import '../../pages/Gallery.css'
 
 export default function GalleryAnimatedBg() {
   const iconList = [Camera, Sparkles, ImageIcon, Film, Aperture]
@@ -14,17 +13,17 @@ export default function GalleryAnimatedBg() {
       duration: 10 + Math.random() * 10,
       delay: Math.random() * 5,
     }))
-  }, []) // iconList is static here
+  }, [])
 
   return (
-    <div className="gallery-bg">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
       {iconsData.map((data, i) => {
         const { IconComponent, left, top, duration, delay } = data
 
         return (
           <motion.div
             key={i}
-            className="gallery-bg-icon"
+            className="absolute text-[rgba(147,197,253,0.7)]"
             style={{ left, top }}
             animate={{
               y: [0, -40, 0],
@@ -45,3 +44,4 @@ export default function GalleryAnimatedBg() {
     </div>
   )
 }
+

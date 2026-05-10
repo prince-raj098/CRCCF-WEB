@@ -2,37 +2,36 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Menu, X, Bell, Search } from 'lucide-react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import './Navbar.css'
 
 const navLinks = [
-  { label: 'Home',            href: '/#home' },
-  { label: 'About Us',        href: '/#about' },
-  { label: 'Our Services',    href: '/#services' },
+  { label: 'Home', href: '/#home' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Our Services', href: '/services' },
   {
     label: 'Skill Development',
     href: '/#skill',
     children: [
       { label: 'Cyber Security Training', href: '/#skill' },
-      { label: 'Software Development',    href: '/#skill' },
-      { label: 'Ethical Hacking',         href: '/#skill' },
-      { label: 'Digital Forensics',       href: '/#skill' },
+      { label: 'Software Development', href: '/#skill' },
+      { label: 'Ethical Hacking', href: '/#skill' },
+      { label: 'Digital Forensics', href: '/#skill' },
     ],
   },
-  { label: 'Insights',  href: '/#insights'  },
-  { label: 'Careers',   href: '/#careers'   },
-  { label: 'Gallery',   href: '/gallery'   },
-  { label: 'Contact',   href: '/#contact'   },
+  { label: 'Insights', href: '/#insights' },
+  { label: 'Careers', href: '/careers' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export default function Navbar() {
-  const [scrolled,     setScrolled]     = useState(false)
-  const [mobileOpen,   setMobileOpen]   = useState(false)
-  const [openDd,       setOpenDd]       = useState(null)
-  const [mobileExp,    setMobileExp]    = useState(null)
-  const [searchOpen,   setSearchOpen]   = useState(false)
-  const [searchQuery,  setSearchQuery]  = useState('')
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [openDd, setOpenDd] = useState(null)
+  const [mobileExp, setMobileExp] = useState(null)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const [searchResult, setSearchResult] = useState(null) // 'found' | 'none' | null
-  
+
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -111,44 +110,44 @@ export default function Navbar() {
 
   return (
     <>
-      <header className={`navbar ${scrolled ? 'navbar-shadow' : ''}`}>
-        <div className="navbar-inner container">
+      <header className={`sticky top-0 z-[100] bg-[#0C1A3A] transition-shadow duration-300 ${scrolled ? 'shadow-[0_2px_24px_rgba(0,0,0,0.40)]' : ''}`}>
+        <div className="container-custom flex h-[66px] items-center gap-[24px]">
 
           {/* ── LOGO ── */}
-          <a className="nav-logo" href="#home" onClick={e => { e.preventDefault(); go('#home') }}>
-            <img src="/Logo.png" alt="CRCCF Logo" className="nav-logo-img" />
-            <div className="nav-logo-text">
-              <span className="nav-logo-name">CRCCF</span>
-              <span className="nav-logo-sub">CR CYBER CRIME FOUNDATION</span>
+          <a className="group flex shrink-0 cursor-pointer items-center gap-[10px] no-underline" href="#home" onClick={e => { e.preventDefault(); go('#home') }}>
+            <img src="/Logo.png" alt="CRCCF Logo" className="h-[46px] w-[46px] rounded-full bg-[rgba(255,255,255,0.06)] p-[2px] object-contain transition-transform duration-250 group-hover:scale-[1.07] group-hover:rotate-[-3deg]" />
+            <div className="flex flex-col">
+              <span className="font-['Outfit',sans-serif] text-[17px] font-[900] text-[#fff] tracking-[-0.01em] leading-[1]">CRCCF</span>
+              <span className="mt-[3px] text-[8px] font-[600] text-[rgba(255,255,255,0.40)] uppercase tracking-[0.06em]">CR CYBER CRIME FOUNDATION</span>
             </div>
           </a>
 
           {/* ── DESKTOP LINKS ── */}
-          <nav className="nav-links">
+          <nav className="flex flex-1 items-center gap-[6px] max-[1100px]:hidden">
             {navLinks.map(link => (
               <div
                 key={link.label}
-                className="nav-item"
+                className="relative"
                 onMouseEnter={() => link.children && setOpenDd(link.label)}
                 onMouseLeave={() => setOpenDd(null)}
               >
                 <a
-                  className="nav-link"
+                  className="inline-flex cursor-pointer items-center gap-[4px] p-[8px_14px] text-[14px] font-[600] text-[rgba(255,255,255,0.85)] rounded-[6px] whitespace-nowrap transition-all duration-170 no-underline hover:text-[#fff] hover:bg-[rgba(255,255,255,0.08)]"
                   href={link.href}
                   onClick={e => { e.preventDefault(); !link.children && go(link.href) }}
                 >
                   {link.label}
                   {link.children && (
                     <ChevronDown size={13}
-                      className={`nav-chev ${openDd === link.label ? 'open' : ''}`}
+                      className={`transition-transform duration-200 opacity-[0.65] ${openDd === link.label ? 'rotate-180' : ''}`}
                     />
                   )}
                 </a>
 
                 {link.children && (
-                  <div className={`nav-dd ${openDd === link.label ? 'show' : ''}`}>
+                  <div className={`absolute top-[calc(100%+6px)] left-0 z-[600] min-w-[210px] rounded-[10px] border border-[#E5E7EB] bg-[#fff] p-[5px] shadow-[0_14px_44px_rgba(0,0,0,0.18)] transition-all duration-220 cubic-bezier(0.4,0,0.2,1) ${openDd === link.label ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-2'}`}>
                     {link.children.map(c => (
-                      <a key={c.label} href={c.href} className="nav-dd-item"
+                      <a key={c.label} href={c.href} className="block p-[9px_14px] text-[13.5px] text-[#374151] rounded-[7px] font-[500] no-underline transition-all duration-150 hover:bg-[#EFF6FF] hover:text-[#1A56DB]"
                         onClick={e => { e.preventDefault(); go(c.href) }}>
                         {c.label}
                       </a>
@@ -160,49 +159,47 @@ export default function Navbar() {
           </nav>
 
           {/* ── RIGHT ── */}
-          <div className="nav-right">
+          <div className="flex shrink-0 items-center gap-[20px] max-[520px]:hidden">
 
             {/* SEARCH */}
-            <div className="nav-search-zone">
+            <div className="nav-search-zone relative flex items-center">
               <AnimatePresence initial={false}>
                 {searchOpen && (
                   <motion.form
-                    className="nav-search-form"
+                    className="flex h-[32px] items-center bg-[rgba(255,255,255,0.09)] border border-[rgba(255,255,255,0.18)] rounded-[7px] overflow-hidden mr-[10px]"
                     onSubmit={handleSearch}
                     initial={{ width: 0, opacity: 0 }}
-                    animate={{ width: 210, opacity: 1 }}
+                    animate={{ width: 180, opacity: 1 }}
                     exit={{ width: 0, opacity: 0 }}
                     transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
                   >
                     <input
                       autoFocus
-                      className={`nav-search-input${searchResult === 'none' ? ' nav-search-error' : ''}`}
+                      className="flex-1 bg-transparent border-none outline-none text-[#fff] text-[12.5px] font-['Inter',sans-serif] p-[0_10px] min-w-0 h-full placeholder:text-[rgba(255,255,255,0.38)]"
                       type="text"
                       placeholder="Search..."
                       value={searchQuery}
                       onChange={e => { setSearchQuery(e.target.value); setSearchResult(null) }}
                     />
-                    <button type="submit" className="nav-search-submit" aria-label="Go">
-                      <Search size={13} />
-                    </button>
                   </motion.form>
                 )}
               </AnimatePresence>
               <button
-                className={`nav-search-btn ${searchOpen ? 'nav-search-btn--active' : ''}`}
+                className={`shrink-0 cursor-pointer bg-transparent border-none p-0 flex items-center justify-center transition-all duration-180 hover:text-[#fff] ${searchOpen ? 'text-[#fff]' : 'text-[rgba(255,255,255,0.72)]'}`}
                 onClick={() => searchOpen ? closeSearch() : setSearchOpen(true)}
                 aria-label="Search"
               >
-                {searchOpen ? <X size={16} /> : <Search size={16} />}
+                {searchOpen ? <X size={19} /> : <Search size={19} />}
               </button>
             </div>
 
-            <button className="nav-bell">
-              <Bell size={17} />
-              <span className="bell-badge">3</span>
+            <button className="relative bg-transparent border-none p-0 text-[rgba(255,255,255,0.75)] cursor-pointer flex items-center transition-all duration-180 hover:text-[#fff]">
+              <Bell size={20} strokeWidth={2} />
+              <span className="absolute top-[-2px] right-[-4px] w-[15px] h-[15px] bg-[#E02424] text-[#fff] text-[9px] font-[900] rounded-full flex items-center justify-center border-[1.5px] border-[#0C1A3A]">3</span>
             </button>
+
             <button
-              className="nav-report-btn"
+              className="inline-flex items-center justify-center bg-[#E02424] text-white font-['Inter',sans-serif] text-[13px] font-[800] h-[34px] px-[16px] rounded-[6px] border-none cursor-pointer whitespace-nowrap transition-all duration-180 hover:bg-[#C01C1C] hover:-translate-y-[1px] hover:shadow-[0_4px_12px_rgba(224,36,36,0.25)] max-[1100px]:flex"
               onClick={() => go('#contact')}
             >
               Report Crime
@@ -211,11 +208,11 @@ export default function Navbar() {
 
           {/* ── HAMBURGER ── */}
           <button
-            className="nav-ham"
+            className="hidden bg-transparent border-none cursor-pointer text-[#fff] p-0 ml-auto transition-all duration-150 hover:bg-[rgba(255,255,255,0.10)] max-[1100px]:flex"
             onClick={() => setMobileOpen(v => !v)}
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </header>
@@ -225,29 +222,29 @@ export default function Navbar() {
         {mobileOpen && (
           <>
             <motion.div
-              className="mobile-overlay"
+              className="fixed inset-0 bg-[rgba(0,0,0,0.50)] z-[8000] backdrop-blur-[2px]"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
-              className="mobile-drawer"
+              className="fixed top-0 right-0 bottom-0 w-[min(320px,92vw)] bg-[#fff] z-[9000] flex flex-col shadow-[-16px_0_60px_rgba(0,0,0,0.22)]"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.28 }}
             >
-              <div className="mobile-head">
-                <img src="/Logo.png" alt="CRCCF" className="mobile-logo-img" />
-                <button className="mobile-close" onClick={() => setMobileOpen(false)}>
+              <div className="flex items-center justify-between p-[14px_18px] bg-[#0C1A3A] border-b border-b-[rgba(255,255,255,0.08)]">
+                <img src="/Logo.png" alt="CRCCF" className="h-[40px] w-[40px] object-contain rounded-full" />
+                <button className="bg-[rgba(255,255,255,0.10)] border-none text-[#fff] cursor-pointer w-[32px] h-[32px] rounded-[6px] flex items-center justify-center transition-all duration-150 hover:bg-[rgba(255,255,255,0.20)]" onClick={() => setMobileOpen(false)}>
                   <X size={20} />
                 </button>
               </div>
 
-              <nav className="mobile-nav">
+              <nav className="flex-1 overflow-y-auto p-[8px_12px]">
                 {navLinks.map(link => (
                   <div key={link.label}>
                     <div
-                      className="mobile-link"
+                      className="flex items-center justify-between p-[12px_14px] text-[14px] font-[600] text-[#374151] cursor-pointer rounded-[8px] transition-all duration-150 hover:bg-[#EFF6FF] hover:text-[#1A56DB]"
                       onClick={() => {
                         if (link.children) setMobileExp(v => v === link.label ? null : link.label)
                         else go(link.href)
@@ -256,21 +253,21 @@ export default function Navbar() {
                       {link.label}
                       {link.children && (
                         <ChevronDown size={14}
-                          className={`nav-chev ${mobileExp === link.label ? 'open' : ''}`}
+                          className={`transition-transform duration-200 opacity-[0.65] ${mobileExp === link.label ? 'rotate-180' : ''}`}
                         />
                       )}
                     </div>
                     <AnimatePresence>
                       {link.children && mobileExp === link.label && (
                         <motion.div
-                          className="mobile-sub"
+                          className="overflow-hidden pl-[14px]"
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.2 }}
                         >
                           {link.children.map(c => (
-                            <div key={c.label} className="mobile-sub-link"
+                            <div key={c.label} className="p-[9px_14px] text-[13.5px] text-[#6B7280] cursor-pointer rounded-[7px] font-[500] transition-all duration-150 hover:bg-[#EFF6FF] hover:text-[#1A56DB]"
                               onClick={() => go(c.href)}>
                               {c.label}
                             </div>
@@ -282,10 +279,9 @@ export default function Navbar() {
                 ))}
               </nav>
 
-              <div className="mobile-foot">
+              <div className="p-[16px_18px] border-t border-t-[#F3F4F6]">
                 <button
-                  className="nav-report-btn"
-                  style={{ width: '100%', justifyContent: 'center' }}
+                  className="inline-flex items-center gap-[7px] bg-[#E02424] text-[#fff] font-['Inter',sans-serif] text-[13px] font-[700] p-[9px_20px] rounded-[6px] border-none cursor-pointer whitespace-nowrap transition-all duration-180 tracking-[0.02em] hover:bg-[#C01C1C] hover:-translate-y-[1px] hover:shadow-[0_6px_18px_rgba(224,36,36,0.35)] w-full justify-center"
                   onClick={() => go('#contact')}
                 >
                   Report Crime

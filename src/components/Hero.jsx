@@ -1,175 +1,173 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Star, Shield, CheckCircle } from 'lucide-react'
-import './Hero.css'
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+// IMPORTING LOCAL IMAGES FROM ASSETS FOLDER
+import cyberNetwork from "../assets/heroimages/cyber-network.png";
+import holographicPadlock from "../assets/heroimages/holographic-padlock.png";
+import serverRoom from "../assets/heroimages/server-room.png";
+import aiBrain from "../assets/heroimages/ai-brain.png";
+import legalScale from "../assets/heroimages/legal-scale.png";
 
 const slides = [
-  { img: '/CR1.jpg', line1: "Securing India's",    line2: 'Digital Future,',        accent: 'One Step Ahead' },
-  { img: '/CR2.jpg', line1: 'Building Trust in',     line2: 'a Digital-First',         accent: 'World' },
-  { img: '/CR3.jpg', line1: 'Defending India',        line2: 'Against',                accent: 'Cyber Threats' },
-  { img: '/CR4.jpg', line1: 'Empowering a Safer',    line2: '',                        accent: 'Digital Tomorrow' },
-  { img: '/CR5.jpg', line1: 'Leading the Fight',     line2: 'Against',                accent: 'Cyber Crime' },
-  { img: '/CR6.jpg', line1: "Future-Ready ",      line2: 'Cyber Protection',        accent: 'Starts Here' },
-]
+  {
+    image: cyberNetwork, 
+    badge: "DIGITAL SECURITY",
+    title: "Protecting India’s Digital Infrastructure",
+    desc: "CR Cyber Crime Foundation safeguards government bodies, enterprises, and citizens through advanced cybersecurity operations, threat intelligence, and continuous monitoring.",
+  },
+  {
+    image: holographicPadlock, 
+    badge: "CYBER FORENSICS",
+    title: "Cyber Crime Investigation & Forensics",
+    desc: "We investigate financial fraud, identity theft, online scams, and data breaches using court-admissible digital forensic methodologies.",
+  },
+  {
+    image: serverRoom, 
+    badge: "IT SOLUTIONS",
+    title: "Secure IT & Software Solutions",
+    desc: "We design and develop secure enterprise software, cloud infrastructure, and IT systems with compliance, scalability, and security at the core.",
+  },
+  {
+    image: aiBrain, 
+    badge: "ARTIFICIAL INTELLIGENCE",
+    title: "AI-Driven Threat Intelligence",
+    desc: "Our AI-powered systems detect anomalies, predict cyber threats, and help organizations respond proactively before damage occurs.",
+  },
+  {
+    image: legalScale, 
+    badge: "LEGAL SUPPORT",
+    title: "Legal & Victim Support Services",
+    desc: "We assist cyber crime victims with FIR filing, legal documentation, court procedures, and digital identity recovery.",
+  },
+];
 
-const stats = [
-  { val: '10K+', label: 'Cases Resolved' },
-  { val: '24/7', label: 'Support' },
-  { val: '15+',  label: 'States' },
-]
-
-const trust = [
-  { icon: <Shield size={14}/>,       text: 'Govt. Recognised' },
-  { icon: <CheckCircle size={14}/>,  text: 'ISO Certified' },
-  { icon: <Star size={14}/>,         text: '4.9 / 5 Rating' },
-]
-
-const containerV = {
-  hidden:  {},
-  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
-}
-const itemV = {
-  hidden:  { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.4,0,0.2,1] } },
-}
+const SLIDE_DURATION = 6000;
 
 export default function Hero() {
-  const go = (id) => document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
-  const [current, setCurrent] = useState(0)
+  const [index, setIndex] = useState(0);
 
+  // Auto-play timer
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent(prev => (prev + 1) % slides.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [])
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
+    }, SLIDE_DURATION);
+    return () => clearInterval(interval);
+  }, [index]);
 
   return (
-    <section id="home" className="hero">
-
-      {/* ── BACKGROUND SLIDESHOW (CR1–CR6) ── */}
-      <div className="hero-bg-img">
+    <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-[#020617]">
+      
+      {/* 🔥 PERFECTLY SYNCED BACKGROUND IMAGES */}
+      {/* All images are rendered at once. We just change opacity for a flawless crossfade. */}
+      <div className="absolute inset-0 z-0 bg-[#020617]">
         {slides.map((slide, i) => (
-          <img
-            key={slide.img}
-            src={slide.img}
-            alt={`Hero background ${i + 1}`}
-            className={`hero-slide ${i === current ? 'hero-slide--active' : ''}`}
-          />
-        ))}
-        {/* gradient overlay so left text is readable */}
-        <div className="hero-gradient" />
-      </div>
-
-      {/* ── SLIDE DOTS ── */}
-      <div className="hero-dots">
-        {slides.map((_, i) => (
-          <button
+          <motion.img
             key={i}
-            className={`hero-dot ${i === current ? 'hero-dot--active' : ''}`}
-            onClick={() => setCurrent(i)}
-            aria-label={`Go to slide ${i + 1}`}
+            src={slide.image}
+            alt={`Slide ${i}`}
+            initial={false}
+            animate={{
+              opacity: index === i ? 0.35 : 0, // Keeps image slightly dark so text pops
+              scale: index === i ? 1 : 1.05,   // Adds a subtle cinematic zoom-out
+            }}
+            transition={{ duration: 1.2, ease: "easeInOut" }} // Smooth 1.2s crossfade
+            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
           />
         ))}
       </div>
 
-      {/* ── CONTENT ── */}
-      <div className="container hero-content">
-        <motion.div
-          className="hero-left"
-          variants={containerV}
-          initial="hidden"
-          animate="visible"
-        >
+      {/* 🔥 DARK GRADIENT OVERLAY (For readability) */}
+      <div className="absolute inset-0 z-1 bg-gradient-to-t from-[#020617] via-transparent to-[#020617]/50" />
 
-          {/* TAG + STARS */}
-          <motion.div variants={itemV} className="hero-tag-row">
-            <span className="hero-tag">CR Cyber Crime Foundation</span>
-            <span className="hero-stars">
-              {[...Array(5)].map((_, i) => <Star key={i} size={13} fill="#F59E0B" color="#F59E0B"/>)}
-            </span>
-          </motion.div>
+      {/* 🔥 FLOATING GLOW ORBS (Kept for depth) */}
+      <motion.div 
+        className="absolute z-2 w-[400px] h-[400px] bg-blue-500/20 rounded-full blur-[100px] pointer-events-none" 
+        animate={{ x: [0, 200, 0], y: [0, 100, 0] }} 
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }} 
+        style={{ top: "10%", left: "10%" }} 
+      />
+      <motion.div 
+        className="absolute z-2 w-[300px] h-[300px] bg-cyan-400/20 rounded-full blur-[100px] pointer-events-none" 
+        animate={{ x: [0, -150, 0], y: [0, 120, 0] }} 
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }} 
+        style={{ bottom: "10%", right: "10%" }} 
+      />
 
-          {/* HEADING — synced with slide */}
-          <motion.div variants={itemV} className="hero-heading-wrap">
-            <AnimatePresence mode="wait">
-              <motion.h1
-                key={current}
-                className="hero-heading"
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -22 }}
-                transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
-              >
-                {slides[current].line1}<br />
-                {slides[current].line2 && <>{slides[current].line2}<br /></>}
-                <span className="hero-accent">{slides[current].accent}</span>
-              </motion.h1>
-            </AnimatePresence>
-          </motion.div>
-
-          {/* SUB */}
-          <motion.p variants={itemV} className="hero-sub">
-            India's premier cybersecurity and IT solutions organization — 
-            fighting cyber crime, building safe software, and empowering citizens 24/7.
-          </motion.p>
-
-          {/* STATS PILLS */}
-          <motion.div variants={itemV} className="hero-stats">
-            {stats.map((s, i) => (
-              <div key={s.label} className="hero-stat">
-                <span className="hs-val">{s.val}</span>
-                <span className="hs-label">{s.label}</span>
-                {i < stats.length - 1 && <div className="hs-sep" />}
+      {/* 🔥 CONTENT */}
+      <div className="relative z-10 h-full flex items-center">
+        <div className="max-w-[1440px] mx-auto px-4 md:px-10 lg:px-20 w-full">
+          
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={index} 
+              initial={{ opacity: 0, y: 30 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.6, ease: "easeOut" }} // Text syncs perfectly with image fade
+              className="max-w-3xl text-center mx-auto"
+            >
+              
+              {/* BADGE */}
+              <div className="inline-flex items-center gap-2 px-5 py-2 mb-6 rounded-full bg-white/10 border border-white/20 text-sm text-white backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                {slides[index].badge}
               </div>
-            ))}
-          </motion.div>
 
-          {/* BUTTONS */}
-          <motion.div variants={itemV} className="hero-btns">
-            <button className="hero-btn-primary" onClick={() => go('#contact')}>
-              Report Crime
-              <ArrowRight size={15} />
-            </button>
-            <button className="hero-btn-ghost" onClick={() => go('#services')}>
-              Our Services
-            </button>
-          </motion.div>
+              {/* TITLE */}
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                {slides[index].title.split(" ").slice(0, -2).join(" ")}{" "}
+                <span className="text-blue-400 drop-shadow-[0_0_15px_rgba(96,165,250,0.4)]">
+                  {slides[index].title.split(" ").slice(-2).join(" ")}
+                </span>
+              </h1>
 
-          {/* TRUST BAR */}
-          <motion.div variants={itemV} className="hero-trust">
-            <div className="trust-badge">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L3 7v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V7L12 2z" fill="#1A56DB" opacity=".15" stroke="#1A56DB" strokeWidth="1.5"/>
-                <path d="M9 12l2 2 4-4" stroke="#1A56DB" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Trusted by
-            </div>
-            <span className="trust-num">10,000+</span>
-            <span className="trust-label">clients across India</span>
-            <div className="trust-divider" />
-            {trust.map(t => (
-              <div key={t.text} className="trust-item">
-                <span className="trust-icon">{t.icon}</span>
-                {t.text}
+              {/* DESC */}
+              <p className="text-gray-200 mb-10 text-base md:text-lg leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                {slides[index].desc}
+              </p>
+
+              {/* BUTTONS */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl font-semibold shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:scale-105 transition-all duration-300 text-white cursor-pointer">
+                  Explore Services
+                </button>
+                <button className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-black transition-all duration-300 cursor-pointer">
+                  Contact Services
+                </button>
               </div>
-            ))}
-          </motion.div>
 
-        </motion.div>
+            </motion.div>
+          </AnimatePresence>
+          
+        </div>
       </div>
 
-      {/* ── SCROLL INDICATOR ── */}
-      <motion.div
-        className="hero-scroll-hint"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity }}
-      >
-        <div className="scroll-mouse">
-          <div className="scroll-dot" />
+      {/* 🔥 PROGRESS PAGINATION */}
+      <div className="absolute bottom-8 left-0 w-full flex justify-center z-20">
+        <div className="flex gap-3 px-6 py-3 rounded-2xl bg-[#020617]/50 backdrop-blur-md border border-white/10">
+          {slides.map((_, i) => (
+            <button 
+              key={i} 
+              onClick={() => setIndex(i)}
+              className="relative w-12 h-1.5 bg-gray-700/50 rounded-full overflow-hidden hover:bg-gray-600 transition-colors cursor-pointer"
+            >
+              {i === index && (
+                <motion.div
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: SLIDE_DURATION / 1000, ease: "linear" }}
+                  className="absolute top-0 left-0 h-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]"
+                />
+              )}
+              {i < index && <div className="absolute top-0 left-0 h-full w-full bg-blue-500/50" />}
+            </button>
+          ))}
         </div>
-      </motion.div>
+      </div>
 
     </section>
-  )
+  );
 }

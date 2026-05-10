@@ -26,14 +26,14 @@ export default function GalleryPage() {
   ];
 
   return (
-    <div className="gallery-page-root">
+    <div className="bg-[#F8FAFC] min-h-screen relative">
       <TopBar />
       <Navbar />
 
       {/* Page body */}
-      <div className="gallery-page-body">
+      <div className="relative w-full">
         <GalleryAnimatedBg />
-        <div className="gallery-page-content">
+        <div className="relative z-[10]">
           <GalleryHero />
           <GalleryCategoryGrid images={categoryImages} />
           <GalleryFooterQuote />
@@ -43,5 +43,6 @@ export default function GalleryPage() {
 
       <Footer />
     </div>
+
   )
 }

@@ -1,169 +1,268 @@
-import { useState, useRef, useEffect } from 'react'
-import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
-import './Footer.css'
-
-const cols = {
-  'Quick Links': [
-    { label:'Home', href:'#home' },
-    { label:'About Us', href:'#about' },
-    { label:'Our Services', href:'#services' },
-    { label:'Skill Development', href:'#skill' },
-    { label:'Insights', href:'#insights' },
-    { label:'Careers', href:'#careers' },
-    { label:'Gallery', href:'#gallery' },
-    { label:'Contact', href:'#contact' },
-  ],
-  'Our Services': [
-    { label:'Cybersecurity Awareness', href:'#services' },
-    { label:'Digital Investigation', href:'#services' },
-    { label:'Software Development', href:'#services' },
-    { label:'Professional Training', href:'#services' },
-    { label:'IT Consulting', href:'#services' },
-    { label:'Mobile Apps', href:'#services' },
-  ],
-  'Resources': [
-    { label:'Cyber Safety Tips', href:'#' },
-    { label:'Report Cyber Crime', href:'#contact' },
-    { label:'Privacy Policy', href:'#' },
-    { label:'Terms of Service', href:'#' },
-    { label:'RTI Information', href:'#' },
-    { label:'Annual Report', href:'#' },
-  ],
-}
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+  FaYoutube,
+  FaGlobe,
+  FaWhatsapp,
+  FaTelegramPlane,
+} from "react-icons/fa";
+import {
+  MdLocationOn,
+  MdEmail,
+  MdPhone,
+  MdHelpOutline,
+  MdMap,
+  MdRateReview,
+} from "react-icons/md";
+import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+// Removed incorrect logo import
 
 export default function Footer() {
-  const triggerRef = useRef(null)
-  const isInView = useInView(triggerRef, { amount: 0.01 })
-  const [isOpen, setIsOpen] = useState(false)
+  const footerRef = useRef();
 
-  // Sync scroll position with open state
+  // List of icons for the background running effect
+  const bgIcons = [
+    FaFacebookF,
+    FaTwitter,
+    FaLinkedinIn,
+    FaInstagram,
+    FaYoutube,
+    FaWhatsapp,
+    FaTelegramPlane,
+    FaGlobe,
+  ];
+
+  // Scroll Reveal Observer
   useEffect(() => {
-    setIsOpen(isInView)
-  }, [isInView])
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && footerRef.current) {
+          footerRef.current.classList.remove("opacity-0");
+          footerRef.current.classList.add("animate-fadeUp");
+        }
+      },
+      { threshold: 0.1 },
+    );
 
-  const go = (href) => {
-    if (href.startsWith('#')) document.querySelector(href)?.scrollIntoView({ behavior:'smooth' })
-    setIsOpen(false)
-  }
-
-  // Animation configuration for inner elements (triggers once)
-  const animProps = (delay) => ({
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.6, ease: "easeOut", delay }
-  })
+    if (footerRef.current) observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <>
-      {/* 
-        This invisible spacer sits at the normal end of the document.
-        When it enters the viewport, it triggers the footer to slide up. 
-      */}
-      <div ref={triggerRef} className="footer-scroll-trigger" />
+    <footer
+      ref={footerRef}
+      className="relative text-white overflow-hidden bg-[#0C1A3A] opacity-0 border-t border-white/10"
+    >
+      {/* 🏃‍♂️ RUNNING SOCIAL MEDIA BACKGROUND (MARQUEE) */}
+      <div className="absolute top-1/3 left-0 w-[200%] flex overflow-hidden pointer-events-none opacity-[0.03] z-0">
+        <div className="flex animate-marquee whitespace-nowrap">
+          {[...bgIcons, ...bgIcons, ...bgIcons, ...bgIcons].map((Icon, i) => (
+            <Icon key={i} className="text-[150px] mx-12" />
+          ))}
+        </div>
+      </div>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            className="footer-overlay-wrapper"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      {/* 🌧️ CYBER & BINARY ICON RAIN */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {Array.from({ length: 30 }).map((_, i) => (
+          <span
+            key={i}
+            className="absolute text-cyan-300 animate-rain-spin drop-shadow-[0_0_8px_#00ffff]"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDuration: `${6 + Math.random() * 6}s`,
+              animationDelay: `${Math.random() * 5}s`,
+              fontSize: `${14 + Math.random() * 14}px`,
+              opacity: 0.5,
+            }}
           >
-            {/* Dark overlay backdrop with blur */}
-            <div className="footer-backdrop" onClick={() => setIsOpen(false)} />
+            {
+              ["0", "1", "🔐", "🛡️", "💻", "⚙️", "0", "1"][
+                Math.floor(Math.random() * 8)
+              ]
+            }
+          </span>
+        ))}
+      </div>
 
-            {/* The Footer Panel itself */}
-            <motion.footer 
-              className="footer fixed-footer-panel"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="footer-grid-bg" />
+      {/* CONTENT */}
+      <div className="relative z-10 pt-20 pb-10 px-4 md:px-12 lg:px-20 max-w-[1440px] mx-auto">
+        <div className="grid md:grid-cols-12 gap-12 border-b border-white/10 pb-12">
+          {/* BRANDING (Spans 3 cols) */}
+          <div className="space-y-6 md:col-span-3">
+            <img src="/Logo.png" alt="CRCCF" className="w-24 drop-shadow-lg" />
+            <p className="text-gray-300 text-sm leading-relaxed">
+              Empowering India through cyber awareness, cybersecurity support,
+              and cutting-edge IT services including development, SEO, and
+              digital marketing.
+            </p>
+          </div>
 
-              <div className="container footer-top">
-                {/* BRAND */}
-                <div className="footer-brand">
-                  <motion.div className="footer-logo" {...animProps(0.1)}>
-                    <img src="/Logo.png" alt="CRCCF Logo" className="footer-logo-img" />
-                    <div>
-                      <div className="footer-logo-name">CRCCF</div>
-                      <div className="footer-logo-sub">CR CYBER CRIME FOUNDATION</div>
-                    </div>
-                  </motion.div>
+          {/* USEFUL LINKS (Spans 4 cols) - RESTORED FULL LIST & ADDED HOVER LINE */}
+          <div className="md:col-span-4">
+            <h3 className="text-lg font-semibold border-b-2 border-cyan-400 inline-block pb-2 mb-6">
+              Useful Links
+            </h3>
+            {/* 2-Column Grid for Links to match original layout */}
+            <div className="grid grid-cols-2 gap-y-4 gap-x-4 text-sm">
+              {[
+                { name: "Home", path: "/#home" },
+                { name: "About Us", path: "/#about" },
+                { name: "Education & Internship", path: "/#skill" },
+                { name: "IT and Software", path: "/#skill" },
+                { name: "Gallery", path: "/gallery" },
+                { name: "Reach Us", path: "/reachus" },
+                { name: "Report a Cyber Crime", path: "/#contact" },
+                { name: "Careers", path: "/careers" },
+                { name: "Insights", path: "/#insights" },
+                { name: "Contact Us", path: "/#contact" },
+              ].map((item, i) => (
+                <Link
+                  key={i}
+                  to={item.path}
+                  className="group relative text-gray-300 hover:text-cyan-400 transition-colors duration-300 w-fit pb-1"
+                >
+                  {item.name}
+                  {/* Animated Underline */}
+                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-cyan-400 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+              ))}
+            </div>
+          </div>
 
-                  <motion.p className="footer-tagline" {...animProps(0.2)}>
-                    India's trusted cybersecurity and IT solutions organisation — protecting citizens 
-                    and empowering businesses with 24/7 digital security and innovation.
-                  </motion.p>
-
-                  {/* NEWSLETTER */}
-                  <motion.div className="footer-news" {...animProps(0.3)}>
-                    <p className="footer-news-label">Subscribe for updates</p>
-                    <div className="footer-news-row">
-                      <input type="email" placeholder="Enter your email" />
-                      <button><ArrowRight size={15} /></button>
-                    </div>
-                  </motion.div>
-
-                  {/* CONTACT QUICK */}
-                  <motion.div className="footer-quick-contacts" {...animProps(0.4)}>
-                    <a href="tel:1930" className="footer-qc">
-                      <Phone size={14} /> 1930
-                    </a>
-                    <a href="mailto:info@crccf.in" className="footer-qc">
-                      <Mail size={14} /> info@crccf.in
-                    </a>
-                    <div className="footer-qc footer-qc-addr">
-                      <MapPin size={14} /> Bhubaneshwar, Odisha, India
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* COLS */}
-                {Object.entries(cols).map(([col, links], idx) => {
-                  const colDelay = 0.2 + (idx * 0.1);
-                  return (
-                    <div key={col} className="footer-col">
-                      <motion.h4 className="footer-col-h" {...animProps(colDelay)}>
-                        {col}
-                      </motion.h4>
-                      <motion.ul className="footer-col-ul" {...animProps(colDelay + 0.1)}>
-                        {links.map(l => (
-                          <li key={l.label}>
-                            <a href={l.href} onClick={e => { e.preventDefault(); go(l.href) }}>
-                              {l.label}
-                            </a>
-                          </li>
-                        ))}
-                      </motion.ul>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* BOTTOM */}
-              <motion.div 
-                className="footer-bottom"
-                {...animProps(0.6)}
+          {/* CONTACT DETAILS (Spans 3 cols) */}
+          <div className="md:col-span-3">
+            <h3 className="text-lg font-semibold border-b-2 border-cyan-400 inline-block pb-2 mb-6">
+              Office Address
+            </h3>
+            <div className="space-y-5 text-gray-300 text-sm">
+              <a
+                href="https://www.google.com/maps?q=DLF+Cyber+City+Bhubaneswar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 group"
               >
-                <div className="container footer-bottom-inner">
-                  <p>© {new Date().getFullYear()} CR Cyber Crime Foundation. All rights reserved. | Government Recognised Organisation</p>
-                  <div className="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Sitemap</a>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.footer>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  )
+                <MdLocationOn className="text-cyan-400 text-xl flex-shrink-0 group-hover:scale-110 transition" />
+                <span className="group-hover:text-cyan-300 transition leading-relaxed">
+                  Head Office: Office No. 433, DLF Cyber City, Near Infocity,
+                  Patia, Bhubaneswar – 751024.
+                </span>
+              </a>
+              <a
+                href="tel:+919777999529"
+                className="flex items-center gap-3 hover:text-cyan-400 transition w-fit"
+              >
+                <MdPhone className="text-cyan-400 text-lg" />
+                <span>+91 9777999529</span>
+              </a>
+              <a
+                href="mailto:hr@crcybercrime.org"
+                className="flex items-center gap-3 hover:text-cyan-400 transition w-fit"
+              >
+                <MdEmail className="text-cyan-400 text-lg" />
+                <span>hr@crcybercrime.org</span>
+              </a>
+            </div>
+          </div>
+
+          {/* ACTION BUTTONS & REVIEW (Spans 2 cols) */}
+          <div className="md:col-span-2">
+            <h3 className="text-lg font-semibold border-b-2 border-red-500 inline-block pb-2 mb-6 text-red-100">
+              Support
+            </h3>
+            <div className="flex flex-col gap-3">
+              {/* Emergency Button */}
+              <button className="bg-blue-600 hover:bg-blue-500 text-white w-full py-2.5 rounded-lg font-medium shadow-lg transition-all transform active:scale-95 text-sm">
+                Emergency Report
+              </button>
+
+              {/* RESTORED: Review Button */}
+              <button className="bg-white hover:bg-gray-100 text-[#0C1A3A] w-full py-2.5 rounded-lg font-medium shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 text-sm">
+                <MdRateReview className="text-lg" /> Add Your Review
+              </button>
+
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                {/* Help Button */}
+                <button className="bg-transparent border border-white/20 hover:border-cyan-400 hover:bg-cyan-500/10 text-white py-2 rounded-lg flex flex-col items-center justify-center gap-1 transition-all group">
+                  <MdHelpOutline className="text-lg text-cyan-400 group-hover:scale-110 transition" />
+                  <span className="text-[10px] text-white">Help Center</span>
+                </button>
+
+                {/* Map Button */}
+                <a
+                  href="https://www.google.com/maps?q=DLF+Cyber+City+Bhubaneswar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-transparent border border-white/20 hover:border-blue-400 hover:bg-blue-500/10 text-white py-2 rounded-lg flex flex-col items-center justify-center gap-1 transition-all group"
+                >
+                  <MdMap className="text-lg text-blue-400 group-hover:scale-110 transition" />
+                  <span className="text-[10px] text-white">View Map</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* BOTTOM SOCIAL & COPYRIGHT */}
+        <div className="flex flex-col md:flex-row justify-between items-center mt-8 gap-6">
+          <div className="text-gray-400 text-sm">
+            © 2026 CR Cyber Crime Foundation. All rights reserved.
+          </div>
+
+          <div className="flex gap-5 text-lg">
+            {[
+              {
+                Icon: FaFacebookF,
+                color: "hover:text-[#1877F2]",
+                label: "Facebook",
+              },
+              {
+                Icon: FaTwitter,
+                color: "hover:text-[#1DA1F2]",
+                label: "Twitter",
+              },
+              {
+                Icon: FaLinkedinIn,
+                color: "hover:text-[#0A66C2]",
+                label: "LinkedIn",
+              },
+              {
+                Icon: FaInstagram,
+                color: "hover:text-[#E4405F]",
+                label: "Instagram",
+              },
+              {
+                Icon: FaYoutube,
+                color: "hover:text-[#FF0000]",
+                label: "YouTube",
+              },
+              {
+                Icon: FaWhatsapp,
+                color: "hover:text-[#25D366]",
+                label: "WhatsApp",
+              },
+              {
+                Icon: FaTelegramPlane,
+                color: "hover:text-[#229ED9]",
+                label: "Telegram",
+              },
+              { Icon: FaGlobe, color: "hover:text-cyan-400", label: "Website" },
+            ].map((social, index) => (
+              <a
+                key={index}
+                href="#"
+                aria-label={social.label}
+                className={`text-gray-300 ${social.color} transform hover:scale-125 hover:-translate-y-1 transition-all duration-300`}
+              >
+                <social.Icon />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }

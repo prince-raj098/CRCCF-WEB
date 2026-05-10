@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Briefcase, Rocket, Globe, Trophy } from 'lucide-react'
-import './ProjectsPortfolio.css'
 
 const statsData = [
   { val: 70, suffix: '+', label: 'Total Projects', color: '#1A56DB' },
@@ -37,6 +36,8 @@ export default function ProjectsPortfolio() {
   const ref = useRef(null)
   const portInView = useInView(ref, { once: true, amount: 0.3 })
   const [isAutoHovering, setIsAutoHovering] = useState(false)
+  const [tappedIds, setTappedIds] = useState([])
+  const [tappedLowerIds, setTappedLowerIds] = useState([])
 
   useEffect(() => {
     if (portInView) {
@@ -49,6 +50,29 @@ export default function ProjectsPortfolio() {
   }, [portInView])
 
   useEffect(() => {
+    const handleOutside = () => {
+      setTappedIds([])
+      setTappedLowerIds([])
+    }
+    window.addEventListener('click', handleOutside)
+    return () => window.removeEventListener('click', handleOutside)
+  }, [])
+
+  const handleTap = (e, id) => {
+    e.stopPropagation()
+    setTappedIds(prev => 
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    )
+  }
+
+  const handleLowerTap = (e, id) => {
+    e.stopPropagation()
+    setTappedLowerIds(prev => 
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    )
+  }
+
+  useEffect(() => {
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) setRunning(true) },
       { threshold: 0.2 }
@@ -58,121 +82,170 @@ export default function ProjectsPortfolio() {
   }, [])
 
   return (
-    <section id="projects-portfolio" className="portfolio-section" ref={ref}>
-      <div className="container">
+    <section id="projects-portfolio" className="py-[clamp(48px,8vw,80px)] bg-[#F8FAFC] relative overflow-hidden max-[900px]:p-[60px_20px] max-[600px]:p-[50px_15px]" ref={ref}>
+      <div className="container-custom">
         {/* Header & Overview Section */}
         <motion.div 
-          className="portfolio-header"
+          className="text-center mb-[clamp(40px,8vw,64px)] flex flex-col items-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="portfolio-badge">
-            <Briefcase size={14} style={{ color: '#8B5CF6' }} /> Projects & Portfolio
+          <div className="section-tag flex items-center gap-[6px]">
+            <Briefcase size={14} /> Projects & Portfolio
           </div>
-          <h2 className="portfolio-title">
-            Our <span>Projects</span> & Portfolio 🧪🌐
+          <h2 className="section-title">
+            Our <span className="section-title-accent">Projects</span> & Portfolio
           </h2>
           
-          <div className="portfolio-overview">
-            <p>At CR Cyber Crime Foundation (Cyber Revolution), we actively engage in the development of innovative, impactful, and technology-driven projects across multiple domains.</p>
-            <p>Our projects reflect our commitment to cybersecurity, digital transformation, and advanced IT solutions.</p>
-            <p>We have successfully undertaken projects at national, government, and international levels, showcasing our capability to deliver reliable and scalable solutions.</p>
-            <p>All projects are original products developed by CRCCF, highlighting our focus on innovation, research, and real-world problem-solving.</p>
-          </div>
+          <p className="section-subtitle">
+            At CR Cyber Crime Foundation, we actively engage in the development of innovative, impactful, and technology-driven projects across multiple domains.
+          </p>
         </motion.div>
 
+
         {/* Project Statistics (Impact Section Style) */}
-        <div className="portfolio-stats-container">
+        <div className="mb-[60px]">
           <motion.div
-            className="stats-proj-header"
+            className="text-center mb-[30px]"
             initial={{ opacity:0, y:24 }}
             whileInView={{ opacity:1, y:0 }}
             viewport={{ once:true }}
             transition={{ duration:.5 }}
           >
-            <h3 className="stats-proj-title">Project Statistics 📊</h3>
+            <h3 className="text-[28px] font-[800] text-[#0F172A] m-0">Project Statistics 📊</h3>
           </motion.div>
 
-          <div className="port-stats-grid">
+          <div className="grid grid-cols-[repeat(4,1fr)] gap-[20px] max-[1024px]:grid-cols-[repeat(2,1fr)] max-[900px]:grid-cols-[repeat(2,1fr)] max-[600px]:grid-cols-[repeat(2,1fr)] max-[600px]:gap-[12px]">
             {statsData.map((s, i) => (
               <motion.div
                 key={s.label}
-                className={`proj-stat-card ${isAutoHovering ? 'auto-hover' : ''}`}
+                className={`bg-[#fff] border border-solid border-[#E5E7EB] rounded-[16px] py-[32px] px-[24px] text-center transition-all duration-[0.28s] shadow-[0_4px_12px_rgba(0,0,0,0.01)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.04)] hover:translate-y-[-4px] hover:border-[#CBD5E1] ${isAutoHovering || tappedIds.includes(s.label) ? 'shadow-[0_8px_20px_rgba(0,0,0,0.04)] translate-y-[-4px] border-[#CBD5E1]' : ''} max-[600px]:py-[24px] max-[600px]:px-[16px] cursor-pointer`}
                 initial={{ opacity:0, y:24 }}
                 whileInView={{ opacity:1, y:0 }}
                 viewport={{ once:true }}
                 transition={{ duration:.45, delay: i*.1 }}
+                onClick={(e) => handleTap(e, s.label)}
               >
-                <div className="proj-stat-val">
+                <div className="font-[inherit] text-[clamp(28px,4.5vw,48px)] font-[900] leading-[1] tracking-[-0.02em] max-[600px]:text-[clamp(24px,6vw,36px)]">
                   <Counter target={s.val} suffix={s.suffix} color={s.color} running={running} />
                 </div>
-                <div className="proj-stat-label">{s.label}</div>
+                <div className="text-[13px] text-[#64748B] font-[600] uppercase tracking-[0.06em] mt-[12px] max-[600px]:text-[11px] max-[600px]:mt-[8px]">{s.label}</div>
               </motion.div>
             ))}
           </div>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 max-w-6xl mx-auto mb-20 mt-12">
+          {[
+            {
+              title: "Our Approach",
+              icon: Rocket,
+              description: "• Innovative and solution-oriented 💡\n• Secure and technology-driven 🔐\n• Scalable and future-ready 🚀\n• Aligned with real-world requirements 🌐"
+            },
+            {
+              title: "Our Commitment",
+              icon: Trophy,
+              description: "Through continuous research, development, and innovation, CRCCF delivers high-quality projects that contribute to digital advancement and cybersecurity growth."
+            },
+            {
+              title: "Project Scope",
+              icon: Globe,
+              description: "• National-level initiatives 🇮🇳\n• Government-related projects 🏛️\n• International collaborations 🌍"
+            }
+          ].map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{ 
+                hidden: { opacity: 0, y: 40 }, 
+                rest: { opacity: 1, y: 0, scale: 1 },
+                active: { opacity: 1, y: 0, scale: 1.02 }
+              }}
+              whileHover="active"
+              animate={tappedLowerIds.includes(item.title) ? "active" : "rest"}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className={`relative flex flex-col items-center justify-start text-center cursor-default group min-h-[380px] md:min-h-[420px] pt-8 px-8 pb-16 md:pb-8 rounded-3xl transition-all ${tappedLowerIds.includes(item.title) ? 'bg-white shadow-[0_20px_50px_rgba(37,99,235,0.1)] border-blue-100/50' : 'bg-blue-50/40'} hover:bg-white hover:shadow-[0_20px_50px_rgba(37,99,235,0.1)] border border-blue-100/50`}
+              onClick={(e) => handleLowerTap(e, item.title)}
+            >
+              {/* The semi-circle arc (Animated on Hover) */}
+              <svg className="absolute left-1/2 top-[48px] opacity-0 group-hover:opacity-60 text-[#1A56DB] transition-opacity duration-500" width="180" height="340" viewBox="0 0 180 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <motion.path
+                  d="M 2 2 A 166 166 0 0 1 2 334"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  variants={{
+                    rest: { pathLength: 0 },
+                    active: { pathLength: 1 }
+                  }}
+                  transition={{ duration: 1, ease: "easeInOut" }}
+                />
+              </svg>
 
-        {/* 3 Cards Grid */}
-        <div className="portfolio-grid">
-          {/* Card 1: Our Approach */}
-          <motion.div 
-            className={`portfolio-card ${isAutoHovering ? 'auto-hover' : ''}`}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <div className="portfolio-card-inner">
-              <div className="portfolio-card-icon"><Rocket size={32} /></div>
-              <h3>Our Approach</h3>
-              <ul className="portfolio-list">
-                <li>Innovative and solution-oriented 💡</li>
-                <li>Secure and technology-driven 🔐</li>
-                <li>Scalable and future-ready 🚀</li>
-                <li>Aligned with real-world requirements 🌐</li>
-              </ul>
-            </div>
-          </motion.div>
+              {/* Top Icon Circle (Always Visible) */}
+              <motion.div 
+                variants={{
+                  hidden: { opacity: 0, y: 0 },
+                  rest: { opacity: 1, y: 0 },
+                  active: { opacity: 1, y: -10 }
+                }}
+                className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full bg-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.12)] border border-blue-50"
+              >
+                <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-blue-50/50 shadow-[0_4px_20px_-4px_rgba(37,99,235,0.1)]">
+                  <item.icon className="size-8 text-[#1A56DB]" />
+                </div>
+              </motion.div>
 
-          {/* Card 2: Our Commitment */}
-          <motion.div 
-            className={`portfolio-card ${isAutoHovering ? 'auto-hover' : ''}`}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <div className="portfolio-card-inner">
-              <div className="portfolio-card-icon"><Trophy size={32} /></div>
-              <h3>Our Commitment</h3>
-              <p className="portfolio-card-text">
-                Through continuous research, development, and innovation, CR Cyber Crime Foundation aims to deliver high-quality projects that contribute to digital advancement and cybersecurity growth.
-              </p>
-            </div>
-          </motion.div>
+              {/* Center Pill (Moves Up on Hover) */}
+              <motion.div 
+                variants={{
+                  hidden: { opacity: 0, y: 40 },
+                  rest: { opacity: 1, y: 40 },
+                  active: { opacity: 1, y: 0 }
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 22 }}
+                className="relative z-20 mt-6 flex h-11 items-center gap-3 rounded-full bg-white px-3 py-2 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.1)] border border-slate-100"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-[11px] font-bold text-white">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span className="pr-3 text-sm font-bold text-slate-800">{item.title}</span>
+              </motion.div>
 
-          {/* Card 3: Project Scope */}
-          <motion.div 
-            className={`portfolio-card ${isAutoHovering ? 'auto-hover' : ''}`}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <div className="portfolio-card-inner">
-              <div className="portfolio-card-icon"><Globe size={32} /></div>
-              <h3>Project Scope</h3>
-              <ul className="portfolio-list">
-                <li>National-level initiatives 🇮🇳</li>
-                <li>Government-related projects 🏛️</li>
-                <li>International collaborations 🌍</li>
-              </ul>
-            </div>
-          </motion.div>
+              {/* Text Area & Bottom Circle (Reveals on Hover) */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, height: 0, marginTop: 0 },
+                  rest: { opacity: 0, height: 0, marginTop: 0 },
+                  active: { opacity: 1, height: "auto", marginTop: 12 }
+                }}
+                className="overflow-hidden flex flex-col items-center"
+              >
+                <div className="relative z-10 w-full max-w-[260px] flex flex-col justify-start">
+                  {item.description.split('\n').map((line, i) => (
+                    <div key={i} className="flex items-start gap-2 mb-1 group/line">
+                      <span className="w-1 h-1 rounded-full bg-[#1A56DB]/40 mt-1.5 shrink-0 group-hover/line:bg-[#1A56DB] transition-colors" />
+                      <p className="text-[12px] leading-relaxed text-slate-500 text-left m-0 group-hover:text-slate-700 transition-colors">
+                        {line.replace('• ', '').replace('- ', '')}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Bottom Circle — anchored relative to the container but hidden if overlapping content on mobile */}
+              <div className="absolute left-1/2 -translate-x-1/2 top-[362px] max-[600px]:hidden">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 shadow-inner">
+                  <div className="h-5 w-5 rounded-full bg-white shadow-sm border border-slate-200" />
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-
       </div>
     </section>
   )

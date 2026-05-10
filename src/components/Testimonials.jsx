@@ -1,126 +1,281 @@
-import { motion } from 'framer-motion'
-import './Testimonials.css'
-
-const testimonials = [
-  {
-    name: 'Rajesh Kumar Sinha',
-    role: 'Business Owner, Patna',
-    text: 'CRCCF helped me recover my entire savings that were fraudulently transferred. Their professional guidance was exceptional.',
-    img: 'RK'
-  },
-  {
-    name: 'Priya Sharma',
-    role: 'Graduate Student, Ranchi',
-    text: 'I was a victim of cyberbullying and online harassment. CRCCF team was incredibly empathetic and handled it quickly.',
-    img: 'PS'
-  },
-  {
-    name: 'Vikram Singh',
-    role: 'IT Manager, Noida',
-    text: 'Thorough security audit for our fintech platform. They identified 3 critical vulnerabilities we missed. Deep expertise.',
-    img: 'VS'
-  },
-  {
-    name: 'Anita Devi',
-    role: 'Senior Citizen, Bhagalpur',
-    text: 'Lost money in banking fraud. CRCCF guided us step by step to freeze accounts and recover the amount. True lifesavers.',
-    img: 'AD'
-  },
-  {
-    name: 'Amit Patel',
-    role: 'Entrepreneur, Ahmedabad',
-    text: 'CRCCF secured our systems after a database compromise and guided us through data protection compliance.',
-    img: 'AP'
-  },
-  {
-    name: 'Sneha Reddy',
-    role: 'Software Engineer, Hyderabad',
-    text: 'The Cybersecurity Awareness bootcamp completely changed my perspective on secure coding. Highly recommended.',
-    img: 'SR'
-  },
-  {
-    name: 'Manoj Tiwari',
-    role: 'School Principal, Lucknow',
-    text: 'Brilliant workshop on digital safety for our students. Engaging and highly effective in today\'s digital age.',
-    img: 'MT'
-  },
-  {
-    name: 'Kavita Desai',
-    role: 'Freelancer, Pune',
-    text: 'Quick intervention helped me recover my freelancing account after a phishing attack. Secure identity within 48h.',
-    img: 'KD'
-  }
-]
-
-const row1 = testimonials.slice(0, 4)
-const row2 = testimonials.slice(4, 8)
-
-const TestimonialCard = ({ item }) => (
-  <div className="testi-marquee-card">
-    <div className="testi-card-header">
-      <div className="testi-card-av">{item.img}</div>
-      <div className="testi-card-stars">
-        {Array.from({ length: 5 }, (_, i) => (
-          <span key={i} className="star">★</span>
-        ))}
-      </div>
-    </div>
-    <div className="testi-card-content">
-      <div className="testi-card-quote">“</div>
-      <p className="testi-card-text">{item.text}</p>
-    </div>
-    <div className="testi-card-footer">
-      <h4 className="testi-card-name">{item.name}</h4>
-      <p className="testi-card-role">{item.role}</p>
-    </div>
-  </div>
-)
-
-const MarqueeRow = ({ items, direction = 'left' }) => {
-  const scrollValue = direction === 'left' ? ["0%", "-50%"] : ["-50%", "0%"]
-  
-  return (
-    <div className="marquee-container">
-      <motion.div 
-        className="marquee-track"
-        animate={{ x: scrollValue }}
-        transition={{ 
-          duration: 35, 
-          repeat: Infinity, 
-          ease: "linear" 
-        }}
-      >
-        {[...items, ...items, ...items, ...items].map((item, i) => (
-          <TestimonialCard key={i} item={item} />
-        ))}
-      </motion.div>
-    </div>
-  )
-}
+import { useState, useEffect, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaStar, FaAward, FaCheckCircle, FaRegSmile } from "react-icons/fa";
 
 export default function Testimonials() {
-  return (
-    <section className="section testi-marquee-section">
-      <div className="container">
-        <motion.div
-          className="testi-header"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="section-title">
-            About our <span className="accent">presence</span>
-          </h2>
-        </motion.div>
-      </div>
+  const [filter, setFilter] = useState("all");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-      <div className="marquee-wrapper">
-        <div className="marquee-gradient left"></div>
-        <MarqueeRow items={row1} direction="right" />
-        <MarqueeRow items={row2} direction="left" />
-        <div className="marquee-gradient right"></div>
+  // CRCCF Navbar Colors
+  const navy = "#0A1D37";
+  const cyan = "#00D2FF";
+
+  const allTestimonials = [
+    {
+      id: 0,
+      name: "Rohit Kumar",
+      date: "12 Oct, 2023",
+      text: "The hands-on training and real-world cyber investigation exposure helped me build strong practical skills.",
+      category: "excellent",
+      avatar: "https://i.pravatar.cc/150?img=11",
+      rating: "5.0",
+    },
+    {
+      id: 1,
+      name: "Ananya Das",
+      date: "05 Nov, 2023",
+      text: "CRCCF's secure development approach helped me understand how to build scalable and secure applications.",
+      category: "good",
+      avatar: "https://i.pravatar.cc/150?img=5",
+      rating: "4.8",
+    },
+    {
+      id: 2,
+      name: "Siddharth Mishra",
+      date: "28 Jan, 2024",
+      text: "Working on real cybercrime case studies gave me deep insights into digital forensics and investigation techniques.",
+      category: "excellent",
+      avatar: "https://i.pravatar.cc/150?img=12",
+      rating: "5.0",
+    },
+    {
+      id: 3,
+      name: "Priya Sharma",
+      date: "14 Feb, 2024",
+      text: "Shifted my perspective on network vulnerabilities. The mentorship is top-notch and highly professional.",
+      category: "good",
+      avatar: "https://i.pravatar.cc/150?img=9",
+      rating: "4.5",
+    },
+    {
+      id: 4,
+      name: "Amit Patel",
+      date: "03 Mar, 2024",
+      text: "Highest recommendation. A truly great team with incredible real-world knowledge.",
+      category: "excellent",
+      avatar: "https://i.pravatar.cc/150?img=14",
+      rating: "5.0",
+    },
+  ];
+
+  const filteredItems = useMemo(() => {
+    const items =
+      filter === "all"
+        ? allTestimonials
+        : allTestimonials.filter((t) => t.category === filter);
+    setActiveIndex(0);
+    return items;
+  }, [filter]);
+
+  const total = filteredItems.length;
+
+  useEffect(() => {
+    if (isHovered || total <= 1) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % total);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isHovered, total]);
+
+  // ==========================================
+  // PERFECT ALIGNMENT ENGINE
+  // ==========================================
+  const getAvatarLayout = (offset) => {
+    if (offset === 0) return { y: 0, x: 0, scale: 1.1, opacity: 1, zIndex: 30 }; // Center Active
+    if (offset === -1)
+      return { y: -90, x: 35, scale: 0.85, opacity: 1, zIndex: 20 }; // Top Visible
+    if (offset === 1)
+      return { y: 90, x: 35, scale: 0.85, opacity: 1, zIndex: 20 }; // Bottom Visible
+    if (offset < -1)
+      return { y: -150, x: 60, scale: 0.5, opacity: 0, zIndex: 10 }; // Hidden Top
+    if (offset > 1)
+      return { y: 150, x: 60, scale: 0.5, opacity: 0, zIndex: 10 }; // Hidden Bottom
+  };
+
+  return (
+    <section className="py-16 md:py-24 bg-slate-50 relative overflow-hidden min-h-[850px] flex flex-col justify-center">
+      {/* ================= NAVY HALF-CIRCLE BACKGROUND ================= */}
+      <div
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-[35%] h-[90%] rounded-r-[250px] pointer-events-none hidden md:block"
+        style={{ backgroundColor: navy }}
+      />
+
+      <div className="max-w-[1100px] mx-auto w-full px-4 md:px-8 relative z-10">
+        {/* ================= FILTER BAR (Centered at Top) ================= */}
+        <div className="flex flex-col items-center mb-10">
+          {/* 1. ADDED TOP HEADING HERE */}
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 tracking-tight">
+            Student <span className="text-blue-600">Testimonials</span>
+          </h2>
+
+          <div className="flex bg-white p-1.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-slate-100 flex-wrap justify-center gap-1">
+            {[
+              { id: "all", label: "All Reviews", icon: null },
+              {
+                id: "excellent",
+                label: "Excellent",
+                icon: <FaAward className="text-yellow-500" />,
+              },
+              {
+                id: "good",
+                label: "Good",
+                icon: <FaCheckCircle className="text-blue-500" />,
+              },
+              {
+                id: "average",
+                label: "Average",
+                icon: <FaRegSmile className="text-slate-400" />,
+              },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setFilter(tab.id)}
+                className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
+                  filter === tab.id
+                    ? `bg-[${navy}] text-white shadow-md`
+                    : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                }`}
+                style={{
+                  backgroundColor: filter === tab.id ? navy : undefined,
+                }}
+              >
+                {tab.icon} {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* ================= FLOATING WHITE CARD ================= */}
+        <div
+          className="bg-white rounded-xl shadow-[0_20px_60px_rgba(10,29,55,0.08)] flex flex-col md:flex-row items-center p-6 md:p-14 min-h-[450px]"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* ================= LEFT SIDE: HEADER & ARC ================= */}
+          <div className="w-full md:w-[45%] min-h-[400px] relative flex flex-col justify-center py-6">
+            {/* 2. FIXED DIVISION: Made absolute so it doesn't push the avatars down */}
+            <div className="absolute top-0 left-4 md:left-8 z-20">
+              <div
+                className="w-8 h-[3px] mb-2"
+                style={{ backgroundColor: cyan }}
+              />
+              <h2 className="text-xl font-bold text-slate-800">
+                Customer Reviews
+              </h2>
+            </div>
+
+            <div className="relative w-full flex items-center pl-4 md:pl-12 mt-8">
+              {/* The perfectly aligned static SVG curve */}
+              <svg
+                className="absolute left-[30px] md:left-[60px] top-1/2 -translate-y-1/2 mt-[-24px] w-[100px] h-[200px] pointer-events-none opacity-20"
+                viewBox="0 0 100 200"
+              >
+                {/* M = Start, Q = Control Point, End. This perfectly traces the coordinates set in getAvatarLayout */}
+                <path
+                  d="M 35 10 Q -15 100 35 190"
+                  fill="none"
+                  stroke={navy}
+                  strokeWidth="1.5"
+                />
+              </svg>
+
+              {/* The Avatars */}
+              <div className="relative w-full">
+                {filteredItems.map((item, index) => {
+                  let offset = (index - activeIndex) % total;
+                  if (offset > Math.floor(total / 2)) offset -= total;
+                  if (offset < -Math.floor(total / 2)) offset += total;
+
+                  const layout = getAvatarLayout(offset);
+                  const isActive = offset === 0;
+
+                  return (
+                    <motion.button
+                      key={item.id}
+                      onClick={() => setActiveIndex(index)}
+                      animate={layout}
+                      style={{ position: "absolute", marginTop: "-24px" }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 120,
+                        damping: 18,
+                      }}
+                      className={`outline-none flex items-center gap-4 ${Math.abs(offset) <= 1 ? "pointer-events-auto" : "pointer-events-none"}`}
+                    >
+                      {/* Avatar Bubble */}
+                      <div
+                        className={`relative w-12 h-12 rounded-full p-[2px] transition-all duration-500 shrink-0 ${
+                          isActive
+                            ? `bg-white shadow-lg border border-slate-100 z-20`
+                            : "bg-transparent grayscale-[60%] opacity-80 hover:grayscale-0 z-10"
+                        }`}
+                      >
+                        <img
+                          src={item.avatar}
+                          className="w-full h-full rounded-full object-cover"
+                          alt=""
+                        />
+                      </div>
+
+                      {/* Text Label attached to ALL visible avatars */}
+                      <div className="text-left whitespace-nowrap cursor-pointer group">
+                        <h4
+                          className={`transition-colors duration-300 ${isActive ? "text-slate-900 font-bold text-[13px]" : "text-slate-500 font-semibold text-xs group-hover:text-slate-700"}`}
+                        >
+                          {item.name}
+                        </h4>
+                        <div className="flex items-center gap-1.5 mt-0.5 text-[10px] font-semibold">
+                          <FaStar
+                            className={
+                              isActive ? `text-[${cyan}]` : "text-slate-400"
+                            }
+                            style={{ color: isActive ? cyan : undefined }}
+                          />
+                          <span
+                            className={
+                              isActive ? "text-slate-700" : "text-slate-400"
+                            }
+                          >
+                            {item.rating}
+                          </span>
+                          <span className="font-normal text-slate-400">
+                            on {item.date}
+                          </span>
+                        </div>
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* ================= RIGHT SIDE: SERIF QUOTE TEXT ================= */}
+          <div className="w-full md:w-[55%] relative md:pl-10 mt-12 md:mt-0 flex items-center">
+            <div className="relative pl-6 md:pl-10">
+              {/* Massive Offset Serif Quote Mark */}
+              <span className="absolute left-0 -top-6 text-6xl md:text-7xl font-serif font-black text-slate-800 leading-none">
+                “
+              </span>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${filter}-${activeIndex}`}
+                  initial={{ opacity: 0, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, filter: "blur(4px)" }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <p className="text-[15px] md:text-[17px] font-serif italic text-slate-700 leading-relaxed font-medium">
+                    {filteredItems[activeIndex]?.text}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-  )
+  );
 }

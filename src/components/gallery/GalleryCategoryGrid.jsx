@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, GraduationCap, Newspaper, Video, Users, Award, Monitor, BookOpen, ShieldCheck, Bell, Search, FlaskConical, Briefcase, Palette, Presentation } from 'lucide-react'
-import '../../pages/Gallery.css'
 
 const categories = [
   { title: "Our Student", icon: GraduationCap, iconBg: "#2563EB" },
@@ -25,8 +24,8 @@ export default function GalleryCategoryGrid({ images = [] }) {
   const navigate = useNavigate()
 
   return (
-    <section className="gallery-grid-section">
-      <div className="gallery-grid">
+    <section className="p-[40px_24px] max-w-[1400px] mx-auto">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-[20px]">
         {categories.map((cat, idx) => {
           const Icon = cat.icon
           return (
@@ -34,25 +33,25 @@ export default function GalleryCategoryGrid({ images = [] }) {
               key={cat.title}
               onClick={() => navigate(`/gallery/category/${idx}`)}
               whileHover={{ y: -5 }}
-              className="gallery-card"
+              className="bg-[#fff] rounded-[12px] overflow-hidden border border-solid border-[#E2E8F0] cursor-pointer transition-all duration-[0.3s] hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)] group"
             >
-              <div className="gallery-card-img-wrap">
+              <div className="relative">
                 <img
                   src={images[idx] || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&q=80"}
                   alt={cat.title}
-                  className="gallery-card-img"
+                  className="w-full h-[144px] object-cover transition-transform duration-[0.3s] group-hover:scale-[1.05]"
                 />
                 <div 
-                  className="gallery-card-icon-badge"
+                  className="absolute top-[8px] left-[8px] w-[32px] h-[32px] rounded-[50%] flex items-center justify-center shadow-[0_1px_3px_rgba(0,0,0,0.1)] transition-transform duration-[0.5s] hover:rotate-[360deg]"
                   style={{ backgroundColor: cat.iconBg }}
                 >
                   <Icon color="white" size={16} />
                 </div>
               </div>
 
-              <div className="gallery-card-bottom">
-                <h3 className="gallery-card-title">{cat.title}</h3>
-                <div className="gallery-card-arrow">
+              <div className="p-[12px] flex justify-between items-center">
+                <h3 className="text-[14px] font-[600] text-[#0F172A] m-0">{cat.title}</h3>
+                <div className="w-[28px] h-[28px] rounded-[50%] bg-[#E2E8F0] flex items-center justify-center transition-all duration-[0.2s] text-[#64748B] group-hover:bg-[#2563EB] group-hover:text-[#fff]">
                   <ArrowRight size={16} />
                 </div>
               </div>
@@ -63,3 +62,4 @@ export default function GalleryCategoryGrid({ images = [] }) {
     </section>
   )
 }
+

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
-import './TopBar.css'
 
 /* ─── Marquee text ─────────────────────────────────────────── */
 const NOTICE =
@@ -48,9 +47,14 @@ function AnalogClock() {
   })
 
   return (
-    <div className="clock-body">
-      {/* SVG CLOCK FACE */}
-      <svg viewBox="0 0 60 60" width="36" height="36" className="clock-svg">
+    <div className="clock-body flex items-center gap-[9px] px-[12px] whitespace-nowrap">
+      {/* SVG CLOCK FACE - Hidden on mobile */}
+      <svg
+        viewBox="0 0 60 60"
+        width="36"
+        height="36"
+        className="clock-svg drop-shadow-[0_0_6px_rgba(26,86,219,.40)] transition-[filter] duration-[300ms] group-hover:drop-shadow-[0_0_10px_rgba(26,86,219,.70)] max-[600px]:hidden"
+      >
         {/* Outer ring */}
         <circle cx="30" cy="30" r="29" fill="#0a1628" stroke="rgba(255,255,255,.22)" strokeWidth="1.5" />
         {/* Inner glow */}
@@ -83,10 +87,10 @@ function AnalogClock() {
         <circle cx="30" cy="30" r="1" fill="#fff" />
       </svg>
 
-      {/* DIGITAL DATE + TIME */}
-      <div className="clock-info">
-        <span className="clock-time">{timeStr}</span>
-        <span className="clock-date">{dateStr}</span>
+      {/* DIGITAL DATE + TIME - Now visible on mobile, replacing the SVG */}
+      <div className="clock-info flex flex-col gap-[1px]">
+        <span className="clock-time text-[12px] font-[700] text-[#fff] tracking-[.04em] leading-[1] max-[600px]:text-[13px]">{timeStr}</span>
+        <span className="clock-date text-[10px] text-[rgba(255,255,255,.48)] font-[500] tracking-[.03em] leading-[1] max-[600px]:text-[9px]">{dateStr}</span>
       </div>
     </div>
   )
@@ -96,7 +100,7 @@ function AnalogClock() {
 function GalleryPopup({ navigate }) {
   return (
     <motion.div
-      className="gallery-popup"
+      className="gallery-popup absolute top-[calc(100%+6px)] right-0 w-[340px] overflow-hidden rounded-[14px] border border-[#E5E7EB] bg-[#fff] shadow-[0_20px_60px_rgba(0,0,0,.22)] z-[9999] max-[480px]:w-[280px] max-[480px]:right-[-10px]"
       onClick={() => navigate('/gallery')}
       initial={{ opacity: 0, y: -6, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -104,28 +108,37 @@ function GalleryPopup({ navigate }) {
       transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
       style={{ cursor: 'pointer' }}
     >
-      <div className="gallery-popup-head">
+      <div className="gallery-popup-head flex items-center justify-between px-[16px] pt-[12px] pb-[10px] border-b border-[#F3F4F6] text-[13px] font-[700] text-[#111827]">
         <span>📸 Gallery Preview</span>
-        <span className="gallery-popup-count">{GALLERY.length} photos</span>
+        <span className="gallery-popup-count text-[11px] font-[600] text-[#9CA3AF] bg-[#F3F4F6] px-[9px] py-[2px] rounded-[999px]">{GALLERY.length} photos</span>
       </div>
-      <div className="gallery-popup-grid">
+      <div className="gallery-popup-grid grid grid-cols-3 gap-[6px] p-[10px] max-[480px]:grid-cols-2">
         {GALLERY.map((img, i) => (
           <motion.div
             key={i}
-            className="gallery-thumb"
+            className="gallery-thumb group relative aspect-[4/3] overflow-hidden rounded-[8px] cursor-pointer"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.04, duration: 0.22 }}
             whileHover={{ scale: 1.06, zIndex: 2 }}
           >
-            <img src={img.src} alt={img.alt} loading="lazy" />
-            <div className="gallery-thumb-overlay">
-              <span>{img.alt}</span>
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading="lazy"
+              className="w-full h-full object-cover block transition-transform duration-[350ms] group-hover:scale-[1.08]"
+            />
+            <div className="gallery-thumb-overlay absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.65)_0%,transparent_50%)] opacity-0 transition-opacity duration-[250ms] flex items-end p-[6px_7px] group-hover:opacity-100">
+              <span className="text-[10px] text-[#fff] font-[600] leading-[1.2]">{img.alt}</span>
             </div>
           </motion.div>
         ))}
       </div>
-      <button onClick={() => navigate('/gallery')} className="gallery-popup-cta" style={{width: '100%', background: 'none', border: 'none', borderTop: '1px solid #F3F4F6', cursor: 'pointer'}}>
+      <button
+        onClick={() => navigate('/gallery')}
+        className="gallery-popup-cta w-full flex items-center justify-center p-[10px] text-[12.5px] font-[700] text-[#1A56DB] no-underline transition-[background] duration-[150ms] tracking-[.03em] hover:bg-[#EFF6FF]"
+        style={{width: '100%', background: 'none', border: 'none', borderTop: '1px solid #F3F4F6', cursor: 'pointer'}}
+      >
         View Full Gallery →
       </button>
     </motion.div>
@@ -143,7 +156,7 @@ function ReachUsPopup({ navigate }) {
 
   return (
     <motion.div
-      className="gallery-popup"
+      className="gallery-popup absolute top-[calc(100%+6px)] right-0 w-[340px] overflow-hidden rounded-[14px] border border-[#E5E7EB] bg-[#fff] shadow-[0_20px_60px_rgba(0,0,0,.22)] z-[9999] max-[480px]:w-[280px] max-[480px]:right-[-10px]"
       onClick={() => navigate('/reachus')}
       initial={{ opacity: 0, y: -6, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -151,7 +164,7 @@ function ReachUsPopup({ navigate }) {
       transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
       style={{ width: '300px', right: 0, cursor: 'pointer' }}
     >
-      <div className="gallery-popup-head">
+      <div className="gallery-popup-head flex items-center justify-between px-[16px] pt-[12px] pb-[10px] border-b border-[#F3F4F6] text-[13px] font-[700] text-[#111827]">
         <span>🌍 Reach Our Support</span>
       </div>
       
@@ -209,7 +222,11 @@ function ReachUsPopup({ navigate }) {
           Drop Your Message
         </button>
       </div>
-      <button onClick={() => navigate('/reachus')} className="gallery-popup-cta" style={{width: '100%', background: 'none', border: 'none', borderTop: '1px solid #F1F5F9', cursor: 'pointer'}}>
+      <button
+        onClick={() => navigate('/reachus')}
+        className="gallery-popup-cta w-full flex items-center justify-center p-[10px] text-[12.5px] font-[700] text-[#1A56DB] no-underline transition-[background] duration-[150ms] tracking-[.03em] hover:bg-[#EFF6FF]"
+        style={{width: '100%', background: 'none', border: 'none', borderTop: '1px solid #F1F5F9', cursor: 'pointer'}}
+      >
         Connect With Official Channels →
       </button>
     </motion.div>
@@ -223,12 +240,25 @@ export default function TopBar() {
   const [clockHovered, setClockHovered] = useState(false)
   const [galleryHovered, setGalleryHovered] = useState(false)
   const [reachHovered, setReachHovered] = useState(false)
+  
+  /* Welcome label: visible for 2s on mobile then hides */
+  const [welcomeVisible, setWelcomeVisible] = useState(true)
 
   const navigate = useNavigate()
   
   useEffect(() => {
     const t = setTimeout(() => setClockAutoVisible(false), 2000)
-    return () => clearTimeout(t)
+    
+    // Welcome text timeout for mobile only
+    let wT;
+    if (window.innerWidth <= 768) {
+      wT = setTimeout(() => setWelcomeVisible(false), 2000)
+    }
+    
+    return () => {
+      clearTimeout(t)
+      if (wT) clearTimeout(wT)
+    }
   }, [])
 
   const clockVisible = clockAutoVisible || clockHovered
@@ -272,25 +302,61 @@ export default function TopBar() {
   }
 
   return (
-    <div className="topbar">
+    <div className="topbar relative z-[200] bg-[#0C1A3A] flex items-center h-[42px] border-b border-[rgba(255,255,255,.07)]">
       {/* ── LEFT: FIXED WELCOME LABEL ── */}
-      <div className="tb-welcome">
-        <span className="tb-welcome-dot" />
-        Welcome To CRCCF
-      </div>
-      <div className="tb-welcome-sep" />
+      <AnimatePresence>
+        {welcomeVisible && (
+          <motion.div 
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -20, opacity: 0, width: 0, paddingLeft: 0, paddingRight: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="tb-welcome flex shrink-0 items-center gap-[7px] px-[16px] whitespace-nowrap select-none text-[12.5px] font-[700] text-[rgba(255,255,255,.90)] tracking-[.04em] uppercase max-[700px]:px-[8px] max-[700px]:text-[10px] max-[480px]:px-[6px] max-[480px]:text-[9px] max-[480px]:gap-[4px]"
+          >
+            <motion.span
+              className="tb-welcome-dot w-[7px] h-[7px] rounded-[50%] bg-[#22C55E] shadow-[0_0_0_0_rgba(34,197,94,.55)] max-[480px]:w-[5px] max-[480px]:h-[5px]"
+              animate={{
+                boxShadow: [
+                  '0 0 0 0 rgba(34,197,94,.55)',
+                  '0 0 0 6px rgba(34,197,94,0.00)',
+                  '0 0 0 0 rgba(34,197,94,0.00)',
+                ],
+              }}
+              transition={{ duration: 2, ease: 'easeInOut', repeat: Infinity }}
+            />
+            Welcome To CRCCF
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {welcomeVisible && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, width: 0 }}
+            className="tb-welcome-sep w-[1px] h-[22px] bg-[rgba(255,255,255,.12)] shrink-0" 
+          />
+        )}
+      </AnimatePresence>
 
       {/* ── SCROLLING ANNOUNCEMENT ── */}
-      <div className="tb-marquee">
-        <div className="tb-track">{TRACK}</div>
+      <div className="tb-marquee flex-1 min-w-0" style={{ overflow: 'hidden' }}>
+        <motion.div
+          className="tb-track inline-block whitespace-nowrap text-[12.5px] text-[rgba(255,255,255,.78)] font-[400] pl-[24px] tracking-[.01em] max-[700px]:text-[11px] max-[700px]:pl-[12px] max-[480px]:text-[10px] max-[480px]:pl-[8px]"
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 60, ease: 'linear', repeat: Infinity }}
+        >
+          {TRACK}
+        </motion.div>
       </div>
 
       {/* ── RIGHT SIDE ── */}
-      <div className="tb-right">
+      <div className="tb-right flex shrink-0 items-center gap-0 pl-0 pr-0 border-l border-[rgba(255,255,255,.07)]">
 
         {/* CLOCK */}
         <div
-          className="tb-clock-zone"
+          className="tb-clock-zone group flex items-center h-[42px] cursor-pointer relative"
           onMouseEnter={() => setClockHovered(true)}
           onMouseLeave={() => setClockHovered(false)}
         >
@@ -311,7 +377,7 @@ export default function TopBar() {
               /* COLLAPSED — just a small clock icon */
               <motion.button
                 key="clock-icon"
-                className="tb-icon-btn"
+                className="tb-icon-btn w-[36px] h-[42px] bg-transparent border-none cursor-pointer text-[rgba(255,255,255,.60)] flex items-center justify-center transition-all duration-[.18s] hover:text-[#fff] hover:bg-[rgba(255,255,255,.07)] max-[700px]:w-[30px] max-[480px]:w-[26px]"
                 title="Date & Time (hover to expand)"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -328,15 +394,26 @@ export default function TopBar() {
           </AnimatePresence>
         </div>
 
-        <div className="tb-sep" />
+        <div className="tb-sep w-[1px] h-[22px] bg-[rgba(255,255,255,.10)] mx-[2px]" />
 
         {/* GALLERY ICON */}
         <div
-          className="tb-gallery-zone"
-          onMouseEnter={() => window.innerWidth > 1024 && setGalleryHovered(true)}
-          onMouseLeave={() => window.innerWidth > 1024 && setGalleryHovered(false)}
+          className="tb-gallery-zone relative flex items-center h-full"
+          onMouseEnter={() => window.innerWidth >= 1024 && setGalleryHovered(true)}
+          onMouseLeave={() => window.innerWidth >= 1024 && setGalleryHovered(false)}
+          style={{ position: 'relative' }}
         >
-          <button className="tb-icon-btn tb-gallery-btn" title="Gallery" onClick={handleGalleryClick}>
+          {/* Bridge element to prevent hover loss */}
+          {galleryHovered && (
+            <div 
+              style={{ position: 'absolute', top: '100%', left: 0, width: '100%', height: '10px', zIndex: 1 }} 
+            />
+          )}
+          <button
+            className="tb-icon-btn tb-gallery-btn w-[40px] h-[42px] bg-transparent border-none cursor-pointer text-[rgba(255,255,255,.60)] flex items-center justify-center transition-all duration-[.18s] hover:text-[#fff] hover:bg-[rgba(255,255,255,.07)] max-[700px]:w-[30px] max-[480px]:w-[26px]"
+            title="Gallery"
+            onClick={handleGalleryClick}
+          >
             {/* gallery / image icon */}
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
@@ -350,17 +427,34 @@ export default function TopBar() {
           </AnimatePresence>
         </div>
 
-        <div className="tb-sep" />
+        <div className="tb-sep w-[1px] h-[22px] bg-[rgba(255,255,255,.10)] mx-[2px]" />
 
         {/* REACH US */}
         <div 
-          className="tb-reach-zone" 
-          onMouseEnter={() => window.innerWidth > 1024 && setReachHovered(true)} 
-          onMouseLeave={() => window.innerWidth > 1024 && setReachHovered(false)}
-          style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
+          className="tb-reach-zone relative flex items-center h-full" 
+          onMouseEnter={() => window.innerWidth >= 1024 && setReachHovered(true)} 
+          onMouseLeave={() => window.innerWidth >= 1024 && setReachHovered(false)}
+          style={{ position: 'relative' }}
         >
-          <button className="tb-reach-btn" onClick={handleReachClick}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          {/* Bridge element to prevent hover loss */}
+          {reachHovered && (
+            <div 
+              style={{ position: 'absolute', top: '100%', left: 0, width: '100%', height: '10px', zIndex: 1 }} 
+            />
+          )}
+          <button
+            className="tb-reach-btn inline-flex items-center gap-[6px] bg-[#1A56DB] text-[#fff] text-[12px] font-[700] px-[16px] py-[7px] mx-[10px] rounded-[5px] border-none cursor-pointer no-underline whitespace-nowrap tracking-[.02em] transition-[background,transform] duration-[.18s] hover:bg-[#1044B8] hover:translate-y-[-1px] max-[700px]:px-[10px] max-[700px]:py-[5px] max-[700px]:mx-[6px] max-[700px]:text-[11px] max-[480px]:mx-[4px] max-[480px]:px-[8px] max-[480px]:py-[5px] max-[480px]:text-[10px]"
+            onClick={handleReachClick}
+          >
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="max-[480px]:w-[11px] max-[480px]:h-[11px]"
+            >
               <circle cx="12" cy="12" r="10"/>
               <line x1="2" y1="12" x2="22" y2="12"/>
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>

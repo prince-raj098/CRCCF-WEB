@@ -1,5 +1,5 @@
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import './WhoWeAre.css'
 
 const OrgIcon = () => (
   <svg width="42" height="42" viewBox="0 0 40 40" fill="none">
@@ -133,11 +133,41 @@ const cards = [
 ]
 
 export default function WhoWeAre() {
+  const [flippedCards, setFlippedCards] = useState([])
+  const [isAutoFlipped, setIsAutoFlipped] = useState(false)
+  const sectionRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsAutoFlipped(true)
+          setTimeout(() => setIsAutoFlipped(false), 2000)
+          observer.disconnect() 
+        }
+      },
+      { threshold: 0.15 }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  const handleTap = (e, index) => {
+    e.stopPropagation()
+    // If they tap during auto-flip, we should probably stop auto-flip and just handle the tap
+    setIsAutoFlipped(false)
+    setFlippedCards(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index) 
+        : [...prev, index]
+    )
+  }
+
   return (
-    <section id="about" className="section who-section">
-      <div className="container">
+    <section id="about" ref={sectionRef} className="section-padding bg-[#F9FAFB]">
+      <div className="container-custom">
         <motion.div
-          className="who-header"
+          className="text-center mb-[clamp(32px,7vw,52px)] flex flex-col items-center"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -145,7 +175,7 @@ export default function WhoWeAre() {
         >
           <p className="section-tag">Who We Are</p>
           <h2 className="section-title">
-            About <span className="accent">CR Cyber Crime Foundation</span>
+            About <span className="section-title-accent">CR Cyber Crime Foundation</span>
           </h2>
           <p className="section-subtitle">
             A trusted partner in India's cybersecurity ecosystem — combining technology expertise,
@@ -153,42 +183,46 @@ export default function WhoWeAre() {
           </p>
         </motion.div>
 
-        <div className="who-grid">
+
+        <div className="grid grid-cols-[repeat(2,1fr)] gap-[20px] max-[640px]:gap-[12px] max-[380px]:gap-[8px]">
           {cards.map((c, i) => (
             <motion.div
               key={c.title}
-              className="who-card-container"
+              className="[perspective:1000px] w-full relative z-[1] mt-[26px] flex flex-col group cursor-pointer max-[640px]:mt-[18px] max-[380px]:mt-[16px]"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: .5, delay: i * .10 }}
+              onClick={(e) => handleTap(e, i)}
             >
-              <div className="who-card-flipper">
+              <div 
+                className={`grid flex-1 transition-transform duration-[0.6s] ease-[cubic-bezier(0.4,0,0.2,1)] [transform-style:preserve-3d] w-full rounded-[14px] max-[640px]:min-h-[160px] max-[380px]:min-h-[145px] ${flippedCards.includes(i) || isAutoFlipped ? '[transform:rotateY(180deg)]' : 'group-hover:[transform:rotateY(180deg)]'}`}
+              >
                 {/* ── FRONT ── */}
                 <div
-                  className="who-card-front"
+                  className="[grid-area:1/1] bg-[rgba(255,255,255,0.7)] backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)] border-[1px] border-solid border-[rgba(255,255,255,0.3)] rounded-[14px] p-[28px] [backface-visibility:hidden] box-border flex flex-col justify-center transition-all duration-[0.3s] ease-[ease] [transform:rotateY(0deg)] z-[2] items-center text-center pt-[45px] bg-no-repeat relative group-hover:shadow-[0_10px_36px_rgba(0,0,0,0.10)] group-hover:border-[rgba(26,86,219,0.20)] max-[640px]:p-[12px_10px] max-[640px]:min-h-[160px] max-[640px]:pt-[24px] max-[380px]:p-[10px_8px] max-[380px]:min-h-[145px] max-[380px]:pt-[22px]"
                   style={{
                     backgroundImage: `linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), url(${c.bg})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}
                 >
-                  <div className="who-icon-wrapper">
+                  <div className="absolute top-[-26px] left-[50%] translate-x-[-50%] bg-[#fff] rounded-[50%] p-[6px] max-[640px]:top-[-15px] max-[640px]:p-[3px] max-[380px]:top-[-13px] max-[380px]:p-[2px]">
                     <div
-                      className="who-icon"
+                      className="w-[52px] h-[52px] rounded-[50%] flex items-center justify-center shadow-[0_4px_10px_rgba(0,0,0,0.06)] max-[640px]:w-[30px] max-[640px]:h-[30px] max-[380px]:w-[26px] max-[380px]:h-[26px] [&>svg]:max-[640px]:w-[16px] [&>svg]:max-[640px]:h-[16px] [&>svg]:max-[380px]:w-[14px] [&>svg]:max-[380px]:h-[14px]"
                       style={{ background: `${c.color}14`, color: c.color }}
                     >
                       {c.icon}
                     </div>
                   </div>
-                  <h3 className="who-title">{c.title}</h3>
-                  <div className="who-divider" style={{ background: c.color }} />
+                  <h3 className="text-[clamp(15px,2.2vw,19px)] font-[800] text-[#0F172A] mb-[12px] [text-shadow:0_2px_4px_rgba(255,255,255,0.8)] max-[640px]:text-[clamp(11px,3vw,13.5px)] max-[640px]:mb-[5px] max-[380px]:text-[11px] max-[380px]:mb-[4px]">{c.title}</h3>
+                  <div className="w-[36px] h-[3px] rounded-[2px] max-[640px]:w-[24px] max-[640px]:h-[2px]" style={{ background: c.color }} />
                 </div>
 
                 {/* ── BACK ── */}
-                <div className="who-card-back">
-                  <h3 className="who-title" style={{ color: c.color }}>{c.title}</h3>
-                  <p className="who-desc">{c.desc}</p>
+                <div className="[grid-area:1/1] bg-[rgba(255,255,255,0.7)] backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)] border-[1px] border-solid border-[rgba(255,255,255,0.3)] rounded-[14px] p-[28px] [backface-visibility:hidden] box-border flex flex-col justify-center transition-all duration-[0.3s] ease-[ease] [transform:rotateY(180deg)] items-start p-[30px_24px] group-hover:shadow-[0_10px_36px_rgba(0,0,0,0.10)] group-hover:border-[rgba(26,86,219,0.20)] max-[640px]:p-[12px_10px] max-[640px]:min-h-[160px] max-[640px]:p-[14px_10px] max-[380px]:p-[10px_8px] max-[380px]:min-h-[145px]">
+                  <h3 className="text-[clamp(15px,2.2vw,19px)] font-[800] text-[#0F172A] mb-[12px] [text-shadow:0_2px_4px_rgba(255,255,255,0.8)] max-[640px]:text-[clamp(11px,3vw,13.5px)] max-[640px]:mb-[5px] max-[380px]:text-[11px] max-[380px]:mb-[4px]" style={{ color: c.color }}>{c.title}</h3>
+                  <p className="text-[clamp(12px,1.5vw,14.5px)] text-[#4B5563] leading-[1.65] max-[640px]:text-[clamp(10px,2.2vw,11.5px)] max-[640px]:leading-[1.4] max-[380px]:text-[10px] max-[380px]:leading-[1.35]">{c.desc}</p>
                 </div>
               </div>
             </motion.div>
