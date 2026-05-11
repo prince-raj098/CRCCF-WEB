@@ -483,10 +483,10 @@ const FoundationChronicle = () => {
                  style={{ 
                    left: `${hoverX !== null ? hoverX : (currentPage / (totalPages - 1)) * 100}%`,
                    translateX: "-50%",
-                   borderColor: themes[previewPage % themes.length].color + "40"
+                   borderColor: (themes[previewPage % themes.length] || themes[0]).color + "40"
                  }}
                >
-                 <span className="text-[10px] font-black" style={{ color: themes[previewPage % themes.length].color }}>PAGE {previewPage + 1}</span>
+                 <span className="text-[10px] font-black" style={{ color: (themes[previewPage % themes.length] || themes[0]).color }}>PAGE {previewPage + 1}</span>
                  <span className="text-[8px] font-bold text-slate-400 whitespace-nowrap uppercase tracking-tighter max-w-[100px] truncate">
                    {previewData.heading}
                  </span>
