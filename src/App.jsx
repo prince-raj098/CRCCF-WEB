@@ -31,7 +31,7 @@ import PageWrapper from './components/ContactUs/PageWrapper'
 import AboutLayout from './layouts/AboutLayout'
 import AboutPage from './pages/AboutUs/AboutPage'
 import OurIdentity from './pages/AboutUs/OurIdentity'
-import OurIntroduction from './pages/AboutUs/OurIntroduction'
+import IntroductionOfCRCCF from './pages/AboutUs/IntroductionOfCRCCF'
 import WhatWeDoAbout from './pages/AboutUs/WhatWeDo'
 import MissionVision from './pages/AboutUs/MissionVision'
 import OurActivity from './pages/AboutUs/OurActivity'
@@ -148,7 +148,7 @@ export default function App() {
       <Route path="/about" element={<AboutLayout />}>
         <Route index element={<AboutPage />} />
         <Route path="identity" element={<OurIdentity />} />
-        <Route path="introduction" element={<OurIntroduction />} />
+        <Route path="introduction" element={<IntroductionOfCRCCF />} />
         <Route path="what-we-do" element={<WhatWeDoAbout />} />
         <Route path="mission-vision" element={<MissionVision />} />
         <Route path="activity" element={<OurActivity />} />
