@@ -36,6 +36,7 @@ export default function ReachUsPage() {
   const [activeBranch, setActiveBranch] = useState(null);
   const [isAutoHoverActive, setIsAutoHoverActive] = useState(false);
   const [isIconsVisible, setIsIconsVisible] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -50,10 +51,14 @@ export default function ReachUsPage() {
       setActiveSocial(null);
       setActiveBranch(null);
     };
+    const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('click', handleClickOutside);
+    window.addEventListener('resize', handleResize);
+
     return () => {
       clearTimeout(timer);
       window.removeEventListener('click', handleClickOutside);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -251,7 +256,7 @@ export default function ReachUsPage() {
             </div>
 
             {/* Tree/Circle Container */}
-            <div className="relative w-full max-w-[900px] mx-auto min-h-[650px] flex items-center justify-center max-[1024px]:min-h-[550px] max-[768px]:h-[450px] max-[768px]:min-h-0 max-[768px]:translate-y-[15px]">
+            <div className="relative w-full max-w-[900px] mx-auto min-h-[650px] flex items-center justify-center max-[1024px]:min-h-[550px] max-[768px]:h-[450px] max-[768px]:min-h-0">
               
               {/* Central Hub for Mobile (Circle Center) */}
               <div className="hidden max-[768px]:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center z-[10] pointer-events-none">
@@ -350,10 +355,16 @@ export default function ReachUsPage() {
 
               {/* Social Nodes */}
               {socialLinks.map((s, i) => {
-                // Positions calculation
                 const total = socialLinks.length;
-                const angle = (i / total) * 2 * Math.PI - Math.PI / 2; // start from top center
-                const radius = window.innerWidth <= 480 ? 120 : 140; // Responsive mobile circle radius
+                const angle = (i / total) * 2 * Math.PI - Math.PI / 2;
+                
+                // Dynamic radius calculation for mobile
+                let radius = 140; 
+                if (windowWidth <= 768) {
+                  radius = Math.min(windowWidth * 0.35, 140);
+                  if (windowWidth <= 480) radius = Math.min(windowWidth * 0.38, 125);
+                  if (windowWidth <= 360) radius = windowWidth * 0.36;
+                }
                 
                 const desktopPos = [
                   { top: '5%', left: '50%' },   { top: '15%', left: '25%' },  { top: '15%', left: '75%' },
@@ -377,23 +388,23 @@ export default function ReachUsPage() {
                       [&.is-auto-hover_.social-layer]:rotate-[-35deg] [&.is-auto-hover_.social-layer]:skew-x-[20deg]
                       hover:[&_.social-layer]:rotate-[-35deg] hover:[&_.social-layer]:skew-x-[20deg]
 
-                      [&.is-active_.social-layer_span:nth-child(1)]:opacity-[0.1]
-                      [&.is-active_.social-layer_span:nth-child(2)]:opacity-[0.3] [&.is-active_.social-layer_span:nth-child(2)]:translate-x-[5px] [&.is-active_.social-layer_span:nth-child(2)]:translate-y-[-5px]
-                      [&.is-active_.social-layer_span:nth-child(3)]:opacity-[0.5] [&.is-active_.social-layer_span:nth-child(3)]:translate-x-[10px] [&.is-active_.social-layer_span:nth-child(3)]:translate-y-[-10px]
-                      [&.is-active_.social-layer_span:nth-child(4)]:opacity-[0.7] [&.is-active_.social-layer_span:nth-child(4)]:translate-x-[15px] [&.is-active_.social-layer_span:nth-child(4)]:translate-y-[-15px]
-                      [&.is-active_.social-layer_span:nth-child(5)]:opacity-[1] [&.is-active_.social-layer_span:nth-child(5)]:translate-x-[20px] [&.is-active_.social-layer_span:nth-child(5)]:translate-y-[-20px]
+                      [&.is-active_.social-layer_span:nth-child(1)]:opacity-[0.1] [&.is-active_.social-layer_span:nth-child(1)]:translate-x-[-20px] [&.is-active_.social-layer_span:nth-child(1)]:translate-y-[20px]
+                      [&.is-active_.social-layer_span:nth-child(2)]:opacity-[0.3] [&.is-active_.social-layer_span:nth-child(2)]:translate-x-[-15px] [&.is-active_.social-layer_span:nth-child(2)]:translate-y-[15px]
+                      [&.is-active_.social-layer_span:nth-child(3)]:opacity-[0.5] [&.is-active_.social-layer_span:nth-child(3)]:translate-x-[-10px] [&.is-active_.social-layer_span:nth-child(3)]:translate-y-[10px]
+                      [&.is-active_.social-layer_span:nth-child(4)]:opacity-[0.7] [&.is-active_.social-layer_span:nth-child(4)]:translate-x-[-5px] [&.is-active_.social-layer_span:nth-child(4)]:translate-y-[5px]
+                      [&.is-active_.social-layer_span:nth-child(5)]:opacity-[1]
 
-                      [&.is-auto-hover_.social-layer_span:nth-child(1)]:opacity-[0.1]
-                      [&.is-auto-hover_.social-layer_span:nth-child(2)]:opacity-[0.3] [&.is-auto-hover_.social-layer_span:nth-child(2)]:translate-x-[5px] [&.is-auto-hover_.social-layer_span:nth-child(2)]:translate-y-[-5px]
-                      [&.is-auto-hover_.social-layer_span:nth-child(3)]:opacity-[0.5] [&.is-auto-hover_.social-layer_span:nth-child(3)]:translate-x-[10px] [&.is-auto-hover_.social-layer_span:nth-child(3)]:translate-y-[-10px]
-                      [&.is-auto-hover_.social-layer_span:nth-child(4)]:opacity-[0.7] [&.is-auto-hover_.social-layer_span:nth-child(4)]:translate-x-[15px] [&.is-auto-hover_.social-layer_span:nth-child(4)]:translate-y-[-15px]
-                      [&.is-auto-hover_.social-layer_span:nth-child(5)]:opacity-[1] [&.is-auto-hover_.social-layer_span:nth-child(5)]:translate-x-[20px] [&.is-auto-hover_.social-layer_span:nth-child(5)]:translate-y-[-20px]
+                      [&.is-auto-hover_.social-layer_span:nth-child(1)]:opacity-[0.1] [&.is-auto-hover_.social-layer_span:nth-child(1)]:translate-x-[-20px] [&.is-auto-hover_.social-layer_span:nth-child(1)]:translate-y-[20px]
+                      [&.is-auto-hover_.social-layer_span:nth-child(2)]:opacity-[0.3] [&.is-auto-hover_.social-layer_span:nth-child(2)]:translate-x-[-15px] [&.is-auto-hover_.social-layer_span:nth-child(2)]:translate-y-[15px]
+                      [&.is-auto-hover_.social-layer_span:nth-child(3)]:opacity-[0.5] [&.is-auto-hover_.social-layer_span:nth-child(3)]:translate-x-[-10px] [&.is-auto-hover_.social-layer_span:nth-child(3)]:translate-y-[10px]
+                      [&.is-auto-hover_.social-layer_span:nth-child(4)]:opacity-[0.7] [&.is-auto-hover_.social-layer_span:nth-child(4)]:translate-x-[-5px] [&.is-auto-hover_.social-layer_span:nth-child(4)]:translate-y-[5px]
+                      [&.is-auto-hover_.social-layer_span:nth-child(5)]:opacity-[1]
 
-                      hover:[&_.social-layer_span:nth-child(1)]:opacity-[0.1]
-                      hover:[&_.social-layer_span:nth-child(2)]:opacity-[0.3] hover:[&_.social-layer_span:nth-child(2)]:translate-x-[5px] hover:[&_.social-layer_span:nth-child(2)]:translate-y-[-5px]
-                      hover:[&_.social-layer_span:nth-child(3)]:opacity-[0.5] hover:[&_.social-layer_span:nth-child(3)]:translate-x-[10px] hover:[&_.social-layer_span:nth-child(3)]:translate-y-[-10px]
-                      hover:[&_.social-layer_span:nth-child(4)]:opacity-[0.7] hover:[&_.social-layer_span:nth-child(4)]:translate-x-[15px] hover:[&_.social-layer_span:nth-child(4)]:translate-y-[-15px]
-                      hover:[&_.social-layer_span:nth-child(5)]:opacity-[1] hover:[&_.social-layer_span:nth-child(5)]:translate-x-[20px] hover:[&_.social-layer_span:nth-child(5)]:translate-y-[-20px]
+                      hover:[&_.social-layer_span:nth-child(1)]:opacity-[0.1] hover:[&_.social-layer_span:nth-child(1)]:translate-x-[-20px] hover:[&_.social-layer_span:nth-child(1)]:translate-y-[20px]
+                      hover:[&_.social-layer_span:nth-child(2)]:opacity-[0.3] hover:[&_.social-layer_span:nth-child(2)]:translate-x-[-15px] hover:[&_.social-layer_span:nth-child(2)]:translate-y-[15px]
+                      hover:[&_.social-layer_span:nth-child(3)]:opacity-[0.5] hover:[&_.social-layer_span:nth-child(3)]:translate-x-[-10px] hover:[&_.social-layer_span:nth-child(3)]:translate-y-[10px]
+                      hover:[&_.social-layer_span:nth-child(4)]:opacity-[0.7] hover:[&_.social-layer_span:nth-child(4)]:translate-x-[-5px] hover:[&_.social-layer_span:nth-child(4)]:translate-y-[5px]
+                      hover:[&_.social-layer_span:nth-child(5)]:opacity-[1]
 
                       [&.is-active_.social-text]:bottom-[-32px] [&.is-active_.social-text]:opacity-100
                       [&.is-auto-hover_.social-text]:bottom-[-32px] [&.is-auto-hover_.social-text]:opacity-100
@@ -402,8 +413,8 @@ export default function ReachUsPage() {
                     style={{ 
                       '--brand-color': s.color, 
                       '--brand-gradient': s.gradient,
-                      top: window.innerWidth <= 768 ? `calc(50% + ${Math.sin(angle) * radius}px)` : desktopPos[i].top,
-                      left: window.innerWidth <= 768 ? `calc(50% + ${Math.cos(angle) * radius}px)` : desktopPos[i].left,
+                      top: windowWidth <= 768 ? `calc(50% + ${Math.sin(angle) * radius}px)` : desktopPos[i].top,
+                      left: windowWidth <= 768 ? `calc(50% + ${Math.cos(angle) * radius}px)` : desktopPos[i].left,
                       transform: 'translate(-50%, -50%)'
                     }}
                     initial={{ opacity: 0, scale: 0 }}
@@ -537,7 +548,7 @@ export default function ReachUsPage() {
             {branches.map((b, i) => (
               <motion.div 
                 key={i} 
-                className={`relative w-[280px] h-[380px] bg-white rounded-[20px] overflow-hidden transition-all duration-[0.3s] shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.2)] group cursor-pointer ${isAutoHoverActive || activeBranch === i ? 'is-hovered shadow-[0_20px_40px_rgba(37,99,235,0.2)]' : ''} max-[640px]:w-[220px] max-[640px]:h-[280px]`}
+                className={`relative w-full max-w-[280px] h-[380px] bg-white rounded-[20px] overflow-hidden transition-all duration-[0.3s] shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.2)] group cursor-pointer ${isAutoHoverActive || activeBranch === i ? 'is-hovered shadow-[0_20px_40px_rgba(37,99,235,0.2)]' : ''} max-[640px]:h-[280px] max-[400px]:max-w-[240px]`}
                 initial={{ opacity: 0, scale: 0.9, y: 50 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
