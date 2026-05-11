@@ -244,7 +244,7 @@ export default function ReachUsPage() {
         {/* Follow Us Section - ENHANCED SOCIAL TREE */}
         <section className="mb-[80px] pb-[40px]">
           <motion.div 
-            className="bg-white rounded-[40px] p-[60px_40px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] overflow-hidden max-[640px]:p-[40px_15px]"
+            className="bg-white rounded-[40px] p-[60px_40px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] max-[640px]:p-[40px_15px]"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -255,21 +255,26 @@ export default function ReachUsPage() {
               <p className="text-[#64748B] text-[16px] m-0">Stay updated with our latest news and initiatives across all official platforms.</p>
             </div>
 
-            {/* Tree/Circle Container */}
-            <div className="relative w-full max-w-[900px] mx-auto min-h-[650px] flex items-center justify-center max-[1024px]:min-h-[550px] max-[768px]:h-[450px] max-[768px]:min-h-0">
+            {/* Tree/Orbital Container */}
+            <div className="relative w-full max-w-[900px] mx-auto min-h-[650px] flex items-center justify-center max-[1024px]:min-h-[550px] max-[768px]:h-[500px] max-[768px]:min-h-0">
               
-              {/* Central Hub for Mobile (Circle Center) */}
-              <div className="hidden max-[768px]:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center z-[10] pointer-events-none">
+              {/* MOBILE ORBITAL HUB (Center Trigger) */}
+              <div className="hidden max-[768px]:flex absolute inset-0 items-center justify-center z-[20] pointer-events-none">
                 <motion.div 
-                  className={`w-[110px] h-[110px] bg-white rounded-full border-2 border-dashed flex flex-col items-center justify-center shadow-[0_10px_25px_rgba(37,99,235,0.15),inset_0_2px_4px_rgba(0,0,0,0.05)] pointer-events-auto cursor-pointer transition-all duration-300 ${isIconsVisible ? 'border-[#10B981] shadow-[0_10px_25px_rgba(16,185,129,0.15)]' : 'border-[#3B82F6]'}`}
+                  className={`
+                    w-[120px] h-[120px] bg-white rounded-full border-[2.5px] border-dashed 
+                    flex flex-col items-center justify-center text-center shadow-[0_15px_35px_rgba(37,99,235,0.12)]
+                    cursor-pointer transition-all duration-500 z-[30] pointer-events-auto
+                    ${isIconsVisible ? 'border-[#10B981] shadow-[0_10px_30px_rgba(16,185,129,0.2)]' : 'border-[#3B82F6]'}
+                  `}
                   onClick={() => setIsIconsVisible(!isIconsVisible)}
-                  animate={{ scale: isIconsVisible ? 1.05 : [1, 1.05, 1] }}
-                  transition={{ scale: isIconsVisible ? { duration: 0.2 } : { duration: 2, repeat: Infinity, ease: "easeInOut" } }}
+                  animate={{ scale: isIconsVisible ? 1.05 : [1, 1.03, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <span className={`text-[12px] font-[900] leading-[1.1] uppercase tracking-[-0.01em] text-center transition-colors duration-300 ${isIconsVisible ? 'text-[#10B981]' : 'text-[#1E293B]'}`}>
+                  <span className={`text-[13px] font-[900] leading-[1.1] uppercase tracking-[-0.01em] transition-colors duration-300 ${isIconsVisible ? 'text-[#10B981]' : 'text-[#1E293B]'}`}>
                     {isIconsVisible ? 'Tapped to\nConnect' : 'Tap to\nConnect'}
                   </span>
-                  <span className="text-[8px] font-[700] text-[#64748B] uppercase tracking-[0.1em] mt-[4px] text-center">Collection</span>
+                  <span className="text-[9px] font-[700] text-[#64748B] uppercase tracking-[0.15em] mt-[6px]">Collection</span>
                 </motion.div>
               </div>
 
@@ -287,7 +292,6 @@ export default function ReachUsPage() {
                     </linearGradient>
                   </defs>
 
-                  {/* Trunk base */}
                   <motion.path 
                     d="M450 650 V500" 
                     stroke="url(#trunkGradient)" 
@@ -298,7 +302,6 @@ export default function ReachUsPage() {
                     transition={{ duration: 1, ease: "easeOut" }}
                   />
                   
-                  {/* Branching lines */}
                   <g filter="url(#glow)">
                     {[
                       "M450 500 C450 400 450 250 450 120",   // 0
@@ -329,43 +332,15 @@ export default function ReachUsPage() {
                       />
                     ))}
                   </g>
-
-                  {/* Digital Particles */}
-                  {[...Array(15)].map((_, i) => (
-                    <motion.circle
-                      key={i}
-                      r={Math.random() * 3 + 1}
-                      fill={["#3B82F6", "#818CF8", "#F472B6", "#10B981"][i % 4]}
-                      initial={{ x: 450, y: 500, opacity: 0 }}
-                      animate={{ 
-                        x: 450 + (Math.random() - 0.5) * 800, 
-                        y: 100 + Math.random() * 400, 
-                        opacity: [0, 0.6, 0],
-                        scale: [0, 1, 0.5]
-                      }}
-                      transition={{ 
-                        duration: Math.random() * 5 + 5, 
-                        repeat: Infinity, 
-                        delay: Math.random() * 2 
-                      }}
-                    />
-                  ))}
                 </svg>
               </div>
 
-              {/* Social Nodes */}
+              {/* SOCIAL NODES - Unified Desktop & Mobile Orbital Logic */}
               {socialLinks.map((s, i) => {
                 const total = socialLinks.length;
                 const angle = (i / total) * 2 * Math.PI - Math.PI / 2;
                 
-                // Dynamic radius calculation for mobile
-                let radius = 140; 
-                if (windowWidth <= 768) {
-                  radius = Math.min(windowWidth * 0.35, 140);
-                  if (windowWidth <= 480) radius = Math.min(windowWidth * 0.38, 125);
-                  if (windowWidth <= 360) radius = windowWidth * 0.36;
-                }
-                
+                // Desktop fixed positions
                 const desktopPos = [
                   { top: '5%', left: '50%' },   { top: '15%', left: '25%' },  { top: '15%', left: '75%' },
                   { top: '40%', left: '13%' },  { top: '40%', left: '87%' },  { top: '35%', left: '35%' },
@@ -373,89 +348,80 @@ export default function ReachUsPage() {
                   { top: '50%', left: '50%' },
                 ];
 
+                const isMobile = windowWidth <= 768;
+                const radius = windowWidth < 480 ? 115 : 135;
+                
+                // Calculate orbital coordinates
+                const orbitX = Math.cos(angle) * radius;
+                const orbitY = Math.sin(angle) * radius;
+
                 return (
                   <motion.div 
                     key={i} 
                     className={`
-                      absolute transition-all duration-[0.2s] text-[17px] rounded-[10px] group/social
-                      ${(activeSocial === i || isAutoHoverActive) ? 'z-[100] is-active' : 'z-[5]'} 
+                      absolute transition-all duration-[0.3s] text-[17px] rounded-[10px] group/social
+                      ${(activeSocial === i || isAutoHoverActive) ? 'z-[100] is-active' : 'z-[10]'} 
                       ${isAutoHoverActive ? 'is-auto-hover' : ''}
-                      [&.is-active_.social-tooltip]:top-[-125px] [&.is-active_.social-tooltip]:opacity-100 [&.is-active_.social-tooltip]:visible [&.is-active_.social-tooltip]:pointer-events-auto
-                      [&.is-auto-hover_.social-tooltip]:top-[-125px] [&.is-auto-hover_.social-tooltip]:opacity-100 [&.is-auto-hover_.social-tooltip]:visible [&.is-auto-hover_.social-tooltip]:pointer-events-auto
-                      hover:[&_.social-tooltip]:top-[-125px] hover:[&_.social-tooltip]:opacity-100 hover:[&_.social-tooltip]:visible hover:[&_.social-tooltip]:pointer-events-auto
-                      
-                      [&.is-active_.social-layer]:rotate-[-35deg] [&.is-active_.social-layer]:skew-x-[20deg]
-                      [&.is-auto-hover_.social-layer]:rotate-[-35deg] [&.is-auto-hover_.social-layer]:skew-x-[20deg]
-                      hover:[&_.social-layer]:rotate-[-35deg] hover:[&_.social-layer]:skew-x-[20deg]
-
-                      [&.is-active_.social-layer_span:nth-child(1)]:opacity-[0.1] [&.is-active_.social-layer_span:nth-child(1)]:translate-x-[-20px] [&.is-active_.social-layer_span:nth-child(1)]:translate-y-[20px]
-                      [&.is-active_.social-layer_span:nth-child(2)]:opacity-[0.3] [&.is-active_.social-layer_span:nth-child(2)]:translate-x-[-15px] [&.is-active_.social-layer_span:nth-child(2)]:translate-y-[15px]
-                      [&.is-active_.social-layer_span:nth-child(3)]:opacity-[0.5] [&.is-active_.social-layer_span:nth-child(3)]:translate-x-[-10px] [&.is-active_.social-layer_span:nth-child(3)]:translate-y-[10px]
-                      [&.is-active_.social-layer_span:nth-child(4)]:opacity-[0.7] [&.is-active_.social-layer_span:nth-child(4)]:translate-x-[-5px] [&.is-active_.social-layer_span:nth-child(4)]:translate-y-[5px]
-                      [&.is-active_.social-layer_span:nth-child(5)]:opacity-[1]
-
-                      [&.is-auto-hover_.social-layer_span:nth-child(1)]:opacity-[0.1] [&.is-auto-hover_.social-layer_span:nth-child(1)]:translate-x-[-20px] [&.is-auto-hover_.social-layer_span:nth-child(1)]:translate-y-[20px]
-                      [&.is-auto-hover_.social-layer_span:nth-child(2)]:opacity-[0.3] [&.is-auto-hover_.social-layer_span:nth-child(2)]:translate-x-[-15px] [&.is-auto-hover_.social-layer_span:nth-child(2)]:translate-y-[15px]
-                      [&.is-auto-hover_.social-layer_span:nth-child(3)]:opacity-[0.5] [&.is-auto-hover_.social-layer_span:nth-child(3)]:translate-x-[-10px] [&.is-auto-hover_.social-layer_span:nth-child(3)]:translate-y-[10px]
-                      [&.is-auto-hover_.social-layer_span:nth-child(4)]:opacity-[0.7] [&.is-auto-hover_.social-layer_span:nth-child(4)]:translate-x-[-5px] [&.is-auto-hover_.social-layer_span:nth-child(4)]:translate-y-[5px]
-                      [&.is-auto-hover_.social-layer_span:nth-child(5)]:opacity-[1]
-
-                      hover:[&_.social-layer_span:nth-child(1)]:opacity-[0.1] hover:[&_.social-layer_span:nth-child(1)]:translate-x-[-20px] hover:[&_.social-layer_span:nth-child(1)]:translate-y-[20px]
-                      hover:[&_.social-layer_span:nth-child(2)]:opacity-[0.3] hover:[&_.social-layer_span:nth-child(2)]:translate-x-[-15px] hover:[&_.social-layer_span:nth-child(2)]:translate-y-[15px]
-                      hover:[&_.social-layer_span:nth-child(3)]:opacity-[0.5] hover:[&_.social-layer_span:nth-child(3)]:translate-x-[-10px] hover:[&_.social-layer_span:nth-child(3)]:translate-y-[10px]
-                      hover:[&_.social-layer_span:nth-child(4)]:opacity-[0.7] hover:[&_.social-layer_span:nth-child(4)]:translate-x-[-5px] hover:[&_.social-layer_span:nth-child(4)]:translate-y-[5px]
-                      hover:[&_.social-layer_span:nth-child(5)]:opacity-[1]
-
-                      [&.is-active_.social-text]:bottom-[-32px] [&.is-active_.social-text]:opacity-100
-                      [&.is-auto-hover_.social-text]:bottom-[-32px] [&.is-auto-hover_.social-text]:opacity-100
-                      hover:[&_.social-text]:bottom-[-32px] hover:[&_.social-text]:opacity-100
+                      [&.is-active_.social-tooltip]:top-[-135px] [&.is-active_.social-tooltip]:opacity-100 [&.is-active_.social-tooltip]:visible
+                      hover:[&_.social-tooltip]:top-[-135px] hover:[&_.social-tooltip]:opacity-100 hover:[&_.social-tooltip]:visible
                     `}
                     style={{ 
                       '--brand-color': s.color, 
                       '--brand-gradient': s.gradient,
-                      top: windowWidth <= 768 ? `calc(50% + ${Math.sin(angle) * radius}px)` : desktopPos[i].top,
-                      left: windowWidth <= 768 ? `calc(50% + ${Math.cos(angle) * radius}px)` : desktopPos[i].left,
-                      transform: 'translate(-50%, -50%)'
+                      top: isMobile ? '50%' : desktopPos[i].top,
+                      left: isMobile ? '50%' : desktopPos[i].left,
                     }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={(isIconsVisible || (typeof window !== 'undefined' && window.innerWidth > 768)) ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: (isIconsVisible ? (i * 0.08) : 0.2 + (i * 0.08)), duration: 0.5, type: 'spring' }}
+                    initial={isMobile ? { x: '-50%', y: '-50%', opacity: 0, scale: 0 } : { x: '-50%', y: '-50%', opacity: 0, scale: 0.8 }}
+                    animate={{
+                      opacity: (!isMobile || isIconsVisible) ? 1 : 0,
+                      scale: (!isMobile || isIconsVisible) ? 1 : 0,
+                      x: isMobile 
+                        ? `calc(-50% + ${isIconsVisible ? orbitX : 0}px)` 
+                        : '-50%',
+                      y: isMobile 
+                        ? `calc(-50% + ${isIconsVisible ? orbitY : 0}px)` 
+                        : '-50%',
+                    }}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ 
+                      delay: isIconsVisible ? (i * 0.05) : 0, 
+                      duration: 0.6, 
+                      type: 'spring',
+                      stiffness: 200,
+                      damping: 15
+                    }}
                     onClick={(e) => handleSocialClick(e, i)}
                     onMouseEnter={() => setActiveSocial(i)}
                     onMouseLeave={() => setActiveSocial(null)}
                   >
                     <div className="relative block">
                       <a className="relative block no-underline group" href={s.link} target="_blank" rel="noopener noreferrer">
-                        {/* Tooltip moved inside the link */}
-                        <div className="social-tooltip absolute top-0 left-1/2 -translate-x-1/2 p-[10px] opacity-0 pointer-events-none rounded-[15px] shadow-[inset_5px_5px_5px_rgba(0,0,0,0.1),inset_-5px_-5px_15px_rgba(255,255,255,0.1),5px_5px_15px_rgba(0,0,0,0.2)] z-[100] w-[180px] transition-all duration-300">
-                          <div className="bg-white rounded-[10px_15px] p-[10px] shadow-[0_10px_20px_rgba(0,0,0,0.05)]">
-                            <div className="flex gap-[10px] items-center">
-                              <div className="user flex gap-[10px] items-center">
-                                <img src="/Logo.png" alt="Logo" className="w-[36px] h-[36px] border border-solid border-[var(--brand-color,#2563EB)] rounded-[8px] bg-white object-contain p-[3px]" />
+                        {/* Enhanced Tooltip */}
+                        <div className="social-tooltip absolute top-0 left-1/2 -translate-x-1/2 p-[10px] opacity-0 pointer-events-none rounded-[15px] z-[100] w-[190px] transition-all duration-300">
+                          <div className="bg-white rounded-[12px] p-[12px] shadow-[0_15px_30px_rgba(0,0,0,0.12)] border border-[#F1F5F9]">
+                            <div className="flex gap-[12px] items-center">
+                                <img src="/Logo.png" alt="Logo" className="w-[38px] h-[38px] border border-solid border-[rgba(0,0,0,0.05)] rounded-[10px] bg-white object-contain p-[4px]" style={{ borderColor: s.color }} />
                                 <div className="flex flex-col gap-0">
-                                  <div className="text-[13px] font-[800] text-[#0F172A]">{s.label}</div>
-                                  <div className="text-[11px] text-[var(--brand-color,#64748B)] font-[600]">{s.handle}</div>
+                                  <div className="text-[14px] font-[800] text-[#0F172A]">{s.label}</div>
+                                  <div className="text-[11px] font-[600]" style={{ color: s.color }}>{s.handle}</div>
                                 </div>
-                              </div>
                             </div>
-                            <div className="text-[#64748B] pt-[8px] text-[11px] mt-[8px]">Visit Official {s.label}</div>
+                            <div className="text-[#64748B] pt-[10px] text-[11px] mt-[10px] border-t border-[#F1F5F9]">Join the CRCCF {s.label} Community</div>
                           </div>
                         </div>
 
-                        <div className="social-layer w-[54px] h-[54px] transition-transform duration-[0.3s] relative max-[640px]:w-[44px] max-[640px]:h-[44px]">
-                          <span className="absolute inset-0 border border-solid border-[var(--brand-color,#2563EB)] rounded-[15px] transition-all duration-300"></span>
-                          <span className="absolute inset-0 border border-solid border-[var(--brand-color,#2563EB)] rounded-[15px] transition-all duration-300"></span>
-                          <span className="absolute inset-0 border border-solid border-[var(--brand-color,#2563EB)] rounded-[15px] transition-all duration-300"></span>
-                          <span className="absolute inset-0 border border-solid border-[var(--brand-color,#2563EB)] rounded-[15px] transition-all duration-300"></span>
+                        <div className="social-layer w-[56px] h-[56px] transition-all duration-300 relative max-[640px]:w-[48px] max-[640px]:h-[48px]">
+                          <span className="absolute inset-0 border border-solid rounded-[18px] opacity-20 transition-all duration-300 group-hover:rotate-12" style={{ borderColor: s.color }}></span>
+                          <span className="absolute inset-0 border border-solid rounded-[18px] opacity-40 transition-all duration-300 group-hover:-rotate-12 group-hover:translate-x-1" style={{ borderColor: s.color }}></span>
                           <span 
-                            className="absolute inset-0 text-[22px] flex items-center justify-center rounded-[15px] text-white max-[640px]:text-[18px] transition-all duration-300"
+                            className="absolute inset-0 text-[24px] flex items-center justify-center rounded-[18px] text-white max-[640px]:text-[20px] transition-all duration-300 shadow-lg"
                             style={{ background: s.gradient || s.color }}
                           >
                             {s.icon}
                           </span>
                         </div>
-                        <div className="social-text absolute left-1/2 bottom-[-5px] opacity-0 font-[700] -translate-x-1/2 transition-all duration-[0.3s] text-[var(--brand-color,#2563EB)] whitespace-nowrap text-[11px]">
+                        
+                        <div className="social-text absolute left-1/2 bottom-[-28px] opacity-0 font-[800] -translate-x-1/2 transition-all duration-300 whitespace-nowrap text-[11px] group-hover:opacity-100 group-hover:bottom-[-32px]" style={{ color: s.color }}>
                           {s.label}
                         </div>
                       </a>
