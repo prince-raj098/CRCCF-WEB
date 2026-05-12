@@ -482,7 +482,9 @@ const InsightCard = ({ section, index }) => {
                 ${pageIdx % 2 === 0 ? 'bg-slate-50' : 'bg-slate-100'}
                 ${isFlipped
                   ? '[transform:rotateY(-120deg)_scale(0.9)_translateX(-10px)] !opacity-0 pointer-events-none'
-                  : `${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`
+                  : pageIdx === activePageIndex
+                    ? 'opacity-100'
+                    : 'opacity-0 pointer-events-none'
                 }
               `}
             >
