@@ -520,7 +520,7 @@ const InsightCard = ({ section, index }) => {
                     {pageIdx > 0 && (
                       <button
                         onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx - 1); keepScrubberVisible(); }}
-                        className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn"
+                        className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn border-none bg-transparent cursor-pointer p-0"
                       >
                         <ArrowLeft size={14} className="group-hover/btn:-translate-x-0.5 transition-transform" /> Back
                       </button>
@@ -530,7 +530,7 @@ const InsightCard = ({ section, index }) => {
                     {pageIdx < allPages.length - 1 && (
                       <button
                         onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx + 1); keepScrubberVisible(); }}
-                        className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn"
+                        className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn border-none bg-transparent cursor-pointer p-0"
                       >
                         Next <ArrowRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
                       </button>
@@ -692,7 +692,7 @@ export default function IntroductionOfCRCCF() {
         <motion.nav variants={itemUp} className="flex items-center gap-4 mb-8 sm:mb-12">
           <button
             onClick={() => navigate('/about')}
-            className="inline-flex items-center gap-2 text-[#2563EB] hover:text-[#1D4ED8] transition-colors font-bold text-sm sm:text-base group"
+            className="inline-flex items-center gap-2 text-[#2563EB] hover:text-[#1D4ED8] transition-colors font-bold text-sm sm:text-base group border-none bg-transparent cursor-pointer p-0"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             Back to About
