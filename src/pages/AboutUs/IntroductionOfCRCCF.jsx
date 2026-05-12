@@ -79,11 +79,10 @@ const IntroHeroOverlay = () => {
 
       <g transform="translate(150, 180)">
         <motion.circle
-          cx="0"
-          cy="0"
+          r="60"
           fill="url(#sunGrad)"
-          initial={{ r: 0 }}
-          animate={{ r: 60 }}
+          initial={{ scale: 0, y: 50 }}
+          animate={{ scale: 1, y: 0 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
         />
 
@@ -195,7 +194,7 @@ const SvgVision = ({ className }) => (
   <svg viewBox="0 0 100 100" className={className}>
     <path d="M10 50 Q 50 10, 90 50 Q 50 90, 10 50" fill="none" stroke={color.slate700} strokeWidth="2" />
     <circle cx="50" cy="50" r="15" fill={color.blue500} />
-    <motion.circle cx="50" cy="50" fill={color.white} initial={{ r: 8 }} animate={{ r: [8, 10, 8] }} transition={{ duration: 2, repeat: Infinity }} />
+    <motion.circle cx="50" cy="50" r="8" fill={color.white} animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity }} />
   </svg>
 );
 
