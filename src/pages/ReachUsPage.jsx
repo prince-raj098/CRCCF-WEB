@@ -32,31 +32,20 @@ export default function ReachUsPage() {
   });
 
   const [errors, setErrors] = useState({});
-  const [activeSocial, setActiveSocial] = useState(null);
   const [activeBranch, setActiveBranch] = useState(null);
-  const [isAutoHoverActive, setIsAutoHoverActive] = useState(false);
   const [isIconsVisible, setIsIconsVisible] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    // Teaser animation: show hover state for 1.2s shortly after load
-    const timer = setTimeout(() => {
-      setIsAutoHoverActive(true);
-      setTimeout(() => setIsAutoHoverActive(false), 1200);
-    }, 500);
-
-    const handleClickOutside = () => {
-      setActiveSocial(null);
-      setActiveBranch(null);
-    };
+    const handleClickOutside = () => setActiveBranch(null);
     const handleResize = () => setWindowWidth(window.innerWidth);
+
     window.addEventListener('click', handleClickOutside);
     window.addEventListener('resize', handleResize);
 
     return () => {
-      clearTimeout(timer);
       window.removeEventListener('click', handleClickOutside);
       window.removeEventListener('resize', handleResize);
     };
@@ -193,15 +182,7 @@ export default function ReachUsPage() {
     }
   ];
 
-  const handleSocialClick = (e, index) => {
-    if (window.innerWidth <= 1024) {
-      if (activeSocial !== index) {
-        e.preventDefault();
-        e.stopPropagation();
-        setActiveSocial(index);
-      }
-    }
-  };
+
 
   const handleBranchTap = (e, index) => {
     if (window.innerWidth <= 1024) {
@@ -318,10 +299,10 @@ export default function ReachUsPage() {
                       <motion.path
                         key={i}
                         d={d}
-                        stroke={activeSocial === i || isAutoHoverActive ? socialLinks[i].color : "#E2E8F0"}
-                        strokeWidth={activeSocial === i || isAutoHoverActive ? "3" : "1.5"}
-                        strokeDasharray={activeSocial === i || isAutoHoverActive ? "0" : "5 5"}
-                        opacity={activeSocial === i || isAutoHoverActive ? "0.8" : "0.3"}
+                        stroke="#E2E8F0"
+                        strokeWidth="1.5"
+                        strokeDasharray="5 5"
+                        opacity="0.3"
                         initial={{ pathLength: 0 }}
                         whileInView={{ pathLength: 1 }}
                         transition={{ 
@@ -358,13 +339,7 @@ export default function ReachUsPage() {
                 return (
                   <motion.div 
                     key={i} 
-                    className={`
-                      absolute transition-all duration-[0.3s] text-[17px] rounded-[10px] group/social
-                      ${(activeSocial === i || isAutoHoverActive) ? 'z-[100] is-active' : 'z-[10]'} 
-                      ${isAutoHoverActive ? 'is-auto-hover' : ''}
-                      [&.is-active_.social-tooltip]:top-[-135px] [&.is-active_.social-tooltip]:opacity-100 [&.is-active_.social-tooltip]:visible
-                      hover:[&_.social-tooltip]:top-[-135px] hover:[&_.social-tooltip]:opacity-100 hover:[&_.social-tooltip]:visible
-                    `}
+                    className="absolute transition-all duration-[0.3s] text-[17px] rounded-[10px] group/social z-[10]"
                     style={{ 
                       '--brand-color': s.color, 
                       '--brand-gradient': s.gradient,
@@ -390,25 +365,11 @@ export default function ReachUsPage() {
                       stiffness: 200,
                       damping: 15
                     }}
-                    onClick={(e) => handleSocialClick(e, i)}
-                    onMouseEnter={() => setActiveSocial(i)}
-                    onMouseLeave={() => setActiveSocial(null)}
+
                   >
                     <div className="relative block">
                       <a className="relative block no-underline group" href={s.link} target="_blank" rel="noopener noreferrer">
-                        {/* Enhanced Tooltip */}
-                        <div className="social-tooltip absolute top-0 left-1/2 -translate-x-1/2 p-[10px] opacity-0 pointer-events-none rounded-[15px] z-[100] w-[190px] transition-all duration-300">
-                          <div className="bg-white rounded-[12px] p-[12px] shadow-[0_15px_30px_rgba(0,0,0,0.12)] border border-[#F1F5F9]">
-                            <div className="flex gap-[12px] items-center">
-                                <img src="/Logo.png" alt="Logo" className="w-[38px] h-[38px] border border-solid border-[rgba(0,0,0,0.05)] rounded-[10px] bg-white object-contain p-[4px]" style={{ borderColor: s.color }} />
-                                <div className="flex flex-col gap-0">
-                                  <div className="text-[14px] font-[800] text-[#0F172A]">{s.label}</div>
-                                  <div className="text-[11px] font-[600]" style={{ color: s.color }}>{s.handle}</div>
-                                </div>
-                            </div>
-                            <div className="text-[#64748B] pt-[10px] text-[11px] mt-[10px] border-t border-[#F1F5F9]">Join the CRCCF {s.label} Community</div>
-                          </div>
-                        </div>
+
 
                         <div className="social-layer w-[56px] h-[56px] transition-all duration-300 relative max-[640px]:w-[48px] max-[640px]:h-[48px]">
                           <span className="absolute inset-0 border border-solid rounded-[18px] opacity-20 transition-all duration-300 group-hover:rotate-12" style={{ borderColor: s.color }}></span>
@@ -421,9 +382,7 @@ export default function ReachUsPage() {
                           </span>
                         </div>
                         
-                        <div className="social-text absolute left-1/2 bottom-[-28px] opacity-0 font-[800] -translate-x-1/2 transition-all duration-300 whitespace-nowrap text-[11px] group-hover:opacity-100 group-hover:bottom-[-32px]" style={{ color: s.color }}>
-                          {s.label}
-                        </div>
+
                       </a>
                     </div>
                   </motion.div>
@@ -514,26 +473,26 @@ export default function ReachUsPage() {
             {branches.map((b, i) => (
               <motion.div 
                 key={i} 
-                className={`relative w-full max-w-[280px] h-[380px] bg-white rounded-[20px] overflow-hidden transition-all duration-[0.3s] shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.2)] group cursor-pointer ${isAutoHoverActive || activeBranch === i ? 'is-hovered shadow-[0_20px_40px_rgba(37,99,235,0.2)]' : ''} max-[640px]:h-[280px] max-[400px]:max-w-[240px]`}
+                className={`relative w-full max-w-[280px] h-[380px] bg-white rounded-[20px] overflow-hidden transition-all duration-[0.3s] shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.2)] group cursor-pointer ${activeBranch === i ? 'is-hovered shadow-[0_20px_40px_rgba(37,99,235,0.2)]' : ''} max-[640px]:h-[280px] max-[400px]:max-w-[240px]`}
                 initial={{ opacity: 0, scale: 0.9, y: 50 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
                 onClick={(e) => handleBranchTap(e, i)}
               >
-                <div className={`h-[65%] bg-white flex flex-col items-center justify-center p-[20px] text-center transition-[height] duration-[0.3s] group-hover:h-[25%] ${isAutoHoverActive || activeBranch === i ? 'h-[25%]' : ''}`}>
-                  <div className={`w-[64px] h-[64px] bg-[#EFF6FF] text-[#2563EB] rounded-[16px] flex items-center justify-center mb-[20px] transition-all duration-[0.3s] group-hover:scale-[0.7] group-hover:mb-[5px] ${isAutoHoverActive || activeBranch === i ? 'scale-[0.7] mb-[5px]' : ''} max-[640px]:w-[48px] max-[640px]:h-[48px] max-[640px]:mb-[12px]`}><MapPin size={32} /></div>
-                  <h4 className={`text-[20px] font-[800] text-[#0F172A] m-0 transition-all duration-[0.3s] group-hover:text-[16px] ${isAutoHoverActive || activeBranch === i ? 'text-[16px]' : ''} max-[640px]:text-[15px] group-hover:max-[640px]:text-[13px] ${isAutoHoverActive || activeBranch === i ? 'max-[640px]:text-[13px]' : ''}`}>{b.city}</h4>
+                <div className={`h-[65%] bg-white flex flex-col items-center justify-center p-[20px] text-center transition-[height] duration-[0.3s] group-hover:h-[25%] ${activeBranch === i ? 'h-[25%]' : ''}`}>
+                  <div className={`w-[64px] h-[64px] bg-[#EFF6FF] text-[#2563EB] rounded-[16px] flex items-center justify-center mb-[20px] transition-all duration-[0.3s] group-hover:scale-[0.7] group-hover:mb-[5px] ${activeBranch === i ? 'scale-[0.7] mb-[5px]' : ''} max-[640px]:w-[48px] max-[640px]:h-[48px] max-[640px]:mb-[12px]`}><MapPin size={32} /></div>
+                  <h4 className={`text-[20px] font-[800] text-[#0F172A] m-0 transition-all duration-[0.3s] group-hover:text-[16px] ${activeBranch === i ? 'text-[16px]' : ''} max-[640px]:text-[15px] group-hover:max-[640px]:text-[13px] ${activeBranch === i ? 'max-[640px]:text-[13px]' : ''}`}>{b.city}</h4>
                 </div>
-                <div className={`h-[35%] bg-[#2563EB] relative transition-[height] duration-[0.3s] group-hover:h-[75%] ${isAutoHoverActive || activeBranch === i ? 'h-[75%]' : ''}
+                <div className={`h-[35%] bg-[#2563EB] relative transition-[height] duration-[0.3s] group-hover:h-[75%] ${activeBranch === i ? 'h-[75%]' : ''}
                   before:content-[""] before:absolute before:bg-transparent before:bottom-[132px] before:h-[60px] before:w-[260px] before:transition-[bottom] before:duration-[0.3s] before:rounded-bl-[20px] before:shadow-[0_30px_0_0_#2563EB] before:pointer-events-none
                   group-hover:before:bottom-[284px]
-                  ${isAutoHoverActive || activeBranch === i ? 'before:bottom-[284px]' : ''}
+                  ${activeBranch === i ? 'before:bottom-[284px]' : ''}
                   max-[640px]:before:w-[calc(100%-20px)] max-[640px]:before:bottom-[97px]
                   max-[640px]:group-hover:before:bottom-[209px]
-                  ${isAutoHoverActive || activeBranch === i ? 'max-[640px]:before:bottom-[209px]' : ''}
+                  ${activeBranch === i ? 'max-[640px]:before:bottom-[209px]' : ''}
                 `}>
-                  <div className={`flex flex-col justify-center items-center text-white h-full p-[30px_20px] opacity-0 translate-y-[20px] transition-all duration-[0.3s] group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[0.1s] ${isAutoHoverActive || activeBranch === i ? 'opacity-100 translate-y-0 delay-[0.1s]' : ''} max-[640px]:p-[0.4rem]`}>
+                  <div className={`flex flex-col justify-center items-center text-white h-full p-[30px_20px] opacity-0 translate-y-[20px] transition-all duration-[0.3s] group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[0.1s] ${activeBranch === i ? 'opacity-100 translate-y-0 delay-[0.1s]' : ''} max-[640px]:p-[0.4rem]`}>
                     <span className="font-[700] text-[18px] mb-[12px] max-[640px]:text-[15px] max-[640px]:mb-[8px]">{b.city}</span>
                     <p className="text-[14px] text-center leading-[1.5] mb-[20px] m-0 max-[640px]:text-[11.5px] max-[640px]:mb-[14px]">{b.address}</p>
                     <a href={`tel:${b.phone}`} className="text-[13px] text-white no-underline bg-transparent border-[2px] border-solid border-white rounded-[100px] p-[10px_20px] transition-all duration-[0.3s] whitespace-nowrap hover:bg-white hover:text-[#2563EB] max-[640px]:p-[8px_16px] max-[640px]:font-[11px]">
