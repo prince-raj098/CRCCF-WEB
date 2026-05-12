@@ -484,17 +484,19 @@ const InsightCard = ({ section, index }) => {
           return (
             <div
               key={pageIdx}
-              style={{ zIndex: 10 - pageIdx }}
+              style={{ zIndex: 15 - pageIdx }}
               className={`
                 absolute inset-0 p-8 flex flex-col w-full h-full justify-start 
-                pl-12 rounded-[20px] transition-all duration-[0.8s] 
+                pl-12 rounded-[20px] transition-all duration-[1s] 
+                ease-[cubic-bezier(0.645,0.045,0.355,1)]
                 [transform-origin:left_center] [backface-visibility:hidden]
+                will-change-transform will-change-opacity
                 ${pageIdx % 2 === 0 ? 'bg-slate-50' : 'bg-slate-100'}
                 ${isFlipped
-                  ? '[transform:rotateY(-120deg)_scale(0.9)_translateX(-10px)] !opacity-0 pointer-events-none'
+                  ? '[transform:rotateY(-125deg)_scale(0.9)_translateX(-15px)] opacity-100 pointer-events-none shadow-[-10px_0_30px_rgba(0,0,0,0.1)]'
                   : pageIdx === activePageIndex
-                    ? 'opacity-100'
-                    : 'opacity-0 pointer-events-none'
+                    ? 'opacity-100 translate-x-0 rotate-y-0 scale-100'
+                    : 'opacity-0 pointer-events-none translate-x-4'
                 }
               `}
             >
@@ -547,11 +549,11 @@ const InsightCard = ({ section, index }) => {
         <div
           className={`
             absolute inset-0 w-full h-full rounded-[20px] cursor-pointer 
-            transition-all duration-[0.8s] ease-[cubic-bezier(0.4,0,0.2,1)] 
+            transition-all duration-[1.2s] ease-[cubic-bezier(0.645,0.045,0.355,1)] 
             [transform-origin:left_center] shadow-[4px_0_24px_rgba(0,0,0,0.1)] 
-            flex flex-col items-center justify-center z-[10] p-8 text-center 
-            [backface-visibility:hidden] bg-white 
-            ${isOpen ? '[transform:rotateY(-130deg)_scale(0.95)_translateX(-10px)] opacity-0 pointer-events-none' : ''}
+            flex flex-col items-center justify-center z-[20] p-8 text-center 
+            [backface-visibility:hidden] bg-white will-change-transform
+            ${isOpen ? '[transform:rotateY(-140deg)_scale(0.9)_translateX(-20px)] opacity-0 pointer-events-none' : ''}
           `}
           style={{
             background: `linear-gradient(135deg, #ffffff, ${theme.bg})`,
