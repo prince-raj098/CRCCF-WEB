@@ -411,7 +411,17 @@ const InsightCard = ({ section, index }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activePageIndex, setActivePageIndex] = useState(0);
   const [previewPageIndex, setPreviewPageIndex] = useState(null);
+  const [showScrubber, setShowScrubber] = useState(false);
+  const scrubberTimer = useRef(null);
   const SVGComp = getSvgComponent(section);
+
+  const keepScrubberVisible = () => {
+    if (window.innerWidth > 1024) {
+      setShowScrubber(true);
+      if (scrubberTimer.current) clearTimeout(scrubberTimer.current);
+      scrubberTimer.current = setTimeout(() => setShowScrubber(false), 3000);
+    }
+  };
 
   const themes = [
     { color: "#2563EB", bg: "#EFF6FF", label: "CYBERSECURITY" },
@@ -436,7 +446,7 @@ const InsightCard = ({ section, index }) => {
   };
 
   const handleMouseLeave = () => {
-    if (isDesktop()) {
+    if (isDesktop() && !showScrubber) {
       setIsOpen(false);
       setActivePageIndex(0);
     }
@@ -509,7 +519,7 @@ const InsightCard = ({ section, index }) => {
                   <div className="flex gap-3">
                     {pageIdx > 0 && (
                       <button
-                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx - 1); }}
+                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx - 1); keepScrubberVisible(); }}
                         className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn"
                       >
                         <ArrowLeft size={14} className="group-hover/btn:-translate-x-0.5 transition-transform" /> Back
@@ -519,7 +529,7 @@ const InsightCard = ({ section, index }) => {
                   <div className="flex items-center gap-4">
                     {pageIdx < allPages.length - 1 && (
                       <button
-                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx + 1); }}
+                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx + 1); keepScrubberVisible(); }}
                         className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn"
                       >
                         Next <ArrowRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
@@ -584,7 +594,7 @@ const InsightCard = ({ section, index }) => {
       <div
         className={`
           px-2 transition-all duration-500 ease-out mt-4
-          ${isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none group-hover/card:opacity-100 group-hover/card:translate-y-0 group-hover/card:pointer-events-auto'}
+          ${isOpen || showScrubber ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'}
         `}
       >
         <div 
@@ -637,7 +647,7 @@ const InsightCard = ({ section, index }) => {
               min="0"
               max={allPages.length - 1}
               value={activePageIndex}
-              onChange={(e) => setActivePageIndex(parseInt(e.target.value))}
+              onChange={(e) => { setActivePageIndex(parseInt(e.target.value)); keepScrubberVisible(); }}
               onMouseEnter={(e) => e.stopPropagation()}
               className="
                 w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer 
