@@ -1,12 +1,13 @@
 // src/pages/AboutUs/IntroductionOfCRCCF.jsx
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, BookOpen, GraduationCap, ShieldCheck, Globe, Users, Briefcase, Scale, Heart } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import {
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
+  useSpring,
   AnimatePresence,
 } from "framer-motion";
 
@@ -61,6 +62,120 @@ const color = {
   indigo500: "#6366F1",
 };
 
+/* -------------------------- HERO: Digital Sunrise -------------------------- */
+const IntroHeroOverlay = () => {
+  return (
+    <g transform="translate(680, 50)">
+      <defs>
+        <pattern id="introGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 30 0 L 0 0 0 30" fill="none" stroke={color.slate700} strokeWidth="0.5" opacity="0.3" />
+        </pattern>
+        <linearGradient id="sunGrad" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stopColor={color.amber500} />
+          <stop offset="100%" stopColor={color.rose500} />
+        </linearGradient>
+      </defs>
+      <rect width="300" height="300" fill="url(#introGrid)" />
+
+      <g transform="translate(150, 180)">
+        <motion.circle
+          cx="0"
+          cy="0"
+          fill="url(#sunGrad)"
+          initial={{ r: 0 }}
+          animate={{ r: 60 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        />
+
+        {[0, 45, 90, 135, 180].map((deg, i) => (
+          <motion.line
+            key={i}
+            x1="0" y1="0" x2="0" y2="-100"
+            stroke={color.amber400}
+            strokeWidth="2"
+            strokeDasharray="5 5"
+            transform={`rotate(${deg - 90})`}
+            initial={{ opacity: 0, pathLength: 0 }}
+            animate={{ opacity: 0.6, pathLength: 1 }}
+            transition={{ delay: 1 + (i * 0.1), duration: 1 }}
+          />
+        ))}
+
+        <motion.g animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }}>
+          <ellipse cx="0" cy="0" rx="90" ry="30" fill="none" stroke={color.blue500} strokeWidth="1" opacity="0.6" />
+          <circle cx="90" cy="0" r="4" fill={color.white} />
+        </motion.g>
+        <motion.g animate={{ rotate: -360 }} transition={{ duration: 12, repeat: Infinity, ease: "linear" }}>
+          <ellipse cx="0" cy="0" rx="30" ry="90" fill="none" stroke={color.emerald500} strokeWidth="1" opacity="0.6" />
+          <circle cx="0" cy="-90" r="4" fill={color.white} />
+        </motion.g>
+      </g>
+
+      <path
+        d="M0 300 L 50 250 L 80 280 L 120 220 L 160 260 L 200 200 L 250 280 L 300 270 V 300 H 0 Z"
+        fill={color.slate900}
+        opacity="0.8"
+      />
+    </g>
+  );
+};
+
+const VideoHeroIntro = ({ src = "", poster = "" }) => {
+  const shouldReduce = useReducedMotion();
+  const title = "CRCCF Introduction Hero";
+
+  if (shouldReduce || !src) {
+    return (
+      <svg viewBox="0 0 1000 400" role="img" aria-label={title} className="w-full h-auto">
+        <defs>
+          <linearGradient id="introHeroGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={color.slate900} />
+            <stop offset="100%" stopColor={color.blue900} />
+          </linearGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#introHeroGrad)" rx="20" />
+        <IntroHeroOverlay />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 1000 400" className="w-full h-auto block" role="img" aria-label={title}>
+      <defs>
+        <linearGradient id="introHeroGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor={color.slate900} />
+          <stop offset="100%" stopColor={color.blue900} />
+        </linearGradient>
+        <mask id="introHeroMask">
+          <rect width="100%" height="100%" fill="white" />
+          <IntroHeroOverlay />
+        </mask>
+      </defs>
+
+      <rect width="100%" height="100%" fill="url(#introHeroGrad)" rx="20" />
+
+      <foreignObject x="0" y="0" width="1000" height="400" mask="url(#introHeroMask)">
+        <video
+          src={src}
+          poster={poster || undefined}
+          autoPlay
+          muted
+          playsInline
+          loop
+          preload="metadata"
+          crossOrigin="anonymous"
+          style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }}
+          onError={(e) => { e.currentTarget.style.display = "none"; }}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      </foreignObject>
+
+      <IntroHeroOverlay />
+    </svg>
+  );
+};
+
 /* ------------------------ REUSABLE SVG LIBRARY (24 Items) ------------------------ */
 const BG = ({ id, c1, c2 }) => (
   <defs><linearGradient id={id} x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor={c1} /><stop offset="100%" stopColor={c2} /></linearGradient></defs>
@@ -80,7 +195,7 @@ const SvgVision = ({ className }) => (
   <svg viewBox="0 0 100 100" className={className}>
     <path d="M10 50 Q 50 10, 90 50 Q 50 90, 10 50" fill="none" stroke={color.slate700} strokeWidth="2" />
     <circle cx="50" cy="50" r="15" fill={color.blue500} />
-    <motion.circle cx="50" cy="50" r="8" fill={color.white} animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity }} />
+    <motion.circle cx="50" cy="50" fill={color.white} initial={{ r: 8 }} animate={{ r: [8, 10, 8] }} transition={{ duration: 2, repeat: Infinity }} />
   </svg>
 );
 
@@ -89,9 +204,9 @@ const SvgKnowledge = ({ className }) => (
     <path d="M20 40 Q 50 50, 80 40 V 80 Q 50 90, 20 80 Z" fill={color.emerald50} stroke={color.emerald500} strokeWidth="2" />
     <line x1="50" y1="45" x2="50" y2="85" stroke={color.emerald500} strokeWidth="1" />
     <motion.g animate={{ y: [-5, 5, -5] }} transition={{ duration: 3, repeat: Infinity }}>
-        <circle cx="30" cy="30" r="3" fill={color.amber500} />
-        <circle cx="70" cy="30" r="3" fill={color.amber500} />
-        <circle cx="50" cy="20" r="3" fill={color.amber500} />
+      <circle cx="30" cy="30" r="3" fill={color.amber500} />
+      <circle cx="70" cy="30" r="3" fill={color.amber500} />
+      <circle cx="50" cy="20" r="3" fill={color.amber500} />
     </motion.g>
   </svg>
 );
@@ -205,7 +320,7 @@ const SvgLaw = ({ className }) => (
     <path d="M20 30 L 10 50 H 30 L 20 30" fill={color.amber500} opacity="0.5" />
     <path d="M80 30 L 70 50 H 90 L 80 30" fill={color.amber500} opacity="0.5" />
     <motion.g animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity }}>
-       <line x1="20" y1="30" x2="80" y2="30" stroke={color.amber500} strokeWidth="1" />
+      <line x1="20" y1="30" x2="80" y2="30" stroke={color.amber500} strokeWidth="1" />
     </motion.g>
   </svg>
 );
@@ -259,8 +374,8 @@ const SvgFuture = ({ className }) => (
 );
 
 // Mapper
-const getSvgComponent = (heading) => {
-  const text = heading.toLowerCase();
+const getSvgComponent = (item) => {
+  const text = ((item.id || "") + " " + (item.heading || "")).toLowerCase();
 
   if (text.includes("welcome")) return SvgWelcome;
   if (text.includes("vision")) return SvgVision;
@@ -287,357 +402,254 @@ const getSvgComponent = (heading) => {
   if (text.includes("ethic") || text.includes("moral") || text.includes("behavior")) return SvgEthics;
   if (text.includes("india") || text.includes("nation") || text.includes("bharat")) return SvgNation;
   if (text.includes("future") || text.includes("tomorrow")) return SvgFuture;
-  
+
   return SvgWelcome; // Default
 };
 
-/* -------------------------- Video Hero -------------------------- */
-const IntroHeroOverlay = () => {
-  return (
-    <g transform="translate(680, 50)">
-      <defs>
-        <pattern id="introGrid" width="30" height="30" patternUnits="userSpaceOnUse">
-          <path d="M 30 0 L 0 0 0 30" fill="none" stroke={color.slate700} strokeWidth="0.5" opacity="0.3"/>
-        </pattern>
-        <linearGradient id="sunGrad" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor={color.amber500} />
-          <stop offset="100%" stopColor={color.rose500} />
-        </linearGradient>
-      </defs>
-      <rect width="300" height="300" fill="url(#introGrid)" />
+/* ------------------------------ InsightCard ------------------------------ */
+/* ------------------------------ InsightCard (Book Animation) ------------------------------ */
+const InsightCard = ({ section, index }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activePageIndex, setActivePageIndex] = useState(0);
+  const [previewPageIndex, setPreviewPageIndex] = useState(null);
+  const SVGComp = getSvgComponent(section);
 
-      <g transform="translate(150, 180)">
-        <motion.circle 
-          r="60" 
-          fill="url(#sunGrad)" 
-          initial={{ scale: 0, y: 50 }}
-          animate={{ scale: 1, y: 0 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-        />
-        
-        {[0, 45, 90, 135, 180].map((deg, i) => (
-          <motion.line
-            key={i}
-            x1="0" y1="0" x2="0" y2="-100"
-            stroke={color.amber400}
-            strokeWidth="2"
-            strokeDasharray="5 5"
-            transform={`rotate(${deg - 90})`}
-            initial={{ opacity: 0, pathLength: 0 }}
-            animate={{ opacity: 0.6, pathLength: 1 }}
-            transition={{ delay: 1 + (i * 0.1), duration: 1 }}
-          />
-        ))}
+  const themes = [
+    { color: "#2563EB", bg: "#EFF6FF", label: "CYBERSECURITY" },
+    { color: "#9333EA", bg: "#F5F3FF", label: "TECHNOLOGY" },
+    { color: "#E11D48", bg: "#FFF1F2", label: "LEGAL" },
+    { color: "#059669", bg: "#ECFDF5", label: "AWARENESS" },
+    { color: "#D97706", bg: "#FFFBEB", label: "EDUCATION" },
+  ];
+  const theme = themes[index % themes.length];
 
-        <motion.g animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }}>
-           <ellipse cx="0" cy="0" rx="90" ry="30" fill="none" stroke={color.blue500} strokeWidth="1" opacity="0.6" />
-           <circle cx="90" cy="0" r="4" fill={color.white} />
-        </motion.g>
-        <motion.g animate={{ rotate: -360 }} transition={{ duration: 12, repeat: Infinity, ease: "linear" }}>
-           <ellipse cx="0" cy="0" rx="30" ry="90" fill="none" stroke={color.emerald500} strokeWidth="1" opacity="0.6" />
-           <circle cx="0" cy="-90" r="4" fill={color.white} />
-        </motion.g>
-      </g>
-      
-      <path 
-        d="M0 300 L 50 250 L 80 280 L 120 220 L 160 260 L 200 200 L 250 280 L 300 270 V 300 H 0 Z" 
-        fill={color.slate900} 
-        opacity="0.8"
-      />
-    </g>
-  );
-};
-
-const VideoHeroIntro = ({ src = "" }) => {
-  return (
-    <svg viewBox="0 0 1000 400" className="w-full h-auto block rounded-[32px] overflow-hidden" role="img">
-      <defs>
-        <linearGradient id="introHeroGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor={color.slate900} />
-          <stop offset="100%" stopColor={color.blue900} />
-        </linearGradient>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#introHeroGrad)" />
-      <foreignObject x="0" y="0" width="1000" height="400">
-        <video
-          src={src}
-          autoPlay
-          muted
-          playsInline
-          loop
-          style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }}
-        />
-      </foreignObject>
-      <IntroHeroOverlay />
-    </svg>
-  );
-};
-
-const themes = [
-  { color: "#2563EB", bg: "#EFF6FF", label: "FOUNDATION" },
-  { color: "#9333EA", bg: "#F5F3FF", label: "TECHNOLOGY" },
-  { color: "#E11D48", bg: "#FFF1F2", label: "LEGAL & SUPPORT" },
-  { color: "#059669", bg: "#ECFDF5", label: "SOCIETY" },
-  { color: "#D97706", bg: "#FFFBEB", label: "GROWTH" },
-];
-
-/* -------------------------- Foundation Chronicle -------------------------- */
-const FoundationChronicle = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [isCoverOpen, setIsCoverOpen] = useState(false);
-  const totalPages = introductiondata.length || 1;
-  
-  const [isScrubbing, setIsScrubbing] = useState(false);
-  const [hoverX, setHoverX] = useState(null);
-  const scrubberRef = useRef(null);
-
-  const currentData = introductiondata[currentPage] || { heading: "Introduction", content: "Learn more about our foundation." };
-  const SVGComp = getSvgComponent(currentData.heading || "") || SvgWelcome;
-  const theme = themes[currentPage % themes.length] || themes[0];
-
-  const getPreviewPage = (xPercent) => {
-    return Math.max(0, Math.min(totalPages - 1, Math.round((xPercent / 100) * (totalPages - 1))));
+  const handleOpen = (e) => {
+    e.stopPropagation();
+    setIsOpen(prev => !prev);
   };
 
-  const previewPage = hoverX !== null ? getPreviewPage(hoverX) : currentPage;
-  const previewData = introductiondata[previewPage] || currentData;
-
-  const handleNext = () => {
-    if (currentPage < totalPages - 1) {
-      setCurrentPage(prev => prev + 1);
+  const handleMouseLeave = () => {
+    // We don't force close anymore to allow scrubber interaction
+    if (!isOpen && window.innerWidth > 1024) {
+      setActivePageIndex(0);
     }
   };
 
-  const handlePrev = () => {
-    if (currentPage > 0) {
-      setCurrentPage(prev => prev - 1);
-    }
-  };
+  const subPages = section.subPages || [];
+  const allPages = [
+    { heading: section.heading, content: section.content, label: theme.label },
+    ...subPages.map(sp => ({ ...sp, label: sp.heading.toUpperCase() }))
+  ];
 
   return (
-    <div className="flex flex-col items-center gap-6 sm:gap-12 w-full max-w-5xl mx-auto py-6 sm:py-10">
-      {/* Book Container */}
-      <div className="relative w-full min-h-[550px] sm:h-auto sm:aspect-[16/9] [transform-style:preserve-3d] [perspective:2500px]">
-        
-        {/* Internal Pages (Static Base) */}
-        <div className="absolute inset-0 bg-white rounded-[24px] shadow-2xl border border-slate-100 overflow-hidden flex flex-col sm:flex-row">
-          
-          {/* Visual Side (Top on Mobile, Left on Desktop) */}
-          <div className="w-full sm:w-1/2 h-56 sm:h-full bg-slate-50 border-b sm:border-b-0 sm:border-r border-slate-200 flex flex-col items-center justify-center p-6 sm:p-12 relative">
-            <div className="absolute top-2 left-6 sm:top-8 sm:left-8 flex items-center gap-2">
-              <BookOpen size={12} className="text-slate-400" />
-              <span className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">Foundation Chronicle</span>
-            </div>
-            
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentPage}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="flex flex-col items-center text-center px-4"
-              >
-                <div className="w-16 h-16 sm:w-40 sm:h-40 rounded-[18px] sm:rounded-[36px] flex items-center justify-center mb-2 sm:mb-6 shadow-inner" style={{ background: theme.bg }}>
-                  {SVGComp && <SVGComp className="w-8 h-8 sm:w-20 sm:h-20" style={{ color: theme.color }} />}
-                </div>
-                
-                <h2 className="text-lg sm:text-2xl font-black leading-tight mb-0.5" style={{ color: theme.color }}>
-                  {currentData.heading}
-                </h2>
-                
-                <div className="mb-1 sm:mb-4 w-16 sm:w-24">
-                  <motion.svg viewBox="0 0 100 10" className="w-full h-1.5 sm:h-2" style={{ color: theme.color }}>
-                    <motion.path 
-                      d="M5 5 Q 25 2, 50 5 T 95 5" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="3" 
-                      strokeLinecap="round"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                    />
-                  </motion.svg>
-                </div>
+    <div className="flex flex-col gap-6 w-full group/card">
+      <motion.article
+        className={`
+          relative bg-white border border-slate-200 rounded-[20px] 
+          h-[360px] w-full shadow-[0_4px_20px_rgba(0,0,0,0.05)] 
+          [transform-style:preserve-3d] [perspective:2000px] 
+          flex items-center justify-center transition-all duration-300 
+          hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)]
+          ${isOpen ? 'shadow-[0_20px_50px_rgba(0,0,0,0.12)]' : ''}
+        `}
+        onMouseLeave={handleMouseLeave}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+      >
+        {/* Dynamic Pages Stack */}
+        {allPages.slice().reverse().map((page, revIdx) => {
+          const pageIdx = allPages.length - 1 - revIdx;
+          const isFlipped = activePageIndex > pageIdx;
+          const PageSVG = getSvgComponent(page);
 
-                <span className="px-4 py-1 rounded-full text-[9px] sm:text-[11px] font-black tracking-[0.2em] uppercase mb-1 sm:mb-4" style={{ background: theme.bg, color: theme.color }}>
-                  {theme.label}
-                </span>
-              </motion.div>
-            </AnimatePresence>
-            
-            <div 
-              ref={scrubberRef}
-              className="absolute bottom-2 left-6 right-6 sm:bottom-10 sm:left-12 sm:right-12 group/scrubber"
-              onMouseMove={(e) => {
-                const rect = scrubberRef.current.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                setHoverX((x / rect.width) * 100);
-              }}
-              onMouseLeave={() => setHoverX(null)}
+          return (
+            <div
+              key={pageIdx}
+              style={{ zIndex: 10 - pageIdx }}
+              className={`
+                absolute inset-0 p-8 flex flex-col w-full h-full justify-start 
+                pl-12 rounded-[20px] transition-all duration-[0.8s] 
+                [transform-origin:left_center] [backface-visibility:hidden]
+                ${pageIdx % 2 === 0 ? 'bg-slate-50' : 'bg-slate-100'}
+                ${isFlipped
+                  ? '[transform:rotateY(-120deg)_scale(0.9)_translateX(-10px)] !opacity-0 pointer-events-none'
+                  : `opacity-0 group-hover/card:opacity-100 ${isOpen ? 'opacity-100' : ''}`
+                }
+              `}
             >
-               {/* Floating Tooltip */}
-               <motion.div 
-                 className="absolute -top-12 px-3 py-1.5 bg-white shadow-xl rounded-lg border border-slate-100 flex flex-col items-center pointer-events-none z-30 transition-opacity duration-200"
-                 animate={{ opacity: (isScrubbing || hoverX !== null) ? 1 : 0 }}
-                 style={{ 
-                   left: `${hoverX !== null ? hoverX : (currentPage / (totalPages - 1)) * 100}%`,
-                   translateX: "-50%",
-                   borderColor: (themes[previewPage % themes.length] || themes[0]).color + "40"
-                 }}
-               >
-                 <span className="text-[10px] font-black" style={{ color: (themes[previewPage % themes.length] || themes[0]).color }}>PAGE {previewPage + 1}</span>
-                 <span className="text-[8px] font-bold text-slate-400 whitespace-nowrap uppercase tracking-tighter max-w-[100px] truncate">
-                   {previewData.heading}
-                 </span>
-                 <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white border-r border-b border-slate-100 rotate-45" />
-               </motion.div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: theme.bg }}>
+                  <PageSVG className="w-6 h-6" style={{ color: theme.color }} />
+                </div>
+                <div className="flex flex-col">
+                  <h4 className="text-[14px] font-black uppercase tracking-widest" style={{ color: theme.color }}>
+                    {pageIdx === 0 ? "Welcome to CRCCF" : page.label}
+                  </h4>
+                  <span className="text-[10px] font-bold text-slate-400">Page {pageIdx + 1} of {allPages.length}</span>
+                </div>
+              </div>
 
-               <div className="relative h-2.5 w-full bg-slate-200 rounded-full overflow-hidden cursor-pointer shadow-inner">
-                  <motion.div 
-                    className="absolute top-0 left-0 h-full z-10 pointer-events-none" 
-                    style={{ backgroundColor: theme.color }}
-                    initial={{ width: 0 }}
-                    animate={{ width: `${((currentPage + 1) / totalPages) * 100}%` }}
-                  />
-                  <input 
-                    type="range"
-                    min="0"
-                    max={totalPages - 1}
-                    value={currentPage}
-                    onMouseDown={() => setIsScrubbing(true)}
-                    onMouseUp={() => setIsScrubbing(false)}
-                    onTouchStart={() => setIsScrubbing(true)}
-                    onTouchEnd={() => setIsScrubbing(false)}
-                    onChange={(e) => {
-                      setIsCoverOpen(true);
-                      setCurrentPage(parseInt(e.target.value));
-                    }}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
-                  />
-               </div>
-               <div className="text-[8px] font-bold text-slate-400 mt-2 flex justify-between px-1 opacity-60">
-                  <span>START</span>
-                  <span>PAGE {currentPage + 1} OF {totalPages}</span>
-                  <span>END</span>
-               </div>
+              <div className="flex-1 overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-[4px] [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-[4px]">
+                <p className="text-[15px] text-slate-700 leading-relaxed font-medium italic">{page.content}</p>
+              </div>
+
+              <div className="pt-6 mt-auto border-t border-slate-200">
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-3">
+                    {pageIdx > 0 && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx - 1); }}
+                        className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn"
+                      >
+                        <ArrowLeft size={14} className="group-hover/btn:-translate-x-0.5 transition-transform" /> Back
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {pageIdx < allPages.length - 1 && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx + 1); }}
+                        className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn"
+                      >
+                        Next <ArrowRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
+                      </button>
+                    )}
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.color }} />
+                  </div>
+                </div>
+              </div>
             </div>
+          );
+        })}
+
+        {/* COVER */}
+        <div
+          className={`
+            absolute inset-0 w-full h-full rounded-[20px] cursor-pointer 
+            transition-all duration-[0.8s] ease-[cubic-bezier(0.4,0,0.2,1)] 
+            [transform-origin:left_center] shadow-[4px_0_24px_rgba(0,0,0,0.1)] 
+            flex flex-col items-center justify-center z-[10] p-8 text-center 
+            [backface-visibility:hidden] bg-white 
+            group-hover/card:[transform:rotateY(-130deg)_scale(0.95)_translateX(-10px)] 
+            group-hover/card:opacity-0 group-hover/card:pointer-events-none
+            ${isOpen ? '[transform:rotateY(-130deg)_scale(0.95)_translateX(-10px)] opacity-0 pointer-events-none' : ''}
+          `}
+          style={{
+            background: `linear-gradient(135deg, #ffffff, ${theme.bg})`,
+            borderLeft: `6px solid ${theme.color}`
+          }}
+          onClick={handleOpen}
+        >
+          <div
+            className="w-[84px] h-[84px] rounded-[22px] flex items-center justify-center mb-6 shadow-sm bg-white/50 backdrop-blur-sm p-3"
+          >
+            <img
+              src="/CRCCF_LOGO-removebg-preview.png"
+              alt="CRCCF Logo"
+              className="w-full h-full object-contain filter drop-shadow-sm"
+            />
           </div>
 
-          {/* Content Side (Bottom on Mobile, Right on Desktop) */}
-          <div className="w-full sm:w-1/2 h-[calc(100%-224px)] sm:h-full bg-white p-6 sm:p-16 flex flex-col justify-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentPage}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="flex flex-col h-full"
-              >
-                <div className="flex-1 overflow-y-auto pr-2 sm:pr-4 [&::-webkit-scrollbar]:w-[4px] [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-[4px] flex items-center relative">
-                  <div className="absolute top-0 left-0 text-6xl sm:text-8xl text-slate-50 font-serif pointer-events-none select-none">“</div>
-                  <p className="relative z-10 text-base sm:text-xl text-slate-500 leading-relaxed font-medium italic">
-                    {currentData.content}
-                  </p>
-                </div>
-                
-                <div className="mt-6 sm:mt-12 flex items-center justify-between">
-                  <motion.button 
-                    onClick={handlePrev}
-                    disabled={currentPage === 0}
-                    whileHover={currentPage !== 0 ? { scale: 1.05, x: -4 } : {}}
-                    whileTap={currentPage !== 0 ? { scale: 0.95 } : {}}
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-400 hover:text-blue-600 hover:bg-blue-50 disabled:opacity-0 transition-colors group"
-                  >
-                    <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> PREV
-                  </motion.button>
-                  
-                  {currentPage < totalPages - 1 ? (
-                    <motion.button 
-                      onClick={handleNext}
-                      whileHover={{ scale: 1.05, x: 4 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-6 py-2 rounded-xl text-xs sm:text-sm font-black text-white shadow-lg shadow-blue-900/10 transition-all"
-                      style={{ backgroundColor: theme.color }}
-                    >
-                      NEXT <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                    </motion.button>
-                  ) : (
-                    <div className="flex items-center gap-2 px-6 py-2 rounded-xl bg-emerald-50 text-emerald-600 font-black text-xs sm:text-sm border border-emerald-100">
-                      <ShieldCheck size={16} /> END
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            </AnimatePresence>
+
+          <style>
+            {`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}
+          </style>
+          <h3
+            className={`text-slate-900 leading-[1.2] mb-6 px-2 ${section.heading === "Welcome to CRCCF"
+              ? "text-[32px] font-bold"
+              : "text-[22px] font-black uppercase tracking-tight"
+              }`}
+            style={section.heading === "Welcome to CRCCF" ? { fontFamily: "'Dancing Script', cursive" } : {}}
+          >
+            {section.heading === "Welcome to CRCCF" ? "CRCCF Chronicles" : section.heading}
+          </h3>
+
+          <div className="flex items-center gap-2 text-[12px] font-black uppercase tracking-[0.1em] mt-auto" style={{ color: theme.color }}>
+            <span>Explore Our Pillars</span>
+            <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
           </div>
         </div>
+      </motion.article>
 
-        {/* The Moving Cover */}
-        {!isCoverOpen && (
-          <motion.div
-            onClick={() => setIsCoverOpen(true)}
-            className="absolute inset-0 z-[20] cursor-pointer bg-white rounded-[24px] shadow-2xl border-l-[8px] sm:border-l-[12px] border-blue-600 flex flex-col items-center justify-center p-8 sm:p-12 [transform-origin:left_center]"
-            whileHover={{ rotateY: -10 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          >
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-            
-            <div className="w-20 h-20 sm:w-32 sm:h-32 rounded-[24px] sm:rounded-[32px] bg-white flex items-center justify-center mb-6 sm:mb-10 shadow-md p-3 sm:p-5">
-              <img src="/Logo.png" alt="CRCCF Logo" className="w-full h-full object-contain" />
+      {/* Page Scroller (Slider) */}
+      <div
+        className={`
+          px-2 transition-all duration-500 ease-out mt-4
+          ${isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none group-hover/card:opacity-100 group-hover/card:translate-y-0 group-hover/card:pointer-events-auto'}
+        `}
+      >
+        <div 
+          className="flex flex-col gap-3 group/scrubber"
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.querySelector('input').getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const percent = Math.min(Math.max(x / rect.width, 0), 1);
+            const index = Math.round(percent * (allPages.length - 1));
+            setPreviewPageIndex(index);
+          }}
+          onMouseLeave={() => setPreviewPageIndex(null)}
+        >
+          <div className="flex justify-between items-center px-1">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Chronicle Scrubber</span>
+            <div className="flex items-center gap-2">
+              <AnimatePresence>
+                {previewPageIndex !== null && previewPageIndex !== activePageIndex && (
+                  <motion.span 
+                    initial={{ opacity: 0, x: 5 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 5 }}
+                    className="text-[10px] font-black text-slate-300 uppercase italic"
+                  >
+                    Jump to: {previewPageIndex + 1}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+              <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 text-[10px] font-black tabular-nums border border-blue-100">
+                PAGE {activePageIndex + 1} / {allPages.length}
+              </span>
             </div>
-            
-            <div className="text-center">
-              <div className="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[8px] sm:text-[10px] font-black tracking-[0.2em] mb-4 sm:mb-6 uppercase">
-                Official Publication
-              </div>
-              <h1 className="text-3xl sm:text-5xl font-black text-slate-900 leading-tight mb-2 sm:mb-4">
-                The CRCCF <br /> <span className="text-blue-600">Chronicle</span>
-              </h1>
-              <p className="text-slate-400 font-bold tracking-widest text-[9px] sm:text-xs uppercase">
-                Our Foundation's Pillars
-              </p>
-            </div>
-            
-            <div className="absolute bottom-10 flex flex-col items-center gap-3">
-               <motion.div 
-                 animate={{ y: [0, 5, 0] }} 
-                 transition={{ duration: 2, repeat: Infinity }}
-                 className="text-blue-600 font-black text-[10px] sm:text-sm flex items-center gap-2 uppercase tracking-widest"
-               >
-                 Tap to Open <BookOpen size={14} />
-               </motion.div>
-            </div>
-          </motion.div>
-        )}
-        
-        {/* Cover flipped state */}
-        <AnimatePresence>
-          {isCoverOpen && (
-            <motion.div
-              initial={{ rotateY: 0 }}
-              animate={{ rotateY: -180 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-              className="absolute inset-0 z-[15] bg-white rounded-[24px] shadow-xl border-r border-slate-200 [transform-origin:left_center] [backface-visibility:hidden] pointer-events-none hidden sm:block"
-            >
-              <div className="w-full h-full bg-slate-50 flex items-center justify-center p-12 [transform:rotateY(180deg)]">
-                 <div className="max-w-xs text-center opacity-40">
-                    <img src="/Logo.png" alt="CRCCF" className="h-16 mx-auto mb-6 grayscale brightness-0" />
-                    <p className="text-xs font-bold text-slate-400 leading-relaxed uppercase tracking-tighter">
-                      CR Cyber Crime Foundation
-                    </p>
-                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          </div>
+          <div className="relative pt-2">
+            {previewPageIndex !== null && (
+              <motion.div 
+                className="absolute -top-6 px-2 py-1 bg-slate-800 text-white text-[9px] font-bold rounded-md whitespace-nowrap pointer-events-none z-20 shadow-xl"
+                animate={{ 
+                  left: `${(previewPageIndex / (allPages.length - 1)) * 100}%`,
+                  x: "-50%" 
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                Page {previewPageIndex + 1}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800" />
+              </motion.div>
+            )}
+            <input
+              type="range"
+              min="0"
+              max={allPages.length - 1}
+              value={activePageIndex}
+              onChange={(e) => setActivePageIndex(parseInt(e.target.value))}
+              onMouseEnter={(e) => e.stopPropagation()}
+              className="
+                w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer 
+                accent-blue-600 hover:accent-blue-700 transition-all
+                [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
+                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-blue-600 
+                [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg
+                [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white
+              "
+            />
+          </div>
+        </div>
       </div>
-
     </div>
   );
 };
 
-/* -------------------------- Main Page -------------------------- */
+
+
 export default function IntroductionOfCRCCF() {
   const navigate = useNavigate();
   const { container, itemUp } = useAnims();
@@ -648,6 +660,8 @@ export default function IntroductionOfCRCCF() {
     offset: ["start start", "end start"],
   });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+
+
 
   return (
     <div className="bg-[#FBFDFF] min-h-screen">
@@ -661,7 +675,7 @@ export default function IntroductionOfCRCCF() {
         <motion.nav variants={itemUp} className="flex items-center gap-4 mb-8 sm:mb-12">
           <button
             onClick={() => navigate('/about')}
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors font-bold text-sm sm:text-base group bg-transparent border-none p-0 outline-none"
+            className="inline-flex items-center gap-2 text-[#2563EB] hover:text-[#1D4ED8] transition-colors font-bold text-sm sm:text-base group"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             Back to About
@@ -672,8 +686,7 @@ export default function IntroductionOfCRCCF() {
           <span className="text-gray-900 font-bold text-sm sm:text-base">Introduction</span>
         </motion.nav>
 
-        {/* Hero Section */}
-        <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-24">
+        <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-20">
           <motion.div variants={itemUp}>
             <div className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-xs font-black tracking-widest mb-6">
               FOUNDATION OVERVIEW
@@ -682,7 +695,7 @@ export default function IntroductionOfCRCCF() {
               Building a <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Secure Digital Future</span>
             </h1>
             <p className="text-lg text-slate-600 leading-relaxed max-w-xl mb-8">
-              Explore the core principles and initiatives that define our commitment to a safer digital India.
+              Welcome to CRCCF. We are dedicated to creating a safe, inclusive, and empowered digital world for every citizen, student, and organization through innovation and education.
             </p>
             <div className="flex flex-wrap gap-3">
               {["Trust", "Safety", "Empowerment", "Education"].map((pill) => (
@@ -698,43 +711,119 @@ export default function IntroductionOfCRCCF() {
             <div className="relative rounded-[32px] border border-gray-200 bg-white p-4 shadow-xl overflow-hidden">
               <div className="w-full aspect-[4/3] overflow-hidden rounded-[20px]">
                 <VideoHeroIntro
-                  src="https://cdn.coverr.co/videos/coverr-people-working-in-office-4627/1080p.mp4" 
+                  src="https://cdn.coverr.co/videos/coverr-people-working-in-office-4627/1080p.mp4"
                 />
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Content Section: THE CHRONICLE */}
-        <div className="mt-20 pt-20 border-t border-slate-100" ref={contentRef}>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-slate-900 mb-4">The <span className="text-blue-600">Foundation Chronicle</span></h2>
-            <p className="text-slate-500 font-medium max-w-2xl mx-auto">
-              A comprehensive guide to our values, initiatives, and the pillars that support our vision for a secure digital world.
-            </p>
+        <div className="mt-20 pt-10 border-t border-slate-100" ref={contentRef}>
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-black text-slate-900 mb-2">Explore Our <span className="text-blue-600">Pillars</span></h2>
+            <p className="text-slate-500 font-medium">Discover the core values and initiatives that drive our mission forward.</p>
           </div>
 
-          <FoundationChronicle />
-          
-          <div className="mt-32 p-12 rounded-[40px] bg-slate-900 text-white relative overflow-hidden text-center">
-             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
-             <div className="relative z-10">
-                <h3 className="text-3xl font-black mb-6">Ready to Join the Mission?</h3>
-                <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
-                  Whether you're a student, a professional, or a concerned citizen, there's a place for you in our digital safety ecosystem.
-                </p>
-                <div className="flex flex-wrap justify-center gap-4">
-                   <button onClick={() => navigate('/reach-us')} className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-black hover:bg-blue-700 transition-all shadow-lg shadow-blue-900/20">
-                      Contact Us
-                   </button>
-                   <button className="px-8 py-4 bg-white/10 text-white border border-white/20 rounded-2xl font-black hover:bg-white/20 transition-all">
-                      Support Our Cause
-                   </button>
-                </div>
-             </div>
+          <div className="flex flex-wrap justify-center gap-8">
+            {introductiondata.map((section, index) => (
+              <div key={section.id} className="w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] max-w-[400px]">
+                <InsightCard
+                  section={section}
+                  index={index}
+                />
+              </div>
+            ))}
           </div>
         </div>
+
+        {/* ── "Ready to Join the Mission?" CTA Banner ── */}
+        <motion.section
+          variants={itemUp}
+          className="my-8 mx-auto max-w-4xl"
+        >
+          <div
+            className="relative rounded-[28px] overflow-hidden px-8 py-14 text-center"
+            style={{
+              background: "linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)",
+            }}
+          >
+            {/* Subtle dot grid */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 opacity-10"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle, #94a3b8 1px, transparent 1px)",
+                backgroundSize: "28px 28px",
+              }}
+            />
+
+            {/* Glow orbs */}
+            <div
+              aria-hidden="true"
+              className="absolute -top-16 -left-16 w-64 h-64 rounded-full opacity-20"
+              style={{ background: "radial-gradient(circle, #3b82f6, transparent 70%)" }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute -bottom-16 -right-16 w-64 h-64 rounded-full opacity-20"
+              style={{ background: "radial-gradient(circle, #6366f1, transparent 70%)" }}
+            />
+
+            <div className="relative z-10">
+              <motion.h2
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="text-3xl sm:text-4xl font-black text-white mb-4 leading-tight"
+              >
+                Ready to Join the Mission?
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-slate-400 text-base sm:text-lg max-w-lg mx-auto mb-10 leading-relaxed"
+              >
+                Whether you're a student, a professional, or a concerned citizen,
+                there's a place for you in our digital safety ecosystem.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex flex-wrap items-center justify-center gap-4"
+              >
+                <Link
+                  to="/reach-us"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-bold text-sm text-white transition-all duration-200 shadow-lg hover:shadow-blue-500/40 hover:scale-[1.04] active:scale-100"
+                  style={{ background: "linear-gradient(135deg, #2563eb, #4f46e5)" }}
+                >
+                  Contact Us
+                </Link>
+
+                <a
+                  href="#pillars"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-bold text-sm text-white border border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:scale-[1.04] active:scale-100 transition-all duration-200"
+                >
+                  Support Our Cause
+                </a>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
       </motion.section>
     </div>
   );
 }
+
+
+
+
+
+
