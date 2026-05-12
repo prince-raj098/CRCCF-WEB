@@ -299,16 +299,19 @@ export default function ReachUsPage() {
                       <motion.path
                         key={i}
                         d={d}
-                        stroke="#E2E8F0"
-                        strokeWidth="1.5"
-                        strokeDasharray="5 5"
-                        opacity="0.3"
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
+                        stroke={socialLinks[i].color}
+                        strokeWidth="2"
+                        strokeDasharray="0"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        whileInView={{ pathLength: 1, opacity: 0.4 }}
+                        animate={{ 
+                          opacity: [0.3, 0.7, 0.3],
+                          strokeWidth: [2, 3.5, 2]
+                        }}
                         transition={{ 
                           pathLength: { duration: 1.5, delay: 0.5 + (i * 0.1) },
-                          stroke: { duration: 0.3 },
-                          strokeWidth: { duration: 0.3 }
+                          opacity: { duration: 3 + i * 0.2, repeat: Infinity, ease: "easeInOut" },
+                          strokeWidth: { duration: 3 + i * 0.2, repeat: Infinity, ease: "easeInOut" }
                         }}
                       />
                     ))}
