@@ -422,14 +422,22 @@ const InsightCard = ({ section, index }) => {
   ];
   const theme = themes[index % themes.length];
 
+  const isDesktop = () => window.innerWidth > 1024;
+
   const handleOpen = (e) => {
     e.stopPropagation();
     setIsOpen(prev => !prev);
   };
 
+  const handleMouseEnter = () => {
+    if (isDesktop()) {
+      setIsOpen(true);
+    }
+  };
+
   const handleMouseLeave = () => {
-    // We don't force close anymore to allow scrubber interaction
-    if (!isOpen && window.innerWidth > 1024) {
+    if (isDesktop()) {
+      setIsOpen(false);
       setActivePageIndex(0);
     }
   };
@@ -441,16 +449,16 @@ const InsightCard = ({ section, index }) => {
   ];
 
   return (
-    <div className="flex flex-col gap-6 w-full group/card">
+    <div className="flex flex-col gap-6 w-full">
       <motion.article
         className={`
           relative bg-white border border-slate-200 rounded-[20px] 
           h-[360px] w-full shadow-[0_4px_20px_rgba(0,0,0,0.05)] 
           [transform-style:preserve-3d] [perspective:2000px] 
           flex items-center justify-center transition-all duration-300 
-          hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)]
-          ${isOpen ? 'shadow-[0_20px_50px_rgba(0,0,0,0.12)]' : ''}
+          ${isOpen ? 'shadow-[0_20px_50px_rgba(0,0,0,0.12)]' : 'hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)]'}
         `}
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -474,7 +482,7 @@ const InsightCard = ({ section, index }) => {
                 ${pageIdx % 2 === 0 ? 'bg-slate-50' : 'bg-slate-100'}
                 ${isFlipped
                   ? '[transform:rotateY(-120deg)_scale(0.9)_translateX(-10px)] !opacity-0 pointer-events-none'
-                  : `opacity-0 group-hover/card:opacity-100 ${isOpen ? 'opacity-100' : ''}`
+                  : `${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`
                 }
               `}
             >
@@ -531,8 +539,6 @@ const InsightCard = ({ section, index }) => {
             [transform-origin:left_center] shadow-[4px_0_24px_rgba(0,0,0,0.1)] 
             flex flex-col items-center justify-center z-[10] p-8 text-center 
             [backface-visibility:hidden] bg-white 
-            group-hover/card:[transform:rotateY(-130deg)_scale(0.95)_translateX(-10px)] 
-            group-hover/card:opacity-0 group-hover/card:pointer-events-none
             ${isOpen ? '[transform:rotateY(-130deg)_scale(0.95)_translateX(-10px)] opacity-0 pointer-events-none' : ''}
           `}
           style={{
