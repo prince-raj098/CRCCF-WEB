@@ -58,6 +58,12 @@ import RecruitmentAdvertisements from './pages/recruitment/RecruitmentAdvertisem
 import PressReleaseNotices from './pages/recruitment/PressReleaseNotices'
 import ApplicationStatus from './pages/recruitment/ApplicationStatus'
 import SubmitResume from './pages/recruitment/SubmitResume'
+import CourseMaterials from './pages/Resources/CourseMaterials'
+import PracticalTraining from './pages/Resources/PracticalTraining'
+import MentorshipEvaluation from './pages/Resources/MentorshipEvaluation'
+import LearningEnvironment from './pages/Resources/LearningEnvironment'
+
+
 
 // Recruitment Rules & Policies
 import RecruitmentRulesPolicies from './pages/recruitment/rules/RecruitmentRulesPolicies'
@@ -135,6 +141,12 @@ export default function App() {
       <Route path="/gallery/category/:id" element={<CategoryPage />} />
       <Route path="/reachus" element={<ReachUsPage />} />
       <Route path="/services" element={<ServicesPage />} />
+      <Route path="/resources/course-materials" element={<CourseMaterials />} />
+      <Route path="/resources/practical-training" element={<PracticalTraining />} />
+      <Route path="/resources/mentorship-evaluation" element={<MentorshipEvaluation />} />
+      <Route path="/resources/learning-environment" element={<LearningEnvironment />} />
+
+
 
       {/* Contact Hub Routes */}
       <Route path="/contact" element={<LaptopLayout />}>

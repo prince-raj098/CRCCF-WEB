@@ -5,9 +5,14 @@ export default function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Reset scroll to top-left on route change
-    window.scrollTo(0, 0);
+    // Force immediate scroll to top on route change
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
   }, [pathname]);
+
 
   return null;
 }
