@@ -599,7 +599,7 @@ const InsightCard = ({ section, index }) => {
           ${isOpen || showScrubber ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'}
         `}
       >
-        <div 
+        <div
           className="flex flex-col gap-3 group/scrubber"
           onMouseMove={(e) => {
             const rect = e.currentTarget.querySelector('input').getBoundingClientRect();
@@ -611,36 +611,22 @@ const InsightCard = ({ section, index }) => {
           onMouseLeave={() => setPreviewPageIndex(null)}
         >
           <div className="flex justify-between items-center px-1">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Chronicle Scrubber</span>
-            <div className="flex items-center gap-2">
-              <AnimatePresence>
-                {previewPageIndex !== null && previewPageIndex !== activePageIndex && (
-                  <motion.span 
-                    initial={{ opacity: 0, x: 5 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 5 }}
-                    className="text-[10px] font-black text-slate-300 uppercase italic"
-                  >
-                    Jump to: {previewPageIndex + 1}
-                  </motion.span>
-                )}
-              </AnimatePresence>
               <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 text-[10px] font-black tabular-nums border border-blue-100">
-                PAGE {activePageIndex + 1} / {allPages.length}
+                {activePageIndex + 1} / {allPages.length}
               </span>
-            </div>
           </div>
           <div className="relative pt-2">
             {previewPageIndex !== null && (
-              <motion.div 
-                className="absolute -top-6 px-2 py-1 bg-slate-800 text-white text-[9px] font-bold rounded-md whitespace-nowrap pointer-events-none z-20 shadow-xl"
-                animate={{ 
+              <motion.div
+                className="absolute -top-10 px-3 py-1.5 bg-slate-800 text-white text-[10px] font-bold rounded-lg whitespace-nowrap pointer-events-none z-20 shadow-2xl flex items-center gap-2"
+                animate={{
                   left: `${(previewPageIndex / (allPages.length - 1)) * 100}%`,
-                  x: "-50%" 
+                  x: "-50%"
                 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                transition={{ type: "spring", stiffness: 400, damping: 35 }}
               >
-                Page {previewPageIndex + 1}
+                <span className="bg-white/20 px-1.5 py-0.5 rounded text-[9px]">{previewPageIndex + 1}</span>
+                <span>{allPages[previewPageIndex].heading.slice(0, 35)}{allPages[previewPageIndex].heading.length > 35 ? '...' : ''}</span>
                 <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800" />
               </motion.div>
             )}
@@ -691,18 +677,14 @@ export default function IntroductionOfCRCCF() {
         animate="show"
         className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 lg:py-14"
       >
-        <motion.nav variants={itemUp} className="flex items-center gap-4 mb-8 sm:mb-12">
+        <motion.nav variants={itemUp} className="mb-8 sm:mb-12">
           <button
             onClick={() => navigate('/about')}
             className="inline-flex items-center gap-2 text-[#2563EB] hover:text-[#1D4ED8] transition-colors font-bold text-sm sm:text-base group border-none bg-transparent cursor-pointer p-0"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-            Back to About
+            Back to About Us
           </button>
-          <div className="h-4 w-px bg-gray-300" />
-          <Link to="/" className="text-gray-500 hover:text-blue-600 transition-colors text-sm sm:text-base font-medium">Home</Link>
-          <span className="text-gray-400">/</span>
-          <span className="text-gray-900 font-bold text-sm sm:text-base">Introduction</span>
         </motion.nav>
 
         <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-20">
