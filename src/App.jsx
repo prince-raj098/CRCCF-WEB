@@ -24,6 +24,7 @@ import GalleryPage from './pages/GalleryPage'
 import CategoryPage from './pages/CategoryPage'
 import ReachUsPage from './pages/ReachUsPage'
 import ServicesPage from './pages/ServicesPage'
+import ServiceRouter from './pages/Service/ServiceRouter'
 import LaptopLayout from './layouts/ContactUs/LaptopLayout'
 import Dashboard from './pages/ContactUs/Dashboard'
 import DirectoryWrapper from './pages/ContactUs/DirectoryWrapper'
@@ -140,7 +141,7 @@ export default function App() {
       <Route path="/gallery" element={<GalleryPage />} />
       <Route path="/gallery/category/:id" element={<CategoryPage />} />
       <Route path="/reachus" element={<ReachUsPage />} />
-      <Route path="/services" element={<ServicesPage />} />
+      <Route path="/services/*" element={<ServiceRouter />} />
       <Route path="/resources/course-materials" element={<CourseMaterials />} />
       <Route path="/resources/practical-training" element={<PracticalTraining />} />
       <Route path="/resources/mentorship-evaluation" element={<MentorshipEvaluation />} />

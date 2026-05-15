@@ -1,12 +1,11 @@
 import { motion } from 'framer-motion'
+import logo from '../../../assets/CRCCF_LOGO-removebg-preview.png'
 
 const marqueeItems = [
-  'Cyber Security',
-  'Software Development',
-  'Digital Marketing',
-  'Legal Support',
-  'Cyber Investigation',
-  'Education & Training',
+  'CR Cyber Crime Foundation',
+  'CR Cyber Crime Foundation',
+  'CR Cyber Crime Foundation',
+  'CR Cyber Crime Foundation',
 ]
 
 const MarqueeContent = () => {
@@ -15,17 +14,17 @@ const MarqueeContent = () => {
       {marqueeItems.map((item, index) => (
         <div key={index} className="flex items-center mx-8 shrink-0">
           <img
-            src="/Logo.png"
+            src={logo}
             alt="CRCCF logo"
             className="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0"
           />
 
-          <span className="mx-4 text-[#0C1A3A] font-bold text-xl sm:text-2xl tracking-wide uppercase whitespace-nowrap">
+          <span className="mx-4 text-[#0F172A] font-bold text-xl sm:text-2xl tracking-wide uppercase whitespace-nowrap">
             {item}
           </span>
 
           <img
-            src="/Logo.png"
+            src={logo}
             alt="CRCCF logo"
             className="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0"
           />
@@ -39,7 +38,7 @@ const CompanyMarquee = ({ direction = 'left' }) => {
   const isRight = direction === 'right'
 
   return (
-    <div className="overflow-hidden w-full bg-blue-50/50 py-4 border-y border-blue-100">
+    <div className="overflow-hidden w-full">
       <motion.div
         className="flex w-max"
         animate={{
@@ -47,7 +46,7 @@ const CompanyMarquee = ({ direction = 'left' }) => {
         }}
         transition={{
           repeat: Infinity,
-          duration: 25,
+          duration: 18,
           ease: 'linear',
         }}
       >
