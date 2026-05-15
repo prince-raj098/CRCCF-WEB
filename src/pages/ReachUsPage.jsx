@@ -136,7 +136,7 @@ export default function ReachUsPage() {
       icon: <FaYoutube />, 
       label: 'YouTube', 
       handle: 'CRCCF Official', 
-      link: '#', 
+      link: 'https://youtube.com/@crcybercrimeofficialchannel?si=n96o6iVeJTas66Z6', 
       color: '#FF0000',
       gradient: 'linear-gradient(45deg, #FF0000, #CC0000)'
     },

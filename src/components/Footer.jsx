@@ -218,42 +218,51 @@ export default function Footer() {
                 Icon: FaFacebookF,
                 color: "hover:text-[#1877F2]",
                 label: "Facebook",
+                link: "https://www.facebook.com/people/Crcyber-Crime/61576052739281/",
               },
               {
                 Icon: FaTwitter,
                 color: "hover:text-[#1DA1F2]",
                 label: "Twitter",
+                link: "https://x.com/crcybercrime",
               },
               {
                 Icon: FaLinkedinIn,
                 color: "hover:text-[#0A66C2]",
                 label: "LinkedIn",
+                link: "https://www.linkedin.com/company/cr-cyber-crime/posts/?feedView=all",
               },
               {
                 Icon: FaInstagram,
                 color: "hover:text-[#E4405F]",
                 label: "Instagram",
+                link: "https://www.instagram.com/crcybercrime/",
               },
               {
                 Icon: FaYoutube,
                 color: "hover:text-[#FF0000]",
                 label: "YouTube",
+                link: "https://youtube.com/@crcybercrimeofficialchannel?si=n96o6iVeJTas66Z6",
               },
               {
                 Icon: FaWhatsapp,
                 color: "hover:text-[#25D366]",
                 label: "WhatsApp",
+                link: "https://api.whatsapp.com/send/?phone=919777999529&text&type=phone_number&app_absent=0",
               },
               {
                 Icon: FaTelegramPlane,
                 color: "hover:text-[#229ED9]",
                 label: "Telegram",
+                link: "#",
               },
-              { Icon: FaGlobe, color: "hover:text-cyan-400", label: "Website" },
+              { Icon: FaGlobe, color: "hover:text-cyan-400", label: "Website", link: "https://crcybercrime.com/" },
             ].map((social, index) => (
               <a
                 key={index}
-                href="#"
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={social.label}
                 className={`text-gray-300 ${social.color} transform hover:scale-125 hover:-translate-y-1 transition-all duration-300`}
               >

@@ -500,7 +500,7 @@ export const searchableData = [
     title: "YouTube Official",
     description: "Watch our educational webinars and cyber awareness videos.",
     category: "Social",
-    link: "#",
+    link: "https://youtube.com/@crcybercrimeofficialchannel?si=n96o6iVeJTas66Z6",
     tags: ["youtube", "videos", "webinars", "education"],
     iconName: "Video"
   },
