@@ -49,6 +49,8 @@ import LegalDisclaimer from './pages/AboutUs/LegalDisclaimer'
 import CopyrightRegistration from './pages/AboutUs/CopyrightRegistration'
 import PartnershipCollaboration from './pages/AboutUs/PartnershipCollaboration'
 import History from './pages/AboutUs/History'
+import ReportCrime from './pages/report/ReportCrime'
+
 
 // Recruitment Pages
 import RecruitmentPortal from './pages/recruitment/RecruitmentPortal'
@@ -142,6 +144,8 @@ export default function App() {
       <Route path="/gallery/category/:id" element={<CategoryPage />} />
       <Route path="/reachus" element={<ReachUsPage />} />
       <Route path="/services/*" element={<ServiceRouter />} />
+      <Route path="/report-crime" element={<ReportCrime />} />
+
       <Route path="/resources/course-materials" element={<CourseMaterials />} />
       <Route path="/resources/practical-training" element={<PracticalTraining />} />
       <Route path="/resources/mentorship-evaluation" element={<MentorshipEvaluation />} />

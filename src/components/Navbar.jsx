@@ -282,7 +282,7 @@ export default function Navbar() {
 
             <button
               className="inline-flex items-center justify-center bg-[#E02424] text-white font-['Inter',sans-serif] text-[13px] font-[800] h-[34px] px-[16px] rounded-[6px] border-none cursor-pointer whitespace-nowrap transition-all duration-180 hover:bg-[#C01C1C] hover:-translate-y-[1px] hover:shadow-[0_4px_12px_rgba(224,36,36,0.25)] max-[1100px]:hidden sm:flex max-[520px]:hidden"
-              onClick={() => go('#contact')}
+              onClick={() => go('/report-crime')}
             >
               Report Crime
             </button>
@@ -382,7 +382,7 @@ export default function Navbar() {
               <div className="p-[16px_18px] border-t border-t-[#F3F4F6]">
                 <button
                   className="inline-flex items-center gap-[7px] bg-[#E02424] text-[#fff] font-['Inter',sans-serif] text-[13px] font-[700] p-[9px_20px] rounded-[6px] border-none cursor-pointer whitespace-nowrap transition-all duration-180 tracking-[0.02em] hover:bg-[#C01C1C] hover:-translate-y-[1px] hover:shadow-[0_6px_18px_rgba(224,36,36,0.35)] w-full justify-center"
-                  onClick={() => go('#contact')}
+                  onClick={() => go('/report-crime')}
                 >
                   Report Crime
                 </button>

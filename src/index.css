@@ -494,3 +494,59 @@
     background-color: #94a3b8;
   }
 }
+
+/* ?? REPORT CRIME ANIMATIONS ?? */
+
+/* ?? RIGHT ? LEFT */
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ?? LEFT ? RIGHT */
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 40px;
+}
+
+.marquee-left {
+  animation: scroll-left 20s linear infinite;
+}
+
+.marquee-right {
+  animation: scroll-right 20s linear infinite;
+}
+
+/* ?? VERTICAL CHASE */
+@keyframes move-up {
+  0% { transform: translateY(600px); }
+  100% { transform: translateY(-600px); }
+}
+
+.animate-chase {
+  animation: move-up 6s linear infinite;
+}
+
+@keyframes move-down {
+  0% { transform: translateY(-600px); }
+  100% { transform: translateY(600px); }
+}
+
+.animate-arrest {
+  animation: move-down 6s linear infinite;
+}
+
+@keyframes tug {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-tug {
+  animation: tug 0.6s ease-in-out infinite;
+}
