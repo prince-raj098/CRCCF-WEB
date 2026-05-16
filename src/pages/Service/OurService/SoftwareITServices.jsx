@@ -1,8 +1,5 @@
 import React from "react";
 import CompanyMarquee from "../../../components/Service/common/CompanyMarquee";
-import TopBar from "../../../components/TopBar";
-import Navbar from "../../../components/Navbar";
-import Footer from "../../../components/Footer";
 import GearSystem from "../../../components/Service/softwareIT/GearSystem";
 import { motion } from "framer-motion";
 import { Cpu, ShieldCheck, Zap, Activity } from "lucide-react";
@@ -10,9 +7,6 @@ import { Cpu, ShieldCheck, Zap, Activity } from "lucide-react";
 const SoftwareITServices = () => {
   return (
     <div className="min-h-screen bg-white">
-      <TopBar />
-      <Navbar />
-
       <main className="relative pt-4">
         {/* HERO SECTION */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-10">
@@ -158,8 +152,6 @@ const SoftwareITServices = () => {
         </div>
 
       </main>
-
-      <Footer />
     </div>
   );
 };

@@ -25,6 +25,7 @@ import CategoryPage from './pages/CategoryPage'
 import ReachUsPage from './pages/ReachUsPage'
 import ServicesPage from './pages/ServicesPage'
 import ServiceRouter from './pages/Service/ServiceRouter'
+import RootLayout from './layouts/RootLayout'
 import LaptopLayout from './layouts/ContactUs/LaptopLayout'
 import Dashboard from './pages/ContactUs/Dashboard'
 import DirectoryWrapper from './pages/ContactUs/DirectoryWrapper'
@@ -85,7 +86,7 @@ import EmployeeRightsResponsibilities from './pages/recruitment/rules/EmployeeRi
 import VolunteerInternshipPolicy from './pages/recruitment/rules/VolunteerInternshipPolicy'
 import EmployeeRecognitionAwards from './pages/recruitment/rules/EmployeeRecognitionAwards'
 
-function HomePage() {
+function HomePageContent() {
   const [showTop, setShowTop] = useState(false)
 
   useEffect(() => {
@@ -96,8 +97,6 @@ function HomePage() {
 
   return (
     <>
-      <TopBar />
-      <Navbar />
       <EventBanner />
       <main>
         <Hero />
@@ -113,7 +112,6 @@ function HomePage() {
         <StatsBar />
         <Testimonials />
       </main>
-      <Footer />
 
       <AnimatePresence>
         {showTop && (
@@ -139,78 +137,78 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/gallery" element={<GalleryPage />} />
-      <Route path="/gallery/category/:id" element={<CategoryPage />} />
-      <Route path="/reachus" element={<ReachUsPage />} />
-      <Route path="/services/*" element={<ServiceRouter />} />
-      <Route path="/report-crime" element={<ReportCrime />} />
+        <Route element={<RootLayout />}>
+          <Route path="/" element={<HomePageContent />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/gallery/category/:id" element={<CategoryPage />} />
+          <Route path="/reachus" element={<ReachUsPage />} />
+          <Route path="/services/*" element={<ServiceRouter />} />
+          <Route path="/report-crime" element={<ReportCrime />} />
 
-      <Route path="/resources/course-materials" element={<CourseMaterials />} />
-      <Route path="/resources/practical-training" element={<PracticalTraining />} />
-      <Route path="/resources/mentorship-evaluation" element={<MentorshipEvaluation />} />
-      <Route path="/resources/learning-environment" element={<LearningEnvironment />} />
+          <Route path="/resources/course-materials" element={<CourseMaterials />} />
+          <Route path="/resources/practical-training" element={<PracticalTraining />} />
+          <Route path="/resources/mentorship-evaluation" element={<MentorshipEvaluation />} />
+          <Route path="/resources/learning-environment" element={<LearningEnvironment />} />
 
+          {/* Contact Hub Routes */}
+          <Route path="/contact" element={<LaptopLayout />}>
+            <Route index element={<Dashboard />} />
+          </Route>
+          
+          {/* Dynamic Contact Sub-Pages */}
+          <Route path="/contact/:type" element={<DirectoryWrapper />} />
 
+          {/* About Section Routes */}
+          <Route path="/about" element={<AboutLayout />}>
+            <Route index element={<AboutPage />} />
+            <Route path="identity" element={<OurIdentity />} />
+            <Route path="introduction" element={<IntroductionOfCRCCF />} />
+            <Route path="what-we-do" element={<WhatWeDoAbout />} />
+            <Route path="mission-vision" element={<MissionVision />} />
+            <Route path="activity" element={<OurActivity />} />
+            <Route path="purpose" element={<Purpose />} />
+            <Route path="objective" element={<Objective />} />
+            <Route path="achievement" element={<Achievement />} />
+            <Route path="legal-compliance" element={<LegalCompliance />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="data-protection" element={<DataProtection />} />
+            <Route path="terms-conditions" element={<TermsConditions />} />
+            <Route path="rules-regulation" element={<RulesRegulation />} />
+            <Route path="instruction" element={<Instruction />} />
+            <Route path="legal-disclaimer" element={<LegalDisclaimer />} />
+            <Route path="copyright" element={<CopyrightRegistration />} />
+            <Route path="partnership" element={<PartnershipCollaboration />} />
+            <Route path="history" element={<History />} />
+          </Route>
 
-      {/* Contact Hub Routes */}
-      <Route path="/contact" element={<LaptopLayout />}>
-        <Route index element={<Dashboard />} />
-      </Route>
-      
-      {/* Dynamic Contact Sub-Pages */}
-      <Route path="/contact/:type" element={<DirectoryWrapper />} />
+          {/* Recruitment / Careers Routes */}
+          <Route path="/careers" element={<RecruitmentPortal />} />
+          <Route path="/recruitment" element={<RecruitmentPortal />} />
+          <Route path="/recruitment/job-vacancy" element={<JobVacancy />} />
+          <Route path="/recruitment/post-vacancy-members-only" element={<PostVacancyMembersOnly />} />
+          <Route path="/recruitment/online-application-portal" element={<OnlineApplicationPortal />} />
+          <Route path="/recruitment/advertisements" element={<RecruitmentAdvertisements />} />
+          <Route path="/recruitment/press-release-notices" element={<PressReleaseNotices />} />
+          <Route path="/recruitment/application-status" element={<ApplicationStatus />} />
+          <Route path="/recruitment/submit-resume" element={<SubmitResume />} />
 
-      {/* About Section Routes */}
-      <Route path="/about" element={<AboutLayout />}>
-        <Route index element={<AboutPage />} />
-        <Route path="identity" element={<OurIdentity />} />
-        <Route path="introduction" element={<IntroductionOfCRCCF />} />
-        <Route path="what-we-do" element={<WhatWeDoAbout />} />
-        <Route path="mission-vision" element={<MissionVision />} />
-        <Route path="activity" element={<OurActivity />} />
-        <Route path="purpose" element={<Purpose />} />
-        <Route path="objective" element={<Objective />} />
-        <Route path="achievement" element={<Achievement />} />
-        <Route path="legal-compliance" element={<LegalCompliance />} />
-        <Route path="privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="data-protection" element={<DataProtection />} />
-        <Route path="terms-conditions" element={<TermsConditions />} />
-        <Route path="rules-regulation" element={<RulesRegulation />} />
-        <Route path="instruction" element={<Instruction />} />
-        <Route path="legal-disclaimer" element={<LegalDisclaimer />} />
-        <Route path="copyright" element={<CopyrightRegistration />} />
-        <Route path="partnership" element={<PartnershipCollaboration />} />
-        <Route path="history" element={<History />} />
-      </Route>
-
-      {/* Recruitment / Careers Routes */}
-      <Route path="/careers" element={<RecruitmentPortal />} />
-      <Route path="/recruitment" element={<RecruitmentPortal />} />
-      <Route path="/recruitment/job-vacancy" element={<JobVacancy />} />
-      <Route path="/recruitment/post-vacancy-members-only" element={<PostVacancyMembersOnly />} />
-      <Route path="/recruitment/online-application-portal" element={<OnlineApplicationPortal />} />
-      <Route path="/recruitment/advertisements" element={<RecruitmentAdvertisements />} />
-      <Route path="/recruitment/press-release-notices" element={<PressReleaseNotices />} />
-      <Route path="/recruitment/application-status" element={<ApplicationStatus />} />
-      <Route path="/recruitment/submit-resume" element={<SubmitResume />} />
-
-      <Route path="/recruitment/rules-policies" element={<RecruitmentRulesPolicies />} />
-      <Route path="/recruitment/rules-policies/employment-overview" element={<RecruitmentPolicyEmploymentOverview />} />
-      <Route path="/recruitment/rules-policies/career-development-progress" element={<CareerDevelopmentProgress />} />
-      <Route path="/recruitment/rules-policies/employee-growth-future-opportunity" element={<EmployeeGrowthFutureOpportunity />} />
-      <Route path="/recruitment/rules-policies/employment-eligibility-criteria" element={<EmploymentEligibilityCriteria />} />
-      <Route path="/recruitment/rules-policies/recruitment-selection-process" element={<RecruitmentSelectionProcess />} />
-      <Route path="/recruitment/rules-policies/recruitment-instructions" element={<RecruitmentInstructions />} />
-      <Route path="/recruitment/rules-policies/recruitment-guidelines" element={<RecruitmentGuidelines />} />
-      <Route path="/recruitment/rules-policies/recruitment-calendar" element={<RecruitmentCalendar />} />
-      <Route path="/recruitment/rules-policies/code-of-conduct-professional-ethics" element={<CodeOfConductProfessionalEthics />} />
-      <Route path="/recruitment/rules-policies/training-orientation-skill-development" element={<TrainingOrientationSkillDevelopment />} />
-      <Route path="/recruitment/rules-policies/performance-review-evaluation-system" element={<PerformanceReviewEvaluationSystem />} />
-      <Route path="/recruitment/rules-policies/employee-rights-responsibilities" element={<EmployeeRightsResponsibilities />} />
-      <Route path="/recruitment/rules-policies/volunteer-internship-policy" element={<VolunteerInternshipPolicy />} />
-      <Route path="/recruitment/rules-policies/employee-recognition-awards" element={<EmployeeRecognitionAwards />} />
-    </Routes>
+          <Route path="/recruitment/rules-policies" element={<RecruitmentRulesPolicies />} />
+          <Route path="/recruitment/rules-policies/employment-overview" element={<RecruitmentPolicyEmploymentOverview />} />
+          <Route path="/recruitment/rules-policies/career-development-progress" element={<CareerDevelopmentProgress />} />
+          <Route path="/recruitment/rules-policies/employee-growth-future-opportunity" element={<EmployeeGrowthFutureOpportunity />} />
+          <Route path="/recruitment/rules-policies/employment-eligibility-criteria" element={<EmploymentEligibilityCriteria />} />
+          <Route path="/recruitment/rules-policies/recruitment-selection-process" element={<RecruitmentSelectionProcess />} />
+          <Route path="/recruitment/rules-policies/recruitment-instructions" element={<RecruitmentInstructions />} />
+          <Route path="/recruitment/rules-policies/recruitment-guidelines" element={<RecruitmentGuidelines />} />
+          <Route path="/recruitment/rules-policies/recruitment-calendar" element={<RecruitmentCalendar />} />
+          <Route path="/recruitment/rules-policies/code-of-conduct-professional-ethics" element={<CodeOfConductProfessionalEthics />} />
+          <Route path="/recruitment/rules-policies/training-orientation-skill-development" element={<TrainingOrientationSkillDevelopment />} />
+          <Route path="/recruitment/rules-policies/performance-review-evaluation-system" element={<PerformanceReviewEvaluationSystem />} />
+          <Route path="/recruitment/rules-policies/employee-rights-responsibilities" element={<EmployeeRightsResponsibilities />} />
+          <Route path="/recruitment/rules-policies/volunteer-internship-policy" element={<VolunteerInternshipPolicy />} />
+          <Route path="/recruitment/rules-policies/employee-recognition-awards" element={<EmployeeRecognitionAwards />} />
+        </Route>
+      </Routes>
     </>
   )
 }

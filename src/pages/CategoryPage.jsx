@@ -1,7 +1,4 @@
 import { useParams } from 'react-router-dom'
-import TopBar from '../components/TopBar'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 
 export default function CategoryPage() {
   const { id } = useParams()
@@ -47,8 +44,6 @@ export default function CategoryPage() {
 
   return (
     <div className="bg-[#F8FAFC] min-h-screen">
-      <TopBar />
-      <Navbar />
       <div className="p-[40px_24px]">
         {/* TOP SECTION */}
         <div className="max-w-[1400px] mx-auto mb-[40px] grid grid-cols-2 gap-[32px] items-center max-[768px]:grid-cols-1">
@@ -94,7 +89,6 @@ export default function CategoryPage() {
           ))}
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

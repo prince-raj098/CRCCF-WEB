@@ -1,15 +1,10 @@
 import React from 'react'
 import CompanyMarquee from '../../components/common/CompanyMarquee'
 import RecruitmentKeyboard from '../../components/recruitment/RecruitmentKeyboard'
-import TopBar from '../../components/TopBar'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
 
 const RecruitmentPortal = () => {
   return (
     <>
-      <TopBar />
-      <Navbar />
       <div className="min-h-screen bg-slate-100 px-4 py-6">
         <div className="max-w-7xl mx-auto">
           <div className="bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] rounded-3xl shadow-xl mb-8 py-6 px-6 text-center">
@@ -31,7 +26,6 @@ const RecruitmentPortal = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

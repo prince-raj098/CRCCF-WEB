@@ -1,6 +1,3 @@
-import TopBar from '../components/TopBar'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import GalleryHero from '../components/gallery/GalleryHero'
 import GalleryCategoryGrid from '../components/gallery/GalleryCategoryGrid'
 import GalleryFooterQuote from '../components/gallery/GalleryFooterQuote'
@@ -27,8 +24,6 @@ export default function GalleryPage() {
 
   return (
     <div className="bg-[#F8FAFC] min-h-screen relative">
-      <TopBar />
-      <Navbar />
 
       {/* Page body */}
       <div className="relative w-full">
@@ -40,9 +35,6 @@ export default function GalleryPage() {
           <div style={{ height: 32 }} />
         </div>
       </div>
-
-      <Footer />
     </div>
-
   )
 }

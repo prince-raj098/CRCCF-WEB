@@ -1,17 +1,11 @@
 import React from 'react'
 import CompanyMarquee from '../components/Service/common/CompanyMarquee'
 import ServicesKeyboard from '../components/Service/services/ServicesKeyboard'
-import TopBar from '../components/TopBar'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import { motion } from 'framer-motion'
 
 const ServicesPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <TopBar />
-      <Navbar />
-      
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Hero Section */}
         <div className="relative mb-12 rounded-3xl overflow-hidden shadow-2xl">
@@ -84,8 +78,6 @@ const ServicesPage = () => {
           ))}
         </section>
       </main>
-
-      <Footer />
     </div>
   )
 }

@@ -20,8 +20,6 @@ import {
   MapPin, 
 
 } from 'lucide-react';
-import TopBar from '../components/TopBar';
-import Navbar from '../components/Navbar';
 
 export default function ReachUsPage() {
   const [formData, setFormData] = useState({
@@ -193,8 +191,6 @@ export default function ReachUsPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] font-['Inter',sans-serif] relative overflow-x-hidden">
-      <TopBar />
-      <Navbar />
 
       {/* Hero Section */}
       <section className="relative h-[45vh] min-h-[350px] flex items-center justify-center text-center overflow-hidden">

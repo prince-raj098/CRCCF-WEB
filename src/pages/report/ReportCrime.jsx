@@ -2,17 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { reportCards } from "../../data/reportCards";
 import ReportCard from "../../components/ReportCard";
 import PoliceCarAnimation from "../../components/PoliceCarAnimation";
-import TopBar from "../../components/TopBar";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 
 export default function ReportCrime() {
   const navigate = useNavigate();
 
   return (
     <div className="bg-[#F8FAFC] min-h-screen relative">
-      <TopBar />
-      <Navbar />
 
       <main className="relative w-full">
         {/* 🔷 HERO */}
@@ -112,7 +107,6 @@ export default function ReportCrime() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

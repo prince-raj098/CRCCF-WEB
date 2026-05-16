@@ -2,9 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "../../components/ContactUs/Sidebar";
 import FloatingBackground from "../../components/ContactUs/FloatingBackground";
-import TopBar from "../../components/TopBar";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 
 import {
   Headset,
@@ -86,8 +83,6 @@ const LaptopLayout = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      <TopBar />
-      <Navbar />
       
       <div className="flex-1 flex items-center justify-center p-4 sm:p-8 lg:p-12 relative bg-[#F8FAFC] overflow-hidden min-h-[90vh]">
         <FloatingBackground />
@@ -137,7 +132,6 @@ const LaptopLayout = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };
