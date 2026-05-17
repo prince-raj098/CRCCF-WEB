@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, ShieldCheck, FileCheck, Scale, Gavel, Landmark, Eye, Lock, Search } from "lucide-react";
+import { ArrowLeft, ArrowRight, ShieldCheck, Scale, Scroll, Eye, ShieldAlert, Users, Landmark, Search, Lock, Gavel, Handshake, BarChart3, Bell, ClipboardCheck, AlertTriangle } from "lucide-react";
 import {
   motion,
   useReducedMotion,
@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { cyberCrimeInvestigationApprovalData } from '../../../../data/cyberCrimeInvestigationApprovalData';
+import { legalAndEthicalComplianceData } from '../../../../data/legalAndEthicalComplianceData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {
@@ -50,11 +50,37 @@ const useAnims = () => {
 
 /* -------------------------- SVG Mapping -------------------------- */
 const getSvgIcon = (id) => {
-    if (id.includes('regulatory')) return Landmark;
-    if (id.includes('case-specific')) return Search;
-    if (id.includes('judicial')) return Gavel;
+    if (id.includes('governance')) return Landmark;
+    if (id.includes('ethical')) return Scale;
+    if (id.includes('compliance')) return Scroll;
+    if (id.includes('oversight')) return Eye;
+    if (id.includes('corruption') || id.includes('fraud')) return ShieldAlert;
+    if (id.includes('employee') || id.includes('volunteer')) return Users;
+    if (id.includes('board') || id.includes('committee')) return Landmark;
+    if (id.includes('training')) return ShieldCheck;
+    if (id.includes('stakeholder')) return Handshake;
+    if (id.includes('grievance')) return Bell;
+    if (id.includes('csr')) return HeartHandshake;
+    if (id.includes('monitoring')) return BarChart3;
+    if (id.includes('digital-security')) return Lock;
+    if (id.includes('advisory')) return Gavel;
+    if (id.includes('fund-utilization')) return BarChart3;
+    if (id.includes('whistleblower')) return Bell;
+    if (id.includes('conflict')) return AlertTriangle;
+    if (id.includes('internal-audit')) return ClipboardCheck;
+    if (id.includes('risk-management')) return ShieldAlert;
     return ShieldCheck;
 };
+
+const HeartHandshake = ({ size, className }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+        <path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.82 2.96 0" />
+        <path d="m12 5 2.96 2.96c.82.82.82 2.13 0 2.96v0a2.17 2.17 0 0 1-3.08 0" />
+        <path d="m7 13 2 2 2-2" />
+        <path d="m17 13-2 2-2-2" />
+    </svg>
+);
 
 /* -------------------------- InsightCard (The Book) -------------------------- */
 const InsightCard = ({ allPages }) => {
@@ -79,7 +105,7 @@ const InsightCard = ({ allPages }) => {
       <motion.article
         className={`
           relative bg-white border border-slate-200 rounded-[24px] 
-          h-[420px] sm:h-[500px] md:h-[600px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
+          h-[450px] sm:h-[550px] md:h-[650px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
           [transform-style:preserve-3d] [perspective:2000px] 
           flex items-center justify-center transition-all duration-300 
           ${isOpen ? 'shadow-[0_30px_70px_rgba(0,0,0,0.15)]' : 'hover:shadow-[0_30px_70px_rgba(0,0,0,0.15)]'}
@@ -102,7 +128,7 @@ const InsightCard = ({ allPages }) => {
                 pl-8 sm:pl-14 rounded-[24px] transition-all duration-[1s] 
                 ease-[cubic-bezier(0.645,0.045,0.355,1)]
                 [transform-origin:left_center] [backface-visibility:hidden]
-                ${pageIdx % 2 === 0 ? 'bg-[#F9FAFF]' : 'bg-[#FDFDFF]'}
+                ${pageIdx % 2 === 0 ? 'bg-[#FDFDFF]' : 'bg-[#F8FAFF]'}
                 ${isFlipped
                   ? '[transform:rotateY(-130deg)_scale(0.9)_translateX(-20px)] opacity-100 pointer-events-none shadow-[-15px_0_40px_rgba(0,0,0,0.1)]'
                   : pageIdx === activePageIndex
@@ -119,7 +145,7 @@ const InsightCard = ({ allPages }) => {
                   <h4 className="text-[13px] font-black uppercase tracking-[0.1em] leading-tight text-blue-700">
                     {page.heading}
                   </h4>
-                  <span className="text-[11px] font-bold text-slate-400 mt-1">Authorization {pageIdx + 1} of {allPages.length}</span>
+                  <span className="text-[11px] font-bold text-slate-400 mt-1">Ethical Pillar {pageIdx + 1} of {allPages.length}</span>
                 </div>
               </div>
 
@@ -179,13 +205,13 @@ const InsightCard = ({ allPages }) => {
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>
           
           <h3 className="text-slate-900 leading-[1.1] mb-8 text-[24px] sm:text-[32px] font-bold" style={{ fontFamily: "'Dancing Script', cursive" }}>
-            The Investigative Warrant
+            The Ethical Compass
           </h3>
           
-          <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">Statutory Approvals & Case Authorization</p>
+          <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">Governance, Integrity & Social Responsibility</p>
 
           <div className="flex items-center gap-3 text-[13px] font-black uppercase tracking-[0.15em] mt-auto text-blue-600">
-            <span>Verify Authority</span>
+            <span>Explore Ethics</span>
             <ArrowRight size={18} className="animate-pulse" />
           </div>
         </div>
@@ -216,7 +242,7 @@ const InsightCard = ({ allPages }) => {
 };
 
 /* ------------------------------ Main Page ------------------------------ */
-export default function CyberCrimeInvestigationApproval() {
+export default function LegalAndEthicalCompliance() {
   const navigate = useNavigate();
   const { container, itemUp } = useAnims();
   const heroRef = useRef(null);
@@ -241,13 +267,13 @@ export default function CyberCrimeInvestigationApproval() {
         <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
           <motion.div variants={itemUp}>
             <div className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black tracking-[0.2em] mb-6">
-              LEGAL AUTHORIZATION
+              MORAL ARCHITECTURE
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
-              Investigation <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Approval</span>
+              Legal & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Ethical</span> Compliance
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-              CRCCF operates under strict protocols and official mandates, ensuring every investigative step is authorized, documented, and legally compliant.
+              Integrity is the heartbeat of CRCCF. Explore how we combine statutory mandates with an unwavering ethical compass to serve the nation responsibly.
             </p>
           </motion.div>
 
@@ -255,22 +281,22 @@ export default function CyberCrimeInvestigationApproval() {
             <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-blue-100 via-white to-indigo-100 blur-3xl opacity-60" />
             <div className="relative w-full max-w-md aspect-square bg-white rounded-[40px] shadow-2xl p-10 flex flex-col items-center justify-center border border-slate-100">
                 <div className="w-24 h-24 bg-blue-50 rounded-3xl flex items-center justify-center mb-6">
-                    <FileCheck size={48} className="text-blue-600" />
+                    <ShieldCheck size={48} className="text-blue-600" />
                 </div>
-                <h3 className="text-2xl font-black text-slate-800 mb-2">Lawful Mandate</h3>
-                <p className="text-slate-500 text-center font-medium">Ensuring transparent handling of digital evidence through multi-tier authorization.</p>
+                <h3 className="text-2xl font-black text-slate-800 mb-2">Ethical Compass</h3>
+                <p className="text-slate-500 text-center font-medium">Upholding transparency, accountability, and anti-corruption measures in every mission.</p>
             </div>
           </motion.div>
         </div>
 
         <div className="mt-10 pt-10 border-t border-slate-100">
           <div className="mb-16 text-center">
-            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">The Investigative <span className="text-blue-600">Warrant</span></h2>
-            <p className="text-slate-500 text-lg font-medium">Flip through the approval framework that governs our forensic and investigative activities.</p>
+            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">The Ethical <span className="text-blue-600">Compass</span></h2>
+            <p className="text-slate-500 text-lg font-medium">Flip through the 19 chapters of our commitment to lawful and moral excellence.</p>
           </div>
 
           <div className="py-6">
-            <InsightCard allPages={cyberCrimeInvestigationApprovalData} />
+            <InsightCard allPages={legalAndEthicalComplianceData} />
           </div>
         </div>
 
@@ -279,11 +305,11 @@ export default function CyberCrimeInvestigationApproval() {
           <div className="bg-slate-900 rounded-[40px] p-12 md:p-16 relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600 blur-[150px] opacity-20" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600 blur-[100px] opacity-10" />
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Statutory Compliance</h3>
-            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto relative z-10">Our approvals ensure that we can cooperate with law enforcement and judicial bodies with full accountability.</p>
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Zero Tolerance for Misconduct</h3>
+            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto relative z-10">Our accountability mechanisms ensure that every rupee donated and every action taken is in the public's best interest.</p>
             <div className="flex flex-wrap justify-center gap-6 relative z-10">
               <Link to="/contact" className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-900/30 flex items-center gap-2">
-                Verify Authority <ArrowRight size={22} />
+                Report Ethical Concern <ArrowRight size={22} />
               </Link>
             </div>
           </div>

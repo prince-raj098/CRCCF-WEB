@@ -53,8 +53,8 @@ const LegalComplianceKeyboard = () => {
     { id: 'cyber-law-compliance-standards', label: 'Cyber Law Compliance Standards', path: '/about/legal-compliance/cyber-law-compliance-standards', icon: Gavel },
     { id: 'compliance-with-cybercrime-regulation', label: 'Compliance with Cybercrime Regulation', path: '/about/legal-compliance/compliance-with-cybercrime-regulation', icon: FileSearch },
     { id: 'cybercrime-compliance-framework', label: 'Cybercrime Compliance Framework', path: '/about/legal-compliance/cybercrime-compliance-framework', icon: FolderKanban },
-    { id: 'resource-report', label: 'Resource & Report', path: '/about/legal-compliance/resource-report', icon: BookOpenCheck },
-    { id: 'recognized-power-responsibility', label: 'Recognized Power & Responsibility', path: '/about/legal-compliance/recognized-power-responsibility', icon: Crown },
+    { id: 'resource-and-report', label: 'Resource & Report', path: '/about/legal-compliance/resource-and-report', icon: BookOpenCheck },
+    { id: 'recognized-power-and-responsibility', label: 'Recognized Power & Responsibility', path: '/about/legal-compliance/recognized-power-and-responsibility', icon: Crown },
   ]
 
   return (

@@ -1,5 +1,315 @@
-import React from 'react'
+import React, { useState, useRef, useMemo } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, ArrowRight, ShieldCheck, Award, Lock, FileCheck, Landmark, Scale, Globe, Users, Scroll, ClipboardCheck } from "lucide-react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
+// Import data
+import { digitalSecurityCertificationData } from '../../../../data/digitalSecurityCertificationData';
+
+/* -------------------------------- Palette -------------------------------- */
+const color = {
+  blue50: "#EFF6FF",
+  blue100: "#DBEAFE",
+  blue500: "#3B82F6",
+  blue600: "#2563EB",
+  blue900: "#1E3A8A",
+  slate50: "#F8FAFC",
+  slate100: "#F1F5F9",
+  slate200: "#E2E8F0",
+  slate300: "#CBD5E1",
+  slate400: "#94A3B8",
+  slate700: "#334155",
+  slate800: "#1E293B",
+  slate900: "#0F172A",
+  white: "#FFFFFF",
+};
+
+/* -------------------------------- Motion -------------------------------- */
+const useAnims = () => {
+  const shouldReduce = useReducedMotion();
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: shouldReduce
+        ? { duration: 0 }
+        : { duration: 0.25, when: "beforeChildren", staggerChildren: 0.06 },
+    },
+  };
+  const itemUp = {
+    hidden: { opacity: 0, y: shouldReduce ? 0 : 12 },
+    show: { opacity: 1, y: 0, transition: { duration: shouldReduce ? 0 : 0.28 } },
+  };
+  return { container, itemUp };
+};
+
+/* -------------------------- SVG Mapping -------------------------- */
+const getSvgIcon = (id) => {
+    if (id.includes('introduction')) return Globe;
+    if (id.includes('9001')) return ClipboardCheck;
+    if (id.includes('27001')) return Lock;
+    if (id.includes('15408')) return ShieldCheck;
+    if (id.includes('26000')) return Scale;
+    if (id.includes('mission')) return Landmark;
+    return Award;
+};
+
+/* -------------------------- InsightCard (The Book) -------------------------- */
+const InsightCard = ({ allPages }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activePageIndex, setActivePageIndex] = useState(0);
+  const [showScrubber, setShowScrubber] = useState(false);
+  const scrubberTimer = useRef(null);
+
+  const keepScrubberVisible = () => {
+    setShowScrubber(true);
+    if (scrubberTimer.current) clearTimeout(scrubberTimer.current);
+    scrubberTimer.current = setTimeout(() => setShowScrubber(false), 3000);
+  };
+
+  const handleOpen = (e) => {
+    e.stopPropagation();
+    setIsOpen(prev => !prev);
+  };
+
+  return (
+    <div className="flex flex-col gap-6 w-full max-w-2xl mx-auto">
+      <motion.article
+        className={`
+          relative bg-white border border-slate-200 rounded-[24px] 
+          h-[420px] sm:h-[500px] md:h-[600px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
+          [transform-style:preserve-3d] [perspective:2000px] 
+          flex items-center justify-center transition-all duration-300 
+          ${isOpen ? 'shadow-[0_30px_70px_rgba(0,0,0,0.15)]' : 'hover:shadow-[0_30px_70px_rgba(0,0,0,0.15)]'}
+        `}
+      >
+        {/* Pages Stack */}
+        {allPages.map((page, pageIdx) => {
+          const isVisible = Math.abs(pageIdx - activePageIndex) <= 2 || pageIdx < activePageIndex;
+          if (!isVisible) return null;
+
+          const isFlipped = activePageIndex > pageIdx;
+          const PageIcon = getSvgIcon(page.id);
+
+          return (
+            <div
+              key={pageIdx}
+              style={{ zIndex: 100 - pageIdx }}
+              className={`
+                absolute inset-0 p-6 sm:p-10 flex flex-col w-full h-full justify-start 
+                pl-8 sm:pl-14 rounded-[24px] transition-all duration-[1s] 
+                ease-[cubic-bezier(0.645,0.045,0.355,1)]
+                [transform-origin:left_center] [backface-visibility:hidden]
+                ${pageIdx % 2 === 0 ? 'bg-[#F9FAFF]' : 'bg-[#FDFDFF]'}
+                ${isFlipped
+                  ? '[transform:rotateY(-130deg)_scale(0.9)_translateX(-20px)] opacity-100 pointer-events-none shadow-[-15px_0_40px_rgba(0,0,0,0.1)]'
+                  : pageIdx === activePageIndex
+                    ? 'opacity-100 translate-x-0 rotate-y-0 scale-100'
+                    : 'opacity-0 pointer-events-none translate-x-8'
+                }
+              `}
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center bg-blue-50">
+                  <PageIcon size={28} className="text-blue-600" />
+                </div>
+                <div className="flex flex-col">
+                  <h4 className="text-[13px] font-black uppercase tracking-[0.1em] leading-tight text-blue-700">
+                    {page.heading.replace(/[^\w\s\u00C0-\u017F&]/gi, '').trim()}
+                  </h4>
+                  <span className="text-[11px] font-bold text-slate-400 mt-1">Certification Pillar {pageIdx + 1} of {allPages.length}</span>
+                </div>
+              </div>
+
+              <div className="flex-1 overflow-y-auto pr-3 [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full">
+                <p className="text-[15px] text-slate-600 leading-relaxed font-medium whitespace-pre-line">{page.content}</p>
+              </div>
+
+              <div className="pt-8 mt-auto border-t border-slate-100">
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-4">
+                    {pageIdx > 0 && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx - 1); keepScrubberVisible(); }}
+                        className="text-[12px] font-black text-blue-600 flex items-center gap-2 hover:gap-3 transition-all bg-transparent border-none cursor-pointer p-0"
+                      >
+                        <ArrowLeft size={16} /> Back
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-5">
+                    {pageIdx < allPages.length - 1 && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx + 1); keepScrubberVisible(); }}
+                        className="text-[12px] font-black text-blue-600 flex items-center gap-2 hover:gap-3 transition-all bg-transparent border-none cursor-pointer p-0"
+                      >
+                        Next <ArrowRight size={16} />
+                      </button>
+                    )}
+                    <div className="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* COVER */}
+        <div
+          className={`
+            absolute inset-0 w-full h-full rounded-[24px] cursor-pointer 
+            transition-all duration-[1.3s] ease-[cubic-bezier(0.645,0.045,0.355,1)] 
+            [transform-origin:left_center] shadow-[6px_0_30px_rgba(0,0,0,0.12)] 
+            flex flex-col items-center justify-center z-[110] p-6 sm:p-12 text-center 
+            [backface-visibility:hidden] bg-white 
+            ${isOpen ? '[transform:rotateY(-145deg)_scale(0.95)_translateX(-30px)] opacity-0 pointer-events-none' : ''}
+          `}
+          style={{
+            background: `linear-gradient(135deg, #ffffff, #F0F7FF)`,
+            borderLeft: `8px solid #2563EB`
+          }}
+          onClick={handleOpen}
+        >
+          <div className="w-[80px] h-[80px] sm:w-[110px] sm:h-[110px] rounded-[24px] sm:rounded-[30px] flex items-center justify-center mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4">
+            <img src="/CRCCF_LOGO-removebg-preview.png" alt="CRCCF Logo" className="w-full h-full object-contain" />
+          </div>
+
+          <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>
+          
+          <h3 className="text-slate-900 leading-[1.1] mb-8 text-[24px] sm:text-[32px] font-bold" style={{ fontFamily: "'Dancing Script', cursive" }}>
+            The Certified Trust
+          </h3>
+          
+          <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">Statutory Certifications & Quality Mandates</p>
+
+          <div className="flex items-center gap-3 text-[13px] font-black uppercase tracking-[0.15em] mt-auto text-blue-600">
+            <span>Verify Credentials</span>
+            <ArrowRight size={18} className="animate-pulse" />
+          </div>
+        </div>
+      </motion.article>
+
+      {/* Scrubber */}
+      <div className={`transition-all duration-500 ease-out mt-4 ${isOpen || showScrubber ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className="flex flex-col gap-4 bg-white/50 backdrop-blur-sm p-6 rounded-[24px] border border-slate-100">
+          <div className="flex justify-between items-center">
+            <div className="flex flex-col">
+              <span className="text-[11px] sm:text-[12px] font-bold text-slate-700 mt-1 truncate max-w-[180px] sm:max-w-[300px]">{allPages[activePageIndex].heading}</span>
+            </div>
+            <span className="flex-shrink-0 px-4 py-1.5 rounded-full bg-blue-600 text-white text-[11px] font-black tabular-nums shadow-lg shadow-blue-200">
+              {activePageIndex + 1} / {allPages.length}
+            </span>
+          </div>
+          <div className="relative pt-2">
+            <input
+              type="range" min="0" max={allPages.length - 1} value={activePageIndex}
+              onChange={(e) => { setActivePageIndex(parseInt(e.target.value)); keepScrubberVisible(); }}
+              className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all shadow-inner"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ------------------------------ Main Page ------------------------------ */
 export default function DigitalSecurityCertification() {
-  return <div>Digital Security Certification</div>
+  const navigate = useNavigate();
+  const { container, itemUp } = useAnims();
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  return (
+    <div className="bg-[#FBFDFF] min-h-screen">
+      <motion.section
+        variants={container} initial="hidden" animate="show"
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-16"
+      >
+        <motion.nav variants={itemUp} className="mb-12">
+          <button
+            onClick={() => navigate('/about/legal-compliance')}
+            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors font-bold text-sm bg-transparent border-none cursor-pointer p-0"
+          >
+            <ArrowLeft size={18} /> Back to Compliance
+          </button>
+        </motion.nav>
+
+        <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
+          <motion.div variants={itemUp}>
+            <div className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black tracking-[0.2em] mb-6">
+              VERIFIED EXCELLENCE
+            </div>
+            <h1 className="text-5xl md:text-6xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
+              Digital <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Security</span> Certification
+            </h1>
+            <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
+              Upholding the highest standards of trust through ISO-certified quality management, information security, and ethical governance.
+            </p>
+          </motion.div>
+
+          <motion.div style={{ y: heroY }} className="relative flex justify-center">
+            <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-blue-100 via-white to-indigo-100 blur-3xl opacity-60" />
+            <div className="relative w-full max-w-md aspect-square bg-white rounded-[40px] shadow-2xl p-10 flex flex-col items-center justify-center border border-slate-100">
+                <div className="w-24 h-24 bg-blue-50 rounded-3xl flex items-center justify-center mb-6">
+                    <Award size={48} className="text-blue-600" />
+                </div>
+                <h3 className="text-2xl font-black text-slate-800 mb-2">Certified Trust</h3>
+                <p className="text-slate-500 text-center font-medium">Aligning with ISO 9001, 27001, and 27701 for a safer digital nation.</p>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="mt-10 pt-10 border-t border-slate-100">
+          <div className="mb-16 text-center">
+            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">The Certified <span className="text-blue-600">Trust</span></h2>
+            <p className="text-slate-500 text-lg font-medium">Flip through the 6 dimensions of our quality and security certification framework.</p>
+          </div>
+
+          <div className="py-6">
+            <InsightCard allPages={digitalSecurityCertificationData} />
+          </div>
+        </div>
+
+        {/* Certification Seals Grid */}
+        <motion.div variants={itemUp} className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+                { icon: ClipboardCheck, label: "ISO 9001:2015", sub: "Quality Management" },
+                { icon: Lock, label: "ISO 27001", sub: "Information Security" },
+                { icon: ShieldCheck, label: "ISO 27701", sub: "Privacy Management" },
+                { icon: Scale, label: "ISO 37001", sub: "Anti-Bribery" },
+            ].map((item, idx) => (
+                <div key={idx} className="p-8 bg-white rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-all text-center">
+                    <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <item.icon size={24} className="text-blue-600" />
+                    </div>
+                    <h4 className="text-slate-800 font-bold mb-1">{item.label}</h4>
+                    <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{item.sub}</p>
+                </div>
+            ))}
+        </motion.div>
+
+        {/* Footer Call to Action */}
+        <motion.div variants={itemUp} className="mt-24 text-center">
+          <div className="bg-slate-900 rounded-[40px] p-12 md:p-16 relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600 blur-[150px] opacity-20" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600 blur-[100px] opacity-10" />
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Excellence in Every Audit</h3>
+            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto relative z-10">Our certifications are a testament to our commitment to maintaining a world-class security posture for India's digital citizens.</p>
+            <div className="flex flex-wrap justify-center gap-6 relative z-10">
+              <Link to="/contact" className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-900/30 flex items-center gap-2">
+                Verify Our Seals <ArrowRight size={22} />
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </motion.section>
+    </div>
+  );
 }

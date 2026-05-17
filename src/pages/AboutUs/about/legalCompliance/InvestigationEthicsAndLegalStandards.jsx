@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, ShieldCheck, FileCheck, Scale, Gavel, Landmark, Eye, Lock, Search } from "lucide-react";
+import { ArrowLeft, ArrowRight, ShieldCheck, Scale, Gavel, Heart, GraduationCap, Users, Eye, Landmark, Compass, Scroll } from "lucide-react";
 import {
   motion,
   useReducedMotion,
@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { cyberCrimeInvestigationApprovalData } from '../../../../data/cyberCrimeInvestigationApprovalData';
+import { investigationEthicsAndLegalStandardsData } from '../../../../data/investigationEthicsAndLegalStandardsData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {
@@ -50,9 +50,12 @@ const useAnims = () => {
 
 /* -------------------------- SVG Mapping -------------------------- */
 const getSvgIcon = (id) => {
-    if (id.includes('regulatory')) return Landmark;
-    if (id.includes('case-specific')) return Search;
-    if (id.includes('judicial')) return Gavel;
+    if (id.includes('integrity')) return Compass;
+    if (id.includes('lawful-adherence')) return Landmark;
+    if (id.includes('protecting-rights')) return Heart;
+    if (id.includes('training')) return GraduationCap;
+    if (id.includes('collaboration')) return Users;
+    if (id.includes('transparency')) return Eye;
     return ShieldCheck;
 };
 
@@ -117,9 +120,9 @@ const InsightCard = ({ allPages }) => {
                 </div>
                 <div className="flex flex-col">
                   <h4 className="text-[13px] font-black uppercase tracking-[0.1em] leading-tight text-blue-700">
-                    {page.heading}
+                    {page.heading.replace(/[^\w\s\u00C0-\u017F&]/gi, '').trim()}
                   </h4>
-                  <span className="text-[11px] font-bold text-slate-400 mt-1">Authorization {pageIdx + 1} of {allPages.length}</span>
+                  <span className="text-[11px] font-bold text-slate-400 mt-1">Ethical Pillar {pageIdx + 1} of {allPages.length}</span>
                 </div>
               </div>
 
@@ -179,13 +182,13 @@ const InsightCard = ({ allPages }) => {
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>
           
           <h3 className="text-slate-900 leading-[1.1] mb-8 text-[24px] sm:text-[32px] font-bold" style={{ fontFamily: "'Dancing Script', cursive" }}>
-            The Investigative Warrant
+            The Ethical Compass
           </h3>
           
-          <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">Statutory Approvals & Case Authorization</p>
+          <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">Forensic Ethics & Legal Standards</p>
 
           <div className="flex items-center gap-3 text-[13px] font-black uppercase tracking-[0.15em] mt-auto text-blue-600">
-            <span>Verify Authority</span>
+            <span>Explore Ethics</span>
             <ArrowRight size={18} className="animate-pulse" />
           </div>
         </div>
@@ -216,7 +219,7 @@ const InsightCard = ({ allPages }) => {
 };
 
 /* ------------------------------ Main Page ------------------------------ */
-export default function CyberCrimeInvestigationApproval() {
+export default function InvestigationEthicsAndLegalStandards() {
   const navigate = useNavigate();
   const { container, itemUp } = useAnims();
   const heroRef = useRef(null);
@@ -241,13 +244,13 @@ export default function CyberCrimeInvestigationApproval() {
         <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
           <motion.div variants={itemUp}>
             <div className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black tracking-[0.2em] mb-6">
-              LEGAL AUTHORIZATION
+              MORAL ARCHITECTURE
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
-              Investigation <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Approval</span>
+              Ethics & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Legal</span> Standards
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-              CRCCF operates under strict protocols and official mandates, ensuring every investigative step is authorized, documented, and legally compliant.
+              Integrity is the heartbeat of every investigation. We ensure digital justice is served through a rigorous framework of forensic ethics and statutory respect.
             </p>
           </motion.div>
 
@@ -255,35 +258,52 @@ export default function CyberCrimeInvestigationApproval() {
             <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-blue-100 via-white to-indigo-100 blur-3xl opacity-60" />
             <div className="relative w-full max-w-md aspect-square bg-white rounded-[40px] shadow-2xl p-10 flex flex-col items-center justify-center border border-slate-100">
                 <div className="w-24 h-24 bg-blue-50 rounded-3xl flex items-center justify-center mb-6">
-                    <FileCheck size={48} className="text-blue-600" />
+                    <Scale size={48} className="text-blue-600" />
                 </div>
-                <h3 className="text-2xl font-black text-slate-800 mb-2">Lawful Mandate</h3>
-                <p className="text-slate-500 text-center font-medium">Ensuring transparent handling of digital evidence through multi-tier authorization.</p>
+                <h3 className="text-2xl font-black text-slate-800 mb-2">Ethical Core</h3>
+                <p className="text-slate-500 text-center font-medium">Upholding human dignity and privacy in every digital case we handle.</p>
             </div>
           </motion.div>
         </div>
 
         <div className="mt-10 pt-10 border-t border-slate-100">
           <div className="mb-16 text-center">
-            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">The Investigative <span className="text-blue-600">Warrant</span></h2>
-            <p className="text-slate-500 text-lg font-medium">Flip through the approval framework that governs our forensic and investigative activities.</p>
+            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">The Ethical <span className="text-blue-600">Compass</span></h2>
+            <p className="text-slate-500 text-lg font-medium">Flip through the 6 pillars of our commitment to lawful and moral excellence in forensics.</p>
           </div>
 
           <div className="py-6">
-            <InsightCard allPages={cyberCrimeInvestigationApprovalData} />
+            <InsightCard allPages={investigationEthicsAndLegalStandardsData} />
           </div>
         </div>
 
+        {/* Ethics Highlights Grid */}
+        <motion.div variants={itemUp} className="mt-24 grid grid-cols-2 md:grid-cols-3 gap-8">
+            {[
+                { icon: ShieldCheck, label: "Data Integrity", sub: "Untampered Evidence" },
+                { icon: Heart, label: "Victim Dignity", sub: "Compassionate Care" },
+                { icon: Gavel, label: "Statutory Respect", sub: "IT Act 2000" },
+            ].map((item, idx) => (
+                <div key={idx} className="p-8 bg-white rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-all text-center">
+                    <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <item.icon size={24} className="text-blue-600" />
+                    </div>
+                    <h4 className="text-slate-800 font-bold mb-1">{item.label}</h4>
+                    <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{item.sub}</p>
+                </div>
+            ))}
+        </motion.div>
+
         {/* Footer Call to Action */}
-        <motion.div variants={itemUp} className="mt-20 text-center">
+        <motion.div variants={itemUp} className="mt-24 text-center">
           <div className="bg-slate-900 rounded-[40px] p-12 md:p-16 relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600 blur-[150px] opacity-20" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600 blur-[100px] opacity-10" />
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Statutory Compliance</h3>
-            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto relative z-10">Our approvals ensure that we can cooperate with law enforcement and judicial bodies with full accountability.</p>
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Upholding Truth with Integrity</h3>
+            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto relative z-10">Our ethical standards ensure that every investigation we support is a testament to the rule of law and human dignity.</p>
             <div className="flex flex-wrap justify-center gap-6 relative z-10">
               <Link to="/contact" className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-900/30 flex items-center gap-2">
-                Verify Authority <ArrowRight size={22} />
+                Consult Our Ethics Board <ArrowRight size={22} />
               </Link>
             </div>
           </div>

@@ -40,7 +40,7 @@ import OurActivity from './pages/AboutUs/OurActivity'
 import Purpose from './pages/AboutUs/Purpose'
 import Objective from './pages/AboutUs/Objective'
 import Achievement from './pages/AboutUs/Achievement'
-import LegalCompliance from './pages/AboutUs/LegalCompliance'
+import LegalComplianceRouter from './pages/AboutUs/LegalComplianceRouter'
 import PrivacyPolicy from './pages/AboutUs/PrivacyPolicy'
 import DataProtection from './pages/AboutUs/DataProtection'
 import TermsConditions from './pages/AboutUs/TermsConditions'
@@ -169,7 +169,7 @@ export default function App() {
             <Route path="purpose" element={<Purpose />} />
             <Route path="objective" element={<Objective />} />
             <Route path="achievement" element={<Achievement />} />
-            <Route path="legal-compliance" element={<LegalCompliance />} />
+            <Route path="legal-compliance/*" element={<LegalComplianceRouter />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="data-protection" element={<DataProtection />} />
             <Route path="terms-conditions" element={<TermsConditions />} />

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, ShieldCheck, FileCheck, Scale, Gavel, Landmark, Eye, Lock, Search } from "lucide-react";
+import { ArrowLeft, ArrowRight, ShieldCheck, Scale, FileText, Settings, Users, BarChart3, Database, Globe, Landmark, Heart, Rocket } from "lucide-react";
 import {
   motion,
   useReducedMotion,
@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { cyberCrimeInvestigationApprovalData } from '../../../../data/cyberCrimeInvestigationApprovalData';
+import { resourceAndReportData } from '../../../../data/resourceAndReportData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {
@@ -50,9 +50,13 @@ const useAnims = () => {
 
 /* -------------------------- SVG Mapping -------------------------- */
 const getSvgIcon = (id) => {
-    if (id.includes('regulatory')) return Landmark;
-    if (id.includes('case-specific')) return Search;
-    if (id.includes('judicial')) return Gavel;
+    if (id.includes('introduction')) return Globe;
+    if (id.includes('management')) return Settings;
+    if (id.includes('standards')) return FileText;
+    if (id.includes('victim')) return Heart;
+    if (id.includes('coordination')) return Landmark;
+    if (id.includes('transparency')) return BarChart3;
+    if (id.includes('future')) return Rocket;
     return ShieldCheck;
 };
 
@@ -79,7 +83,7 @@ const InsightCard = ({ allPages }) => {
       <motion.article
         className={`
           relative bg-white border border-slate-200 rounded-[24px] 
-          h-[420px] sm:h-[500px] md:h-[600px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
+          h-[450px] sm:h-[550px] md:h-[650px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
           [transform-style:preserve-3d] [perspective:2000px] 
           flex items-center justify-center transition-all duration-300 
           ${isOpen ? 'shadow-[0_30px_70px_rgba(0,0,0,0.15)]' : 'hover:shadow-[0_30px_70px_rgba(0,0,0,0.15)]'}
@@ -117,9 +121,9 @@ const InsightCard = ({ allPages }) => {
                 </div>
                 <div className="flex flex-col">
                   <h4 className="text-[13px] font-black uppercase tracking-[0.1em] leading-tight text-blue-700">
-                    {page.heading}
+                    {page.heading.replace(/[^\w\s\u00C0-\u017F&]/gi, '').trim()}
                   </h4>
-                  <span className="text-[11px] font-bold text-slate-400 mt-1">Authorization {pageIdx + 1} of {allPages.length}</span>
+                  <span className="text-[11px] font-bold text-slate-400 mt-1">Resource Chapter {pageIdx + 1} of {allPages.length}</span>
                 </div>
               </div>
 
@@ -179,13 +183,13 @@ const InsightCard = ({ allPages }) => {
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>
           
           <h3 className="text-slate-900 leading-[1.1] mb-8 text-[24px] sm:text-[32px] font-bold" style={{ fontFamily: "'Dancing Script', cursive" }}>
-            The Investigative Warrant
+            The Resource Codex
           </h3>
           
-          <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">Statutory Approvals & Case Authorization</p>
+          <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">Infrastructure & Accountable Reporting</p>
 
           <div className="flex items-center gap-3 text-[13px] font-black uppercase tracking-[0.15em] mt-auto text-blue-600">
-            <span>Verify Authority</span>
+            <span>Verify Resources</span>
             <ArrowRight size={18} className="animate-pulse" />
           </div>
         </div>
@@ -216,7 +220,7 @@ const InsightCard = ({ allPages }) => {
 };
 
 /* ------------------------------ Main Page ------------------------------ */
-export default function CyberCrimeInvestigationApproval() {
+export default function ResourceAndReport() {
   const navigate = useNavigate();
   const { container, itemUp } = useAnims();
   const heroRef = useRef(null);
@@ -241,13 +245,13 @@ export default function CyberCrimeInvestigationApproval() {
         <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
           <motion.div variants={itemUp}>
             <div className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black tracking-[0.2em] mb-6">
-              LEGAL AUTHORIZATION
+              INVESTIGATIVE CAPITAL
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
-              Investigation <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Approval</span>
+              Resource & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Report</span>
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-              CRCCF operates under strict protocols and official mandates, ensuring every investigative step is authorized, documented, and legally compliant.
+              Equipped with state-of-the-art forensic tools and structured reporting mechanisms to ensure transparency, accountability, and justice.
             </p>
           </motion.div>
 
@@ -255,35 +259,53 @@ export default function CyberCrimeInvestigationApproval() {
             <div className="absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-blue-100 via-white to-indigo-100 blur-3xl opacity-60" />
             <div className="relative w-full max-w-md aspect-square bg-white rounded-[40px] shadow-2xl p-10 flex flex-col items-center justify-center border border-slate-100">
                 <div className="w-24 h-24 bg-blue-50 rounded-3xl flex items-center justify-center mb-6">
-                    <FileCheck size={48} className="text-blue-600" />
+                    <Database size={48} className="text-blue-600" />
                 </div>
-                <h3 className="text-2xl font-black text-slate-800 mb-2">Lawful Mandate</h3>
-                <p className="text-slate-500 text-center font-medium">Ensuring transparent handling of digital evidence through multi-tier authorization.</p>
+                <h3 className="text-2xl font-black text-slate-800 mb-2">Technical Capacity</h3>
+                <p className="text-slate-500 text-center font-medium">Advanced digital forensic infrastructure and specialized analytical resources.</p>
             </div>
           </motion.div>
         </div>
 
         <div className="mt-10 pt-10 border-t border-slate-100">
           <div className="mb-16 text-center">
-            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">The Investigative <span className="text-blue-600">Warrant</span></h2>
-            <p className="text-slate-500 text-lg font-medium">Flip through the approval framework that governs our forensic and investigative activities.</p>
+            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">The Resource <span className="text-blue-600">Codex</span></h2>
+            <p className="text-slate-500 text-lg font-medium">Flip through the 7 chapters of our investigative infrastructure and accountable reporting standards.</p>
           </div>
 
           <div className="py-6">
-            <InsightCard allPages={cyberCrimeInvestigationApprovalData} />
+            <InsightCard allPages={resourceAndReportData} />
           </div>
         </div>
 
+        {/* Highlights Grid */}
+        <motion.div variants={itemUp} className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+                { icon: Settings, label: "Advanced Tools", sub: "Forensic Infrastructure" },
+                { icon: FileText, label: "Digital Standards", sub: "Compliant Reporting" },
+                { icon: Users, label: "Expert Team", sub: "Specialized Analysts" },
+                { icon: BarChart3, label: "Transparency", sub: "Audited Processes" },
+            ].map((item, idx) => (
+                <div key={idx} className="p-8 bg-white rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-all text-center">
+                    <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <item.icon size={24} className="text-blue-600" />
+                    </div>
+                    <h4 className="text-slate-800 font-bold mb-1">{item.label}</h4>
+                    <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">{item.sub}</p>
+                </div>
+            ))}
+        </motion.div>
+
         {/* Footer Call to Action */}
-        <motion.div variants={itemUp} className="mt-20 text-center">
+        <motion.div variants={itemUp} className="mt-24 text-center">
           <div className="bg-slate-900 rounded-[40px] p-12 md:p-16 relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600 blur-[150px] opacity-20" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600 blur-[100px] opacity-10" />
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Statutory Compliance</h3>
-            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto relative z-10">Our approvals ensure that we can cooperate with law enforcement and judicial bodies with full accountability.</p>
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Accountability in Every Byte</h3>
+            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto relative z-10">Our resources and reporting framework ensure that digital evidence is translated into meaningful justice, backed by absolute integrity.</p>
             <div className="flex flex-wrap justify-center gap-6 relative z-10">
               <Link to="/contact" className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-900/30 flex items-center gap-2">
-                Verify Authority <ArrowRight size={22} />
+                Access Resources <ArrowRight size={22} />
               </Link>
             </div>
           </div>

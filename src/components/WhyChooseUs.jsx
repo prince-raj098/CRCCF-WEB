@@ -90,7 +90,7 @@ export default function WhyChooseUs() {
 
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev === totalCards - 1 ? 0 : prev + 1));
-    }, 3000); // Glides every 3 seconds
+    }, 2000); // Glides every 3 seconds
 
     return () => clearInterval(interval);
   }, [isHovered, totalCards, isInView]);
