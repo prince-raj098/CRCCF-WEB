@@ -1,9 +1,7 @@
 import { motion, useInView } from 'framer-motion'
-import { BrainCircuit, ChevronLeft, Rocket, Users, Award, LineChart, MessageSquare, Lightbulb } from 'lucide-react'
+import { BrainCircuit, ChevronLeft, Users, Award, LineChart, MessageSquare, Lightbulb } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
 import InteractiveBackground from '../../components/InteractiveBackground'
 
 const MentorshipEvaluation = () => {
@@ -124,7 +122,6 @@ const MentorshipEvaluation = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
       <InteractiveBackground />
       
       <main className="pt-32 pb-24 px-4 relative">
@@ -214,8 +211,6 @@ const MentorshipEvaluation = () => {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }

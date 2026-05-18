@@ -1,9 +1,7 @@
 import { motion, useInView } from 'framer-motion'
-import { Laptop, ChevronLeft, Rocket, Cpu, Globe, Target, Terminal, Settings } from 'lucide-react'
+import { Laptop, ChevronLeft, Rocket, Cpu, Globe,  Terminal, Settings } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
 import InteractiveBackground from '../../components/InteractiveBackground'
 
 const PracticalTraining = () => {
@@ -119,7 +117,6 @@ const PracticalTraining = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
       <InteractiveBackground />
       
       <main className="pt-32 pb-24 px-4 relative">
@@ -209,8 +206,6 @@ const PracticalTraining = () => {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }

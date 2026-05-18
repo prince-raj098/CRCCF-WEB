@@ -1,9 +1,7 @@
 import { motion, useInView } from 'framer-motion'
-import { Network, ChevronLeft, Rocket, Shield, Zap, Heart, Bookmark, Coffee } from 'lucide-react'
+import { Network, ChevronLeft, Shield, Zap, Heart, Bookmark, Coffee } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
 import InteractiveBackground from '../../components/InteractiveBackground'
 
 const LearningEnvironment = () => {
@@ -119,7 +117,6 @@ const LearningEnvironment = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
       <InteractiveBackground />
       
       <main className="pt-32 pb-24 px-4 relative">
@@ -209,8 +206,6 @@ const LearningEnvironment = () => {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }

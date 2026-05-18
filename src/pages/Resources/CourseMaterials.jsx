@@ -1,9 +1,7 @@
 import { motion, useInView } from 'framer-motion'
-import { BookOpen, ChevronLeft, GraduationCap, Laptop, BrainCircuit, Target, ShieldCheck, Rocket } from 'lucide-react'
+import { BookOpen, ChevronLeft, GraduationCap, BrainCircuit, Target, ShieldCheck, Rocket } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
 import InteractiveBackground from '../../components/InteractiveBackground'
 
 const CourseMaterials = () => {
@@ -119,7 +117,6 @@ const CourseMaterials = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
       <InteractiveBackground />
 
       
@@ -211,8 +208,6 @@ const CourseMaterials = () => {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
     </div>
   )
 }

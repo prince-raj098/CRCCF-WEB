@@ -1,10 +1,6 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import DirectorySection from "./DirectorySection";
 import PageWrapper from "../../components/ContactUs/PageWrapper";
-import TopBar from "../../components/TopBar";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 import * as contactData from "../../data/contactData";
 import { 
   BadgeCent, 
@@ -45,8 +41,6 @@ const DirectoryWrapper = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <TopBar />
-      <Navbar />
       
       <main className="flex-1 bg-gray-50">
         <PageWrapper bgIcons={[config.icon]} transparentBg={true}>
@@ -57,8 +51,6 @@ const DirectoryWrapper = () => {
           />
         </PageWrapper>
       </main>
-
-      <Footer />
     </div>
   );
 };
