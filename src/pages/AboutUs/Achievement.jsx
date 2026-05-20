@@ -2,7 +2,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Trophy } from 'lucide-react'
-import { contentData } from '../../data/contentData'
+import { contentData } from '../../data/aboutUs/contentData'
 
 const Achievement = () => {
   const navigate = useNavigate()

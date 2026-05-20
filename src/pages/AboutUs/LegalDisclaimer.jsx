@@ -11,7 +11,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { legalDisclaimerData } from '../../data/legalDisclaimerData';
+import { legalDisclaimerData } from '../../data/aboutUs/legalDisclaimerData';
 
 /* -------------------------------- Motion -------------------------------- */
 const useAnims = () => {

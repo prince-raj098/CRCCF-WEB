@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { ourRoleData } from '../../../../data/ourRoleData';
+import { ourRoleData } from '../../../../data/aboutUs/legalCompliance/ourRoleData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {

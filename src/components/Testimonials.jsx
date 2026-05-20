@@ -77,7 +77,6 @@ export default function Testimonials() {
     }, 4500);
     return () => clearInterval(timer);
   }, [isHovered, total]);
-
   // ==========================================
   // PERFECT ALIGNMENT ENGINE
   // ==========================================

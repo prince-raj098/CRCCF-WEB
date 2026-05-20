@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { crccfLegalRightsData } from '../../../../data/crccfLegalRightsData';
+import { crccfLegalRightsData } from '../../../../data/aboutUs/legalCompliance/crccfLegalRightsData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {

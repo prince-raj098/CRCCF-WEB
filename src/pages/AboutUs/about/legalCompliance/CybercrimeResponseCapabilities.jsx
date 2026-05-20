@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { cybercrimeResponseCapabilitiesData } from '../../../../data/cybercrimeResponseCapabilitiesData';
+import { cybercrimeResponseCapabilitiesData } from '../../../../data/aboutUs/legalCompliance/cybercrimeResponseCapabilitiesData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {

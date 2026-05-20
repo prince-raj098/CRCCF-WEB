@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { reportCards } from "../../data/reportCards";
+import { reportCards } from "../../data/report/reportCards";
 import ReportCard from "../../components/ReportCard";
 import PoliceCarAnimation from "../../components/PoliceCarAnimation";
 

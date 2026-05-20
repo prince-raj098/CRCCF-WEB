@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { teamToolAndTechCapacityData } from '../../../../data/teamToolAndTechCapacityData';
+import { teamToolAndTechCapacityData } from '../../../../data/aboutUs/legalCompliance/teamToolAndTechCapacityData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {

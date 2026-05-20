@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Crown, Scale, Globe, Shield, Landmark } from "lu
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 // Import data
-import { recognizedPowerAndResponsibilityData } from '../../../../data/recognizedPowerAndResponsibilityData';
+import { recognizedPowerAndResponsibilityData } from '../../../../data/aboutUs/legalCompliance/recognizedPowerAndResponsibilityData';
 
 /* -------------------------------- Motion -------------------------------- */
 const useAnims = () => {

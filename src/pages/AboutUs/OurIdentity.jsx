@@ -12,7 +12,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { aboutUsMainData } from '../../data/aboutUsMainData';
+import { aboutUsMainData } from '../../data/aboutUs/aboutUsMainData';
 
 /* -------------------------------- Motion -------------------------------- */
 const useAnims = () => {

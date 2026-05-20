@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { cyberLawComplianceStandardsData } from '../../../../data/cyberLawComplianceStandardsData';
+import { cyberLawComplianceStandardsData } from '../../../../data/aboutUs/legalCompliance/cyberLawComplianceStandardsData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {

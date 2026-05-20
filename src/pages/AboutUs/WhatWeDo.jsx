@@ -11,7 +11,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { whatWeDoData } from '../../data/whatWeDoData';
+import { whatWeDoData } from '../../data/aboutUs/whatWeDoData';
 
 /* -------------------------------- Motion -------------------------------- */
 const useAnims = () => {

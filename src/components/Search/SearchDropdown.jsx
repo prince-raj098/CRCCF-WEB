@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { iconMap } from '../../data/searchData';
+import { iconMap } from '../../data/global/searchData';
 import { Search } from 'lucide-react';
 
 export default function SearchDropdown({ results, selectedIndex, onSelect, query }) {

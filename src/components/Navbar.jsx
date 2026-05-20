@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Menu, X, Bell, Search } from 'lucide-react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Fuse from 'fuse.js'
-import { searchableData } from '../data/searchData'
+import { searchableData } from '../data/global/searchData'
 import SearchDropdown from './Search/SearchDropdown'
 
 const navLinks = [

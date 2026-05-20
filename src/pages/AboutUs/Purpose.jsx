@@ -12,7 +12,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { purposedata } from '../../data/purpose.data';
+import { purposedata } from '../../data/aboutUs/purpose.data';
 
 /* -------------------------------- Motion -------------------------------- */
 const useAnims = () => {
@@ -388,7 +388,7 @@ export default function Purpose() {
               Driven by <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Pure Purpose</span>
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-              Every action we take is rooted in a deep sense of purpose. Explore the 50 foundational pillars that drive our commitment to a safer digital society.
+              Every action we take is rooted in a deep sense of purpose. Explore the 80 foundational pillars that drive our commitment to a safer digital society.
             </p>
           </motion.div>
 
@@ -403,7 +403,7 @@ export default function Purpose() {
         <div className="mt-10 pt-10 border-t border-slate-100">
           <div className="mb-16 text-center">
             <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">The Purpose <span className="text-amber-600">Chronicles</span></h2>
-            <p className="text-slate-500 text-lg font-medium">Flip the cover to explore the 50 strategic pillars of our foundation.</p>
+            <p className="text-slate-500 text-lg font-medium">Flip the cover to explore the 80 strategic pillars of our foundation.</p>
           </div>
 
           <div className="py-6">

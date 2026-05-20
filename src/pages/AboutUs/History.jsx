@@ -2,7 +2,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Clock } from 'lucide-react'
-import { contentData } from '../../data/contentData'
+import { contentData } from '../../data/aboutUs/contentData'
 
 const History = () => {
   const navigate = useNavigate()

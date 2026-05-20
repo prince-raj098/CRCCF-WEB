@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { legalIdentityData } from '../../../../data/LegalIdentitydata';
+import { legalIdentityData } from '../../../../data/aboutUs/legalCompliance/LegalIdentitydata';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {

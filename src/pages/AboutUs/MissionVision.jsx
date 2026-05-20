@@ -12,7 +12,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { missionAndVisionData } from '../../data/missionAndVisionData';
+import { missionAndVisionData } from '../../data/aboutUs/missionAndVisionData';
 
 /* -------------------------------- Motion -------------------------------- */
 const useAnims = () => {
@@ -394,7 +394,7 @@ export default function MissionVision() {
               A Future Defined by <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">Cyber Resilience</span>
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-              Our mission is clear, and our vision is bold. Explore the 40 core statements that guide our foundation towards a digitally sovereign and safe India.
+              Our mission is clear, and our vision is bold. Explore the 100 core statements that guide our foundation towards a digitally sovereign and safe India.
             </p>
           </motion.div>
 
@@ -409,7 +409,7 @@ export default function MissionVision() {
         <div className="mt-10 pt-10 border-t border-slate-100">
           <div className="mb-16 text-center">
             <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">The Vision <span className="text-indigo-600">Chronicles</span></h2>
-            <p className="text-slate-500 text-lg font-medium">Discover the 40 milestones of our mission and vision for the nation.</p>
+            <p className="text-slate-500 text-lg font-medium">Discover the 100 milestones of our mission and vision for the nation.</p>
           </div>
 
           <div className="py-6">

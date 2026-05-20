@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import DirectorySection from "./DirectorySection";
 import PageWrapper from "../../components/ContactUs/PageWrapper";
-import * as contactData from "../../data/contactData";
+import * as contactData from "../../data/contactUs/contactData";
 import { 
   BadgeCent, 
   Users, 

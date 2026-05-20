@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { investigationEthicsAndLegalStandardsData } from '../../../../data/investigationEthicsAndLegalStandardsData';
+import { investigationEthicsAndLegalStandardsData } from '../../../../data/aboutUs/legalCompliance/investigationEthicsAndLegalStandardsData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {

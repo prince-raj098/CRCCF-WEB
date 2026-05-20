@@ -2,7 +2,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import { contentData } from '../../data/contentData'
+import { contentData } from '../../data/aboutUs/contentData'
 
 const PartnershipCollaboration = () => {
   const navigate = useNavigate()

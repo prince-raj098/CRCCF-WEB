@@ -2,7 +2,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Shield } from 'lucide-react'
-import { contentData } from '../../data/contentData'
+import { contentData } from '../../data/aboutUs/contentData'
 
 const DataProtection = () => {
   const navigate = useNavigate()

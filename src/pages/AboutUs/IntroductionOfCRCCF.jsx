@@ -14,7 +14,7 @@ import {
 // !!======================================================================!!
 // !!  IMPORT FROM THE DATA DIRECTORY                                      !!
 // !!======================================================================!!
-import { introductiondata } from '../../data/introductionData';
+import { introductiondata } from '../../data/aboutUs/introductionData';
 
 /* -------------------------------- Motion -------------------------------- */
 const useAnims = () => {
@@ -405,32 +405,19 @@ const getSvgComponent = (item) => {
   return SvgWelcome; // Default
 };
 
-/* ------------------------------ InsightCard ------------------------------ */
-/* ------------------------------ InsightCard (Book Animation) ------------------------------ */
-const InsightCard = ({ section, index }) => {
+/* ------------------------------ InsightCard (Singular) ------------------------------ */
+const InsightCard = ({ allPages }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activePageIndex, setActivePageIndex] = useState(0);
   const [previewPageIndex, setPreviewPageIndex] = useState(null);
   const [showScrubber, setShowScrubber] = useState(false);
   const scrubberTimer = useRef(null);
-  const SVGComp = getSvgComponent(section);
 
   const keepScrubberVisible = () => {
-    if (window.innerWidth > 1024) {
-      setShowScrubber(true);
-      if (scrubberTimer.current) clearTimeout(scrubberTimer.current);
-      scrubberTimer.current = setTimeout(() => setShowScrubber(false), 3000);
-    }
+    setShowScrubber(true);
+    if (scrubberTimer.current) clearTimeout(scrubberTimer.current);
+    scrubberTimer.current = setTimeout(() => setShowScrubber(false), 3000);
   };
-
-  const themes = [
-    { color: "#2563EB", bg: "#EFF6FF", label: "CYBERSECURITY" },
-    { color: "#9333EA", bg: "#F5F3FF", label: "TECHNOLOGY" },
-    { color: "#E11D48", bg: "#FFF1F2", label: "LEGAL" },
-    { color: "#059669", bg: "#ECFDF5", label: "AWARENESS" },
-    { color: "#D97706", bg: "#FFFBEB", label: "EDUCATION" },
-  ];
-  const theme = themes[index % themes.length];
 
   const isDesktop = () => window.innerWidth > 1024;
 
@@ -439,105 +426,96 @@ const InsightCard = ({ section, index }) => {
     setIsOpen(prev => !prev);
   };
 
-  const handleMouseEnter = () => {
-    if (isDesktop()) {
-      setIsOpen(true);
-    }
-  };
-
+  const handleMouseEnter = () => { if (isDesktop()) setIsOpen(true); };
   const handleMouseLeave = () => {
     if (isDesktop() && !showScrubber) {
       setIsOpen(false);
-      setActivePageIndex(0);
     }
   };
 
-  const subPages = section.subPages || [];
-  const allPages = [
-    { heading: section.heading, content: section.content, label: theme.label },
-    ...subPages.map(sp => ({ ...sp, label: sp.heading.toUpperCase() }))
-  ];
-
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-6 w-full max-w-2xl mx-auto">
       <motion.article
         className={`
-          relative bg-white border border-slate-200 rounded-[20px] 
-          h-[360px] w-full shadow-[0_4px_20px_rgba(0,0,0,0.05)] 
+          relative bg-white border border-slate-200 rounded-[24px] 
+          h-[520px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
           [transform-style:preserve-3d] [perspective:2000px] 
           flex items-center justify-center transition-all duration-300 
-          ${isOpen ? 'shadow-[0_20px_50px_rgba(0,0,0,0.12)]' : 'hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)]'}
+          ${isOpen ? 'shadow-[0_30px_70px_rgba(0,0,0,0.15)]' : 'hover:shadow-[0_30px_70px_rgba(0,0,0,0.15)]'}
         `}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
       >
-        {/* Dynamic Pages Stack */}
-        {allPages.slice().reverse().map((page, revIdx) => {
-          const pageIdx = allPages.length - 1 - revIdx;
+        {/* Pages Stack */}
+        {allPages.map((page, pageIdx) => {
+          const isVisible = Math.abs(pageIdx - activePageIndex) <= 2 || pageIdx < activePageIndex;
+          if (!isVisible) return null;
+
           const isFlipped = activePageIndex > pageIdx;
-          const PageSVG = getSvgComponent(page);
+          const PageIcon = getSvgComponent(page);
 
           return (
             <div
               key={pageIdx}
-              style={{ zIndex: 15 - pageIdx }}
+              style={{ zIndex: 100 - pageIdx }}
               className={`
-                absolute inset-0 p-8 flex flex-col w-full h-full justify-start 
-                pl-12 rounded-[20px] transition-all duration-[1s] 
+                absolute inset-0 p-10 flex flex-col w-full h-full justify-start 
+                pl-14 rounded-[24px] transition-all duration-[1s] 
                 ease-[cubic-bezier(0.645,0.045,0.355,1)]
                 [transform-origin:left_center] [backface-visibility:hidden]
                 will-change-transform will-change-opacity
-                ${pageIdx % 2 === 0 ? 'bg-slate-50' : 'bg-slate-100'}
+                ${pageIdx % 2 === 0 ? 'bg-[#F8FAFC]' : 'bg-[#F1F5F9]'}
                 ${isFlipped
-                  ? '[transform:rotateY(-125deg)_scale(0.9)_translateX(-15px)] opacity-100 pointer-events-none shadow-[-10px_0_30px_rgba(0,0,0,0.1)]'
+                  ? '[transform:rotateY(-130deg)_scale(0.9)_translateX(-20px)] opacity-100 pointer-events-none shadow-[-15px_0_40px_rgba(0,0,0,0.1)]'
                   : pageIdx === activePageIndex
                     ? 'opacity-100 translate-x-0 rotate-y-0 scale-100'
-                    : 'opacity-0 pointer-events-none translate-x-4'
+                    : 'opacity-0 pointer-events-none translate-x-8'
                 }
               `}
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: theme.bg }}>
-                  <PageSVG className="w-6 h-6" style={{ color: theme.color }} />
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-blue-50">
+                  <PageIcon className="w-7 h-7 text-blue-600" style={{ color: "#2563EB" }} />
                 </div>
                 <div className="flex flex-col">
-                  <h4 className="text-[14px] font-black uppercase tracking-widest" style={{ color: theme.color }}>
-                    {pageIdx === 0 ? "Welcome to CRCCF" : page.label}
+                  <h4 className="text-[14px] font-black uppercase tracking-[0.1em] leading-tight text-blue-600">
+                    {page.heading}
                   </h4>
-                  <span className="text-[10px] font-bold text-slate-400">Page {pageIdx + 1} of {allPages.length}</span>
+                  <span className="text-[11px] font-bold text-slate-400 mt-1">Page {pageIdx + 1} of {allPages.length}</span>
                 </div>
               </div>
 
-              <div className="flex-1 overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-[4px] [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-[4px]">
-                <p className="text-[15px] text-slate-700 leading-relaxed font-medium italic">{page.content}</p>
+              <div className="flex-1 overflow-y-auto pr-3 [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full">
+                <p className="text-[16px] text-slate-600 leading-relaxed font-medium italic whitespace-pre-line">{page.content}</p>
+                {page.tagline && (
+                   <div className="mt-6 p-4 rounded-xl bg-blue-50/50 border border-blue-100 italic text-[14px] text-blue-700 font-bold">
+                     <span className="mr-2 not-italic">⚠️ Note:</span> {page.tagline}
+                   </div>
+                )}
               </div>
 
-              <div className="pt-6 mt-auto border-t border-slate-200">
+              <div className="pt-8 mt-auto border-t border-slate-100">
                 <div className="flex items-center justify-between">
-                  <div className="flex gap-3">
+                  <div className="flex gap-4">
                     {pageIdx > 0 && (
                       <button
                         onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx - 1); keepScrubberVisible(); }}
-                        className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn border-none bg-transparent cursor-pointer p-0"
+                        className="text-[12px] font-black text-blue-600 flex items-center gap-2 hover:gap-3 transition-all bg-transparent border-none cursor-pointer p-0"
                       >
-                        <ArrowLeft size={14} className="group-hover/btn:-translate-x-0.5 transition-transform" /> Back
+                        <ArrowLeft size={16} /> Back
                       </button>
                     )}
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-5">
                     {pageIdx < allPages.length - 1 && (
                       <button
                         onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx + 1); keepScrubberVisible(); }}
-                        className="text-[11px] font-black text-blue-600 flex items-center gap-1.5 hover:gap-2 transition-all group/btn border-none bg-transparent cursor-pointer p-0"
+                        className="text-[12px] font-black text-blue-600 flex items-center gap-2 hover:gap-3 transition-all bg-transparent border-none cursor-pointer p-0"
                       >
-                        Next <ArrowRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
+                        Next <ArrowRight size={16} />
                       </button>
                     )}
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.color }} />
+                    <div className="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.4)]" />
                   </div>
                 </div>
               </div>
@@ -548,72 +526,48 @@ const InsightCard = ({ section, index }) => {
         {/* COVER */}
         <div
           className={`
-            absolute inset-0 w-full h-full rounded-[20px] cursor-pointer 
-            transition-all duration-[1.2s] ease-[cubic-bezier(0.645,0.045,0.355,1)] 
-            [transform-origin:left_center] shadow-[4px_0_24px_rgba(0,0,0,0.1)] 
-            flex flex-col items-center justify-center z-[20] p-8 text-center 
+            absolute inset-0 w-full h-full rounded-[24px] cursor-pointer 
+            transition-all duration-[1.3s] ease-[cubic-bezier(0.645,0.045,0.355,1)] 
+            [transform-origin:left_center] shadow-[6px_0_30px_rgba(0,0,0,0.12)] 
+            flex flex-col items-center justify-center z-[110] p-12 text-center 
             [backface-visibility:hidden] bg-white will-change-transform
-            ${isOpen ? '[transform:rotateY(-140deg)_scale(0.9)_translateX(-20px)] opacity-0 pointer-events-none' : ''}
+            ${isOpen ? '[transform:rotateY(-145deg)_scale(0.95)_translateX(-30px)] opacity-0 pointer-events-none' : ''}
           `}
           style={{
-            background: `linear-gradient(135deg, #ffffff, ${theme.bg})`,
-            borderLeft: `6px solid ${theme.color}`
+            background: `linear-gradient(135deg, #ffffff, #EFF6FF)`,
+            borderLeft: `8px solid #2563EB`
           }}
           onClick={handleOpen}
         >
-          <div
-            className="w-[84px] h-[84px] rounded-[22px] flex items-center justify-center mb-6 shadow-sm bg-white/50 backdrop-blur-sm p-3"
-          >
-            <img
-              src="/CRCCF_LOGO-removebg-preview.png"
-              alt="CRCCF Logo"
-              className="w-full h-full object-contain filter drop-shadow-sm"
-            />
+          <div className="w-[100px] h-[100px] rounded-[28px] flex items-center justify-center mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4">
+            <img src="/CRCCF_LOGO-removebg-preview.png" alt="CRCCF Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
           </div>
 
-
-          <style>
-            {`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}
-          </style>
-          <h3
-            className={`text-slate-900 leading-[1.2] mb-6 px-2 ${section.heading === "Welcome to CRCCF"
-              ? "text-[32px] font-bold"
-              : "text-[22px] font-black uppercase tracking-tight"
-              }`}
-            style={section.heading === "Welcome to CRCCF" ? { fontFamily: "'Dancing Script', cursive" } : {}}
-          >
-            {section.heading === "Welcome to CRCCF" ? "CRCCF Chronicles" : section.heading}
+          <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>
+          
+          <h3 className="text-slate-900 leading-[1.1] mb-8 text-[32px] font-bold" style={{ fontFamily: "'Dancing Script', cursive" }}>
+            CRCCF Chronicles
           </h3>
+          
+          <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">Foundation Overview & Vision</p>
 
-          <div className="flex items-center gap-2 text-[12px] font-black uppercase tracking-[0.1em] mt-auto" style={{ color: theme.color }}>
-            <span>Explore Our Pillars</span>
-            <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+          <div className="flex items-center gap-3 text-[13px] font-black uppercase tracking-[0.15em] mt-auto text-blue-600">
+            <span>Read the Chronicles</span>
+            <ArrowRight size={18} className="animate-pulse" />
           </div>
         </div>
       </motion.article>
 
-      {/* Page Scroller (Slider) */}
-      <div
-        className={`
-          px-2 transition-all duration-500 ease-out mt-4
-          ${isOpen || showScrubber ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'}
-        `}
-      >
-        <div
-          className="flex flex-col gap-3 group/scrubber"
-          onMouseMove={(e) => {
-            const rect = e.currentTarget.querySelector('input').getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const percent = Math.min(Math.max(x / rect.width, 0), 1);
-            const index = Math.round(percent * (allPages.length - 1));
-            setPreviewPageIndex(index);
-          }}
-          onMouseLeave={() => setPreviewPageIndex(null)}
-        >
-          <div className="flex justify-between items-center px-1">
-              <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 text-[10px] font-black tabular-nums border border-blue-100">
-                {activePageIndex + 1} / {allPages.length}
-              </span>
+      {/* Scrubber */}
+      <div className={`transition-all duration-500 ease-out mt-4 ${isOpen || showScrubber ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className="flex flex-col gap-4 bg-white/50 backdrop-blur-sm p-6 rounded-[24px] border border-slate-100">
+          <div className="flex justify-between items-center">
+            <div className="flex flex-col">
+              <span className="text-[11px] sm:text-[12px] font-bold text-slate-700 mt-1 truncate max-w-[180px] sm:max-w-[300px]">{allPages[activePageIndex].heading}</span>
+            </div>
+            <span className="flex-shrink-0 px-2 sm:px-4 py-1 sm:py-1.5 rounded-full bg-blue-600 text-white text-[9px] sm:text-[11px] font-black tabular-nums shadow-lg shadow-blue-200">
+              {activePageIndex + 1} / {allPages.length}
+            </span>
           </div>
           <div className="relative pt-2">
             {previewPageIndex !== null && (
@@ -627,24 +581,19 @@ const InsightCard = ({ section, index }) => {
               >
                 <span className="bg-white/20 px-1.5 py-0.5 rounded text-[9px]">{previewPageIndex + 1}</span>
                 <span>{allPages[previewPageIndex].heading.slice(0, 35)}{allPages[previewPageIndex].heading.length > 35 ? '...' : ''}</span>
-                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800" />
               </motion.div>
             )}
             <input
-              type="range"
-              min="0"
-              max={allPages.length - 1}
-              value={activePageIndex}
+              type="range" min="0" max={allPages.length - 1} value={activePageIndex}
               onChange={(e) => { setActivePageIndex(parseInt(e.target.value)); keepScrubberVisible(); }}
-              onMouseEnter={(e) => e.stopPropagation()}
-              className="
-                w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer 
-                accent-blue-600 hover:accent-blue-700 transition-all
-                [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
-                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-blue-600 
-                [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg
-                [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white
-              "
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percent = Math.min(Math.max(x / rect.width, 0), 1);
+                setPreviewPageIndex(Math.round(percent * (allPages.length - 1)));
+              }}
+              onMouseLeave={() => setPreviewPageIndex(null)}
+              className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all shadow-inner"
             />
           </div>
         </div>
@@ -652,6 +601,7 @@ const InsightCard = ({ section, index }) => {
     </div>
   );
 };
+
 
 
 
@@ -710,7 +660,7 @@ export default function IntroductionOfCRCCF() {
           <motion.div style={{ y: heroY }} className="relative">
             <div className="absolute -inset-4 rounded-[32px] bg-gradient-to-tr from-blue-100 via-white to-purple-100 blur-2xl opacity-60" aria-hidden="true" />
             <div className="relative rounded-[32px] border border-gray-200 bg-white p-4 shadow-xl overflow-hidden">
-              <div className="w-full aspect-[4/3] overflow-hidden rounded-[20px]">
+              <div className="w-full overflow-hidden rounded-[20px]">
                 <VideoHeroIntro
                   src="https://cdn.coverr.co/videos/coverr-people-working-in-office-4627/1080p.mp4"
                 />
@@ -725,15 +675,8 @@ export default function IntroductionOfCRCCF() {
             <p className="text-slate-500 font-medium">Discover the core values and initiatives that drive our mission forward.</p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-8">
-            {introductiondata.map((section, index) => (
-              <div key={section.id} className="w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] max-w-[400px]">
-                <InsightCard
-                  section={section}
-                  index={index}
-                />
-              </div>
-            ))}
+          <div className="py-6">
+            <InsightCard allPages={introductiondata} />
           </div>
         </div>
 

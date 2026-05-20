@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 // Import data
-import { digitalSecurityCertificationData } from '../../../../data/digitalSecurityCertificationData';
+import { digitalSecurityCertificationData } from '../../../../data/aboutUs/legalCompliance/digitalSecurityCertificationData';
 
 /* -------------------------------- Palette -------------------------------- */
 const color = {
