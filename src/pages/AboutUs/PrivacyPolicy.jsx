@@ -1,42 +1,37 @@
-// Template for any page (e.g., OurIntroduction.jsx)
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
-import { contentData } from '../../data/aboutUs/contentData'
+// src/pages/about/PrivacyPolicy.jsx
+import React from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
 
 const PrivacyPolicy = () => {
-  const navigate = useNavigate()
-  const data = contentData.privacy
-
   return (
-    <div className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 w-full">
-      <button
-        onClick={() => navigate('/about')}
-        className="mb-4 sm:mb-6 inline-flex items-center gap-2 text-[#2563EB] hover:text-[#1D4ED8] transition-colors font-medium text-sm sm:text-base"
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-6">
+      <motion.div
+        initial={{ opacity: 0, y: 50, rotateX: -15 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0 }}
+        transition={{ duration: 0.6 }}
+        className="bg-white rounded-2xl shadow-2xl p-8 max-w-3xl w-full text-center"
       >
-        <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
-        Back to Dashboard
-      </button>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          Privacy Policy
+        </h1>
+        <p className="text-gray-700 text-lg leading-relaxed mb-6">
+          We respect your privacy and ensure that your data is protected using
+          secure methods while handling cybercrime complaints and inquiries.
+        </p>
+        <p className="text-gray-600 mb-8">
+          We do not share your personal data with third parties without consent.
+        </p>
+        <Link
+          to="/about"
+          className="inline-flex items-center px-5 py-2 rounded-lg bg-gray-600 text-white hover:bg-gray-700 transition-all"
+        >
+          <FiArrowLeft className="mr-2" /> Back to About Us
+        </Link>
+      </motion.div>
+    </section>
+  );
+};
 
-      <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg sm:shadow-xl overflow-hidden">
-        <div className="bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] p-4 sm:p-6 md:p-8 text-center">
-          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white/20 rounded-full mb-3 sm:mb-4 flex-shrink-0">
-            <span className="text-3xl sm:text-4xl md:text-5xl">{data.icon}</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">{data.title}</h1>
-          <p className="text-white/90 text-sm sm:text-base">{data.description}</p>
-        </div>
-        
-        <div className="p-4 sm:p-6 md:p-8">
-          <div className="prose max-w-none">
-            <p className="text-[#475569] leading-relaxed text-sm sm:text-base md:text-lg whitespace-pre-line">
-              {data.content}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default PrivacyPolicy
+export default PrivacyPolicy;

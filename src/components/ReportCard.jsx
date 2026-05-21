@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 
-export default function ReportCard({ title, Icon, onClick }) {
+export default function ReportCard({ id, title, Icon, onClick }) {
   return (
     <motion.div
+      id={id}
       onClick={onClick}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}

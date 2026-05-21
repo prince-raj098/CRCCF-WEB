@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Newspaper, ArrowRight, ArrowLeft, Calendar } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const posts = [
   {
@@ -29,6 +30,33 @@ const posts = [
     excerpt: 'The Information Technology Act provides legal remedies for cybercrime victims. Understand how to use the law to protect yourself and seek justice.',
     fullContent: 'Section 43: Penalty for damage to computer system without permission.\nSection 66: Computer related offences.\nSection 66C: Punishment for identity theft.\nSection 66D: Punishment for cheating by personation by using computer resource.',
     readTime: '6 min read',
+  },
+  {
+    cat: 'Safety',
+    catColor: '#059669',
+    date: 'April 20, 2025',
+    title: 'Safe Social Media Practices for Everyone',
+    excerpt: 'Social media platforms are hunting grounds for cybercriminals. Learn how to secure your profiles and protect your personal information.',
+    fullContent: '1. Review and strengthen your privacy settings.\n2. Do not accept friend requests from strangers.\n3. Be mindful of what personal information you share.\n4. Use strong, unique passwords for all accounts.',
+    readTime: '4 min read',
+  },
+  {
+    cat: 'Fraud',
+    catColor: '#EA580C',
+    date: 'April 25, 2025',
+    title: 'AI Scams and Online Fraud: What You Need to Know',
+    excerpt: 'Artificial Intelligence is increasingly being used to orchestrate sophisticated scams. Discover how to identify and avoid AI-driven fraud.',
+    fullContent: '1. Be skeptical of unsolicited investment opportunities.\n2. Verify the identity of the person contacting you, even if they sound familiar.\n3. Do not rush into making payments or sharing financial details.\n4. Stay informed about the latest AI scam tactics.',
+    readTime: '6 min read',
+  },
+  {
+    cat: 'Awareness',
+    catColor: '#0891B2',
+    date: 'May 1, 2025',
+    title: 'Protecting Children from Cyber Threats',
+    excerpt: 'Children are vulnerable to online predators and cyberbullying. Here are essential tips for parents to keep their kids safe on the internet.',
+    fullContent: '1. Maintain an open dialogue with your children about their online activities.\n2. Set clear rules and boundaries for device usage.\n3. Use parental control software to filter inappropriate content.\n4. Teach them about the dangers of sharing personal information.',
+    readTime: '5 min read',
   },
 ]
 
@@ -139,7 +167,10 @@ function InsightCard({ p, index }) {
   )
 }
 
-export default function Insights() {
+export default function Insights({ limit, hideViewAll = false }) {
+  const navigate = useNavigate();
+  const displayedPosts = limit ? posts.slice(0, limit) : posts;
+
   return (
     <section id="insights" className="section-padding bg-white relative">
       <div className="container-custom">
@@ -161,16 +192,18 @@ export default function Insights() {
 
 
         <div className="grid grid-cols-[repeat(3,1fr)] gap-[22px] max-[860px]:grid-cols-[repeat(2,1fr)] max-[860px]:gap-[16px] max-[560px]:grid-cols-[1fr] max-[560px]:gap-[14px]">
-          {posts.map((p, i) => (
+          {displayedPosts.map((p, i) => (
             <InsightCard key={p.title} p={p} index={i} />
           ))}
         </div>
 
-        <div className="flex justify-center mt-[40px]">
-          <button className="btn btn-blue">
-            View All Insights <ArrowRight size={15} />
-          </button>
-        </div>
+        {!hideViewAll && (
+          <div className="flex justify-center mt-[40px]">
+            <button className="btn btn-blue" onClick={() => navigate('/insights')}>
+              View All Insights <ArrowRight size={15} />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )

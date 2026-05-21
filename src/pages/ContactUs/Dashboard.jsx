@@ -4,10 +4,12 @@ import Card from "../../components/ContactUs/Card";
 import { LayoutDashboard } from "lucide-react";
 
 const Dashboard = () => {
+  // Extract categories and hover function from LaptopLayout
   const { categories, setHoveredCardId } = useOutletContext();
 
   return (
     <>
+      {/* --- DASHBOARD HEADER --- */}
       <header className="mb-8 flex flex-col sm:flex-row sm:items-center gap-4">
         <div className="p-3 bg-white rounded-2xl shadow-sm inline-block w-fit">
           <LayoutDashboard size={28} className="text-primary" />
@@ -23,6 +25,7 @@ const Dashboard = () => {
         </div>
       </header>
 
+      {/* --- RESPONSIVE CARD GRID --- */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {categories.map((cat) => (
           <Card
@@ -30,6 +33,8 @@ const Dashboard = () => {
             title={cat.title}
             id={cat.id}
             Icon={cat.icon}
+            subtitle={cat.subtitle}
+            href={cat.href}
             setHoveredCardId={setHoveredCardId}
           />
         ))}

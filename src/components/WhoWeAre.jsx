@@ -81,7 +81,7 @@ const cards = [
     bg: '/about.png',
     desc: (
       <>
-        CR Cyber Crime Foundation (Cyber Revolution) is a non-profit organization committed to advancing cybercrime awareness, supporting digital investigations, and transforming how individuals and organizations interact with the digital world.
+        CR Cyber Crime Foundation (Cyber Revolution) is a non-profit organization dedicated to advancing cybercrime awareness 🛡️, supporting digital investigations 🔍, and transforming how individuals and organizations engage with the digital world 🌐.
       </>
     ),
   },
@@ -92,12 +92,12 @@ const cards = [
     bg: '/serve.png',
     desc: (
       <>
-        We serve a diverse audience including:<br />
+        We serve :<br />
         🎓 Students<br />
-        👨‍👩‍👧‍👦 General Public<br />
+        👨‍👩‍👧‍👦 The Public<br />
         🏢 Organizations<br />
-        ⚖️ Cybercrime Victims<br /><br />
-        Through research-driven insights, practical guidance, and actionable resources, we help them effectively combat evolving cyber threats.
+        ⚖️ Victims<br /><br />
+        by providing research-driven insights 📊, guidance 🧭, and practical resources 🧩 to combat evolving cyber threats effectively ⚠️.
       </>
     ),
   },
@@ -108,7 +108,7 @@ const cards = [
     bg: '/focus.png',
     desc: (
       <>
-        Our key focus areas include:<br /><br />
+        Our focus extends to :<br /><br />
         🛡️ Cybersecurity Awareness<br />
         💻 Advanced IT & Software Development<br />
         🎓 Industry-Oriented Training & Internship Programs
@@ -122,11 +122,11 @@ const cards = [
     bg: '/vision.png',
     desc: (
       <>
-        We aim to build a secure, innovative, and future-ready digital ecosystem by integrating:<br /><br />
+         by integrating:<br /><br />
         ⚙️ Technology<br />
         📚 Research<br />
         🧠 Cyber Intelligence<br /><br />
-        Our goal is to empower the next generation with essential digital and cybersecurity skills.
+         we equip the next generation with essential skills while striving to build a secure 🔐, innovative 💡, and future-ready digital ecosystem 🌍 for all.
       </>
     ),
   },

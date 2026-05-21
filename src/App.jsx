@@ -23,13 +23,41 @@ import Footer from './components/Footer'
 import GalleryPage from './pages/GalleryPage'
 import CategoryPage from './pages/CategoryPage'
 import ReachUsPage from './pages/ReachUsPage'
+import InsightsPage from './pages/InsightsPage'
 import ServicesPage from './pages/ServicesPage'
 import ServiceRouter from './pages/Service/ServiceRouter'
 import RootLayout from './layouts/RootLayout'
 import LaptopLayout from './layouts/ContactUs/LaptopLayout'
 import Dashboard from './pages/ContactUs/Dashboard'
-import DirectoryWrapper from './pages/ContactUs/DirectoryWrapper'
+import DirectorySection from './pages/ContactUs/DirectorySection'
 import PageWrapper from './components/ContactUs/PageWrapper'
+
+// --- CONTACT HUB SECTIONS ---
+import HelpDesk from './sections/ContactUs/HelpDesk'
+import FollowApps from './sections/ContactUs/FollowApps'
+import BranchDetails from './sections/ContactUs/BranchDetails'
+import AIChat from './sections/ContactUs/AIChat'
+import Review from './sections/ContactUs/Review'
+import Feedback from './sections/ContactUs/Feedback'
+import Announcements from './sections/ContactUs/Announcements'
+
+// --- CONTACT HUB DATA ---
+import { employees } from './data/ContactUs/employeesData'
+import { officers } from './data/ContactUs/officersData'
+import { teachers } from './data/ContactUs/teachersData'
+import { reporters } from './data/ContactUs/reportersData'
+import { advocates } from './data/ContactUs/advocatesData'
+import { legalAdvisors } from './data/ContactUs/legalAdvisorsData'
+import { directors } from './data/ContactUs/directorsData'
+import { members } from './data/ContactUs/membersData'
+
+// --- CONTACT HUB ICONS ---
+import {
+  BadgeCent, Users, BookOpen, Mic, Scale, Gavel, UserCheck, UserPlus,
+  Headset, LifeBuoy, MessageSquare, Ticket, MapPin, Building, Globe,
+  Navigation, User, Briefcase, FileText, Star, ThumbsUp, MessageCircle,
+  Bot, Megaphone, Sparkles
+} from "lucide-react";
 import AboutLayout from './layouts/AboutLayout'
 import AboutPage from './pages/AboutUs/AboutPage'
 import OurIdentity from './pages/AboutUs/OurIdentity'
@@ -108,7 +136,7 @@ function HomePageContent() {
         <ProjectsPortfolio />
         <InternshipPrograms />
         <WhyChooseUs />
-        <Insights />
+        <Insights limit={3} />
         <StatsBar />
         <Testimonials />
       </main>
@@ -142,6 +170,7 @@ export default function App() {
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/gallery/category/:id" element={<CategoryPage />} />
           <Route path="/reachus" element={<ReachUsPage />} />
+          <Route path="/insights" element={<InsightsPage />} />
           <Route path="/services/*" element={<ServiceRouter />} />
           <Route path="/report-crime" element={<ReportCrime />} />
 
@@ -154,9 +183,120 @@ export default function App() {
           <Route path="/contact" element={<LaptopLayout />}>
             <Route index element={<Dashboard />} />
           </Route>
-          
-          {/* Dynamic Contact Sub-Pages */}
-          <Route path="/contact/:type" element={<DirectoryWrapper />} />
+
+          <Route
+            path="/contact/help-desk"
+            element={
+              <PageWrapper bgIcons={[Headset, LifeBuoy, MessageSquare, Ticket]}>
+                <HelpDesk />
+              </PageWrapper>
+            }
+          />
+          <Route path="/contact/follow-apps" />
+          <Route
+            path="/contact/branch-details"
+            element={
+              <PageWrapper bgIcons={[MapPin, Building, Globe, Navigation]}>
+                <BranchDetails />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/officer"
+            element={
+              <PageWrapper bgIcons={[User, Users, Briefcase, BadgeCent]} transparentBg={true}>
+                <DirectorySection title="Officer" Icon={BadgeCent} data={officers} />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/employee"
+            element={
+              <PageWrapper bgIcons={[User, Users, Briefcase]} transparentBg={true}>
+                <DirectorySection title="Employee" Icon={Users} data={employees} />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/teacher"
+            element={
+              <PageWrapper bgIcons={[User, BookOpen, FileText]} transparentBg={true}>
+                <DirectorySection title="Teacher" Icon={BookOpen} data={teachers} />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/reporter"
+            element={
+              <PageWrapper bgIcons={[Mic, User, FileText]} transparentBg={true}>
+                <DirectorySection title="Reporter" Icon={Mic} data={reporters} />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/advocate"
+            element={
+              <PageWrapper bgIcons={[Scale, Gavel, User]} transparentBg={true}>
+                <DirectorySection title="Advocate" Icon={Scale} data={advocates} />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/legal-advisor"
+            element={
+              <PageWrapper bgIcons={[Gavel, Scale, Briefcase]} transparentBg={true}>
+                <DirectorySection title="Legal Advisor" Icon={Gavel} data={legalAdvisors} />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/board-of-director"
+            element={
+              <PageWrapper bgIcons={[UserCheck, Users, Briefcase]} transparentBg={true}>
+                <DirectorySection title="Board of Director" Icon={UserCheck} data={directors} />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/board-of-member"
+            element={
+              <PageWrapper bgIcons={[UserPlus, Users, Briefcase]} transparentBg={true}>
+                <DirectorySection title="Board of Member" Icon={UserPlus} data={members} />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/ai-chat"
+            element={
+              <PageWrapper bgIcons={[Bot]}>
+                <AIChat />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/review"
+            element={
+              <PageWrapper bgIcons={[Star, ThumbsUp]}>
+                <Review />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/feedback"
+            element={
+              <PageWrapper bgIcons={[MessageCircle, MessageSquare]}>
+                <Feedback />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact/announcements"
+            element={
+              <PageWrapper bgIcons={[Megaphone, Sparkles]} iconCount={10} transparentBg={true}>
+                <Announcements />
+              </PageWrapper>
+            }
+          />
 
           {/* About Section Routes */}
           <Route path="/about" element={<AboutLayout />}>

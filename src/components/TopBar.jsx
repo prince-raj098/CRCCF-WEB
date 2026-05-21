@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 /* ─── Marquee text ─────────────────────────────────────────── */
 const NOTICE =
@@ -241,13 +241,17 @@ export default function TopBar() {
   /* Clock: visible on load → hides after 2 s → shows on hover */
   const [clockAutoVisible, setClockAutoVisible] = useState(true)
   const [clockHovered, setClockHovered] = useState(false)
-  const [galleryHovered, setGalleryHovered] = useState(false)
-  const [reachHovered, setReachHovered] = useState(false)
+  const [galleryDisabled, setGalleryDisabled] = useState(false);
+  const [reachDisabled, setReachDisabled] = useState(false);
+  const [galleryHovered, setGalleryHovered] = useState(false);
+  const [reachHovered, setReachHovered] = useState(false);
   
   /* Welcome label: visible for 2s on mobile then hides */
   const [welcomeVisible, setWelcomeVisible] = useState(true)
 
   const navigate = useNavigate()
+  const location = useLocation()
+  const cooldownTimers = useRef({})
   
   useEffect(() => {
     const t = setTimeout(() => setClockAutoVisible(false), 2000)
@@ -264,7 +268,60 @@ export default function TopBar() {
     }
   }, [])
 
+  useEffect(() => {
+    const timers = cooldownTimers.current
+
+    return () => {
+      Object.values(timers).forEach(clearTimeout)
+    }
+  }, [])
+
   const clockVisible = clockAutoVisible || clockHovered
+
+  const startPreviewCooldown = (preview) => {
+    const config = {
+      gallery: {
+        setHovered: setGalleryHovered,
+        setDisabled: setGalleryDisabled,
+      },
+      reach: {
+        setHovered: setReachHovered,
+        setDisabled: setReachDisabled,
+      },
+    }[preview]
+
+    if (!config) return
+
+    clearTimeout(cooldownTimers.current[preview])
+    config.setHovered(false)
+    config.setDisabled(true)
+    cooldownTimers.current[preview] = setTimeout(() => {
+      config.setDisabled(false)
+      delete cooldownTimers.current[preview]
+    }, 3000)
+  }
+
+  const navigateWithPreviewCooldown = (path) => {
+    if (path.startsWith('/gallery')) {
+      startPreviewCooldown('gallery')
+    }
+
+    if (path === '/reachus') {
+      startPreviewCooldown('reach')
+    }
+
+    navigate(path)
+  }
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/gallery')) {
+      startPreviewCooldown('gallery')
+    }
+
+    if (location.pathname === '/reachus') {
+      startPreviewCooldown('reach')
+    }
+  }, [location.pathname])
 
   // Close popups on click outside
   useEffect(() => {
@@ -284,10 +341,12 @@ export default function TopBar() {
         setGalleryHovered(true)
         setReachHovered(false)
       } else {
-        navigate('/gallery')
+        startPreviewCooldown('gallery')
+        navigate('/gallery');
       }
     } else {
-      navigate('/gallery')
+      startPreviewCooldown('gallery')
+      navigate('/gallery');
     }
   }
 
@@ -297,10 +356,12 @@ export default function TopBar() {
         setReachHovered(true)
         setGalleryHovered(false)
       } else {
-        navigate('/reachus')
+        startPreviewCooldown('reach')
+        navigate('/reachus');
       }
     } else {
-      navigate('/reachus')
+      startPreviewCooldown('reach')
+      navigate('/reachus');
     }
   }
 
@@ -402,8 +463,8 @@ export default function TopBar() {
         {/* GALLERY ICON */}
         <div
           className="tb-gallery-zone relative flex items-center h-full"
-          onMouseEnter={() => window.innerWidth >= 1024 && setGalleryHovered(true)}
-          onMouseLeave={() => window.innerWidth >= 1024 && setGalleryHovered(false)}
+          onMouseEnter={() => window.innerWidth > 1024 && !galleryDisabled && setGalleryHovered(true)}
+          onMouseLeave={() => window.innerWidth > 1024 && !galleryDisabled && setGalleryHovered(false)}
           style={{ position: 'relative' }}
         >
           {/* Bridge element to prevent hover loss */}
@@ -426,7 +487,7 @@ export default function TopBar() {
           </button>
 
           <AnimatePresence>
-            {galleryHovered && <GalleryPopup navigate={navigate} />}
+            {galleryHovered && <GalleryPopup navigate={navigateWithPreviewCooldown} />}
           </AnimatePresence>
         </div>
 
@@ -435,8 +496,8 @@ export default function TopBar() {
         {/* REACH US */}
         <div 
           className="tb-reach-zone relative flex items-center h-full" 
-          onMouseEnter={() => window.innerWidth >= 1024 && setReachHovered(true)} 
-          onMouseLeave={() => window.innerWidth >= 1024 && setReachHovered(false)}
+          onMouseEnter={() => window.innerWidth > 1024 && !reachDisabled && setReachHovered(true)} 
+          onMouseLeave={() => window.innerWidth > 1024 && !reachDisabled && setReachHovered(false)}
           style={{ position: 'relative' }}
         >
           {/* Bridge element to prevent hover loss */}
@@ -466,7 +527,7 @@ export default function TopBar() {
           </button>
 
           <AnimatePresence>
-            {reachHovered && <ReachUsPopup navigate={navigate} />}
+            {reachHovered && <ReachUsPopup navigate={navigateWithPreviewCooldown} />}
           </AnimatePresence>
         </div>
       </div>

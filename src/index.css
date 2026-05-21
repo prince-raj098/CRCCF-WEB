@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap');
 @layer theme, base, components, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&display=swap');
 
 @layer base {
 
@@ -470,6 +470,17 @@
   .animate-marquee {
     animation: marquee 60s linear infinite;
   }
+
+  @keyframes scrollX {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes scrollXReverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+  .animate-scrollX { animation: scrollX 20s linear infinite; }
+  .animate-scrollXReverse { animation: scrollXReverse 20s linear infinite; }
 
   .animate-rain-spin {
     animation: rain-spin linear infinite;

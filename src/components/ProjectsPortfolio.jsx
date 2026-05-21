@@ -99,8 +99,9 @@ export default function ProjectsPortfolio() {
             Our <span className="section-title-accent">Projects</span> & Portfolio
           </h2>
           
-          <p className="section-subtitle">
-            At CR Cyber Crime Foundation, we actively engage in the development of innovative, impactful, and technology-driven projects across multiple domains.
+          <p className="section-subtitle !max-w-4xl">
+            At CR Cyber Crime Foundation (Cyber Revolution), we actively engage in the development of innovative, impactful, and technology-driven projects across multiple domains. Our projects reflect our commitment to cybersecurity, digital transformation, and advanced IT solutions.
+            We have successfully undertaken projects at national, government, and international levels, showcasing our capability to deliver reliable and scalable solutions. All projects are original products developed by CRCCF, highlighting our focus on innovation, research, and real-world problem-solving.
           </p>
         </motion.div>
 
@@ -141,17 +142,17 @@ export default function ProjectsPortfolio() {
             {
               title: "Our Approach",
               icon: Rocket,
-              description: "• Innovative and solution-oriented 💡\n• Secure and technology-driven 🔐\n• Scalable and future-ready 🚀\n• Aligned with real-world requirements 🌐"
+              description: "We focus on building projects that are: \n• Innovative and solution-oriented 💡\n• Secure and technology-driven 🔐\n• Scalable and future-ready 🚀\n• Aligned with real-world requirements 🌐 \n•Aligned with real-world challenges and requirements 🌐 "
             },
             {
               title: "Our Commitment",
               icon: Trophy,
-              description: "Through continuous research, development, and innovation, CRCCF delivers high-quality projects that contribute to digital advancement and cybersecurity growth."
+              description: " •Through continuous research, development, and innovation, CR Cyber Crime Foundation aims to deliver high-quality projects that contribute to digital advancement, cybersecurity awareness, and technological growth."
             },
             {
               title: "Project Scope",
               icon: Globe,
-              description: "• National-level initiatives 🇮🇳\n• Government-related projects 🏛️\n• International collaborations 🌍"
+              description: " Our project portfolio includes: \n• National-level initiatives 🇮🇳\n• Government-related projects 🏛️\n• International collaborations 🌍"
             }
           ].map((item, index) => (
             <motion.div

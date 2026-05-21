@@ -20,7 +20,7 @@ const navLinks = [
       { label: 'Digital Forensics', href: '/#skill' },
     ],
   },
-  { label: 'Insights', href: '/#insights' },
+  { label: 'Insights', href: '/insights' },
   { label: 'Careers', href: '/careers' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'Contact', href: '/contact' },
@@ -95,8 +95,21 @@ export default function Navbar() {
         }
       }
     } else {
+      const hashIndex = href.indexOf('#')
+      const hash = hashIndex >= 0 ? href.slice(hashIndex) : ''
+
       navigate(href)
-      window.scrollTo(0, 0)
+      if (hash) {
+        setTimeout(() => {
+          const el = document.querySelector(hash)
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            highlightElement(el)
+          }
+        }, 150)
+      } else {
+        window.scrollTo(0, 0)
+      }
     }
   }
 
@@ -160,7 +173,7 @@ export default function Navbar() {
 
           {/* ── LOGO ── */}
           <a className="group flex shrink-0 cursor-pointer items-center gap-[10px] no-underline" href="#home" onClick={e => { e.preventDefault(); go('#home') }}>
-            <img src="/Logo.png" alt="CRCCF Logo" className="h-[46px] w-[46px] rounded-full bg-[rgba(255,255,255,0.06)] p-[2px] object-contain transition-transform duration-250 group-hover:scale-[1.07] group-hover:rotate-[-3deg]" />
+            <img src="/Logo.png" alt="CRCCF Logo" className="h-[46px] w-[46px] object-contain" />
             <div className="flex flex-col">
               <span className="font-['Outfit',sans-serif] text-[17px] font-[900] text-[#fff] tracking-[-0.01em] leading-[1]">CRCCF</span>
               <span className="mt-[3px] text-[8px] font-[600] text-[rgba(255,255,255,0.40)] uppercase tracking-[0.06em]">CR CYBER CRIME FOUNDATION</span>
@@ -316,7 +329,7 @@ export default function Navbar() {
               transition={{ type: 'tween', duration: 0.28 }}
             >
               <div className="flex items-center justify-between p-[14px_18px] bg-[#0C1A3A] border-b border-b-[rgba(255,255,255,0.08)]">
-                <img src="/Logo.png" alt="CRCCF" className="h-[40px] w-[40px] object-contain rounded-full" />
+                <img src="/Logo.png" alt="CRCCF" className="h-[40px] w-[40px] object-contain" />
                 <button className="bg-[rgba(255,255,255,0.10)] border-none text-[#fff] cursor-pointer w-[32px] h-[32px] rounded-[6px] flex items-center justify-center transition-all duration-150 hover:bg-[rgba(255,255,255,0.20)]" onClick={() => setMobileOpen(false)}>
                   <X size={20} />
                 </button>

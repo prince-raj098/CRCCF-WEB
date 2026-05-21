@@ -57,7 +57,7 @@ import {
   PieChart,
   Globe2,
   HardDrive,
-  Infinity,
+  Infinity as InfinityIcon,
   Fingerprint,
   FileLock,
   Network,
@@ -80,8 +80,208 @@ import {
   UserPlus,
   Video,
   Send,
-  Edit3
+  Edit3,
+  ClipboardList,
+  HelpCircle,
+  FileSpreadsheet,
+  LifeBuoy,
+  Book
 } from 'lucide-react';
+
+const reportCrimeSearchData = [
+  {
+    title: "Report Cyber Crime",
+    description: "Report cyber incidents securely and access awareness resources through the CRCCF cyber crime reporting page.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-hero",
+    tags: ["report crime", "cyber crime", "incident", "complaint", "secure report", "online fraud", "victim help"],
+    iconName: "ShieldAlert"
+  },
+  {
+    title: "Report Now",
+    description: "Quick action button to begin reporting a cyber crime incident.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-report-now",
+    tags: ["report now", "submit complaint", "file report", "cyber complaint", "help"],
+    iconName: "AlertTriangle"
+  },
+  {
+    title: "Report Crime Sections",
+    description: "Explore all report crime cards, safety resources, legal guidance, status checks, and awareness sections.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-sections",
+    tags: ["sections", "cards", "explore", "report portal", "cyber safety", "support"],
+    iconName: "Layout"
+  },
+  {
+    title: "CR Cyber Crime Foundation Report Resources",
+    description: "Official CR Cyber Crime Foundation ticker and report crime resource area.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-foundation-ticker",
+    tags: ["crccf", "cr cyber crime foundation", "official", "resources", "foundation"],
+    iconName: "Shield"
+  },
+  {
+    title: "Report Cyber Crime Card",
+    description: "Open the cyber crime report card for filing complaints related to fraud, harassment, threats, hacking, or online abuse.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-report-cyber-crime",
+    tags: ["report cyber crime", "file complaint", "fraud", "hacking", "abuse", "threat", "incident"],
+    iconName: "ShieldAlert"
+  },
+  {
+    title: "Check Complaint Status",
+    description: "Find the complaint status card for tracking a submitted cyber crime report or case update.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-check-complaint-status",
+    tags: ["complaint status", "status", "track complaint", "case update", "application status"],
+    iconName: "Search"
+  },
+  {
+    title: "Cyber Security Tips",
+    description: "Search practical security tips for passwords, online safety, phishing prevention, and digital protection.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-cyber-security-tips",
+    tags: ["cyber security tips", "security", "phishing", "password", "safe browsing", "protection"],
+    iconName: "Lightbulb"
+  },
+  {
+    title: "Cyber Safety for Women",
+    description: "Access women-focused cyber safety guidance covering online harassment, privacy, stalking, and emergency support.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-cyber-safety-for-women",
+    tags: ["women safety", "cyber safety", "harassment", "privacy", "stalking", "support"],
+    iconName: "Users"
+  },
+  {
+    title: "Victim Rights & Support",
+    description: "Learn about victim rights, emotional support, legal assistance, and help available after cyber crime incidents.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-victim-rights-and-support",
+    tags: ["victim rights", "victim support", "legal help", "assistance", "counseling"],
+    iconName: "HandHeart"
+  },
+  {
+    title: "Report Crime Introduction",
+    description: "Introductory information explaining the cyber crime reporting portal and available support resources.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-introduction",
+    tags: ["introduction", "overview", "report portal", "cyber crime help", "resources"],
+    iconName: "Info"
+  },
+  {
+    title: "Report Crime Instructions",
+    description: "Instructions for safely preparing, documenting, and submitting cyber crime complaints.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-instructions",
+    tags: ["instructions", "steps", "documentation", "evidence", "submit complaint"],
+    iconName: "BookOpen"
+  },
+  {
+    title: "Report Crime Guidelines",
+    description: "Guidelines for responsible reporting, evidence handling, privacy, and complaint submission.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-guidelines",
+    tags: ["guidelines", "evidence", "privacy", "responsible reporting", "complaint"],
+    iconName: "ClipboardList"
+  },
+  {
+    title: "Report Crime Rules & Regulations",
+    description: "Rules and regulations related to cyber crime reporting, legal standards, and responsible platform use.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-rules-and-regulations",
+    tags: ["rules", "regulations", "legal standards", "cyber law", "compliance"],
+    iconName: "Scale"
+  },
+  {
+    title: "Legal Guidance for Cyber Crime",
+    description: "Legal guidance for victims needing help with cyber law, complaint drafting, notices, and official processes.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-legal-guidance",
+    tags: ["legal guidance", "cyber law", "advocate", "legal support", "complaint drafting"],
+    iconName: "Gavel"
+  },
+  {
+    title: "Report Crime Declarations",
+    description: "Declarations and confirmations related to truthful reporting, consent, and submitted cyber complaint details.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-declarations",
+    tags: ["declarations", "confirmation", "truthful report", "consent", "verification"],
+    iconName: "FileCheck"
+  },
+  {
+    title: "How to Report Cyber Crime",
+    description: "Step-by-step help for reporting cyber crime, preserving evidence, and contacting the right support channels.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-how-to-report",
+    tags: ["how to report", "steps", "evidence", "support channels", "complaint process"],
+    iconName: "HelpCircle"
+  },
+  {
+    title: "Case Reporting",
+    description: "Case reporting section for cyber incidents requiring details, evidence, timeline, and victim information.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-case-reporting",
+    tags: ["case reporting", "case report", "incident details", "timeline", "evidence"],
+    iconName: "AlertTriangle"
+  },
+  {
+    title: "Awareness & Prevention",
+    description: "Awareness and prevention content for avoiding cyber fraud, scams, phishing, identity theft, and online abuse.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-awareness-and-prevention",
+    tags: ["awareness", "prevention", "fraud prevention", "scams", "phishing", "identity theft"],
+    iconName: "Eye"
+  },
+  {
+    title: "Types of Cyber Crimes",
+    description: "Browse common types of cyber crimes including phishing, UPI fraud, identity theft, hacking, and cyber bullying.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-types-of-cyber-crimes",
+    tags: ["types", "cyber crimes", "phishing", "upi fraud", "identity theft", "hacking", "cyber bullying"],
+    iconName: "FileText"
+  },
+  {
+    title: "Cyber Laws & Rights",
+    description: "Cyber laws and rights section covering legal protections, victim rights, IT Act awareness, and reporting duties.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-cyber-laws-and-rights",
+    tags: ["cyber laws", "rights", "it act", "legal protection", "victim rights"],
+    iconName: "Book"
+  },
+  {
+    title: "Cyber Crime Success Stories",
+    description: "Success stories and positive outcomes from cyber crime reporting, investigation, support, and prevention.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-success-stories",
+    tags: ["success stories", "case success", "investigation", "recovery", "support"],
+    iconName: "Trophy"
+  },
+  {
+    title: "Cyber Crime Case Study",
+    description: "Case study resources for understanding real cyber crime scenarios, lessons, investigation methods, and prevention.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-case-study",
+    tags: ["case study", "scenario", "analysis", "investigation", "lessons", "prevention"],
+    iconName: "FileSpreadsheet"
+  },
+  {
+    title: "Cyber Security Prevention",
+    description: "Cyber security prevention card covering proactive protection, safe habits, risk reduction, and threat avoidance.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-cyber-security-prevention",
+    tags: ["cyber security prevention", "prevention", "risk reduction", "threat avoidance", "safe habits"],
+    iconName: "ShieldCheck"
+  },
+  {
+    title: "Cyber Crime Safety Tips",
+    description: "Safety tips for staying protected from cyber crime, suspicious links, financial fraud, social engineering, and scams.",
+    category: "Report Crime",
+    link: "/report-crime#report-crime-cyber-crime-safety-tips",
+    tags: ["cyber crime safety tips", "safety tips", "suspicious links", "financial fraud", "social engineering", "scams"],
+    iconName: "LifeBuoy"
+  }
+];
 
 export const searchableData = [
   // --- HERO SLIDES (Slogans & Themes) ---
@@ -1064,6 +1264,9 @@ export const searchableData = [
     iconName: "Trophy"
   },
 
+  // --- REPORT CRIME PAGE ---
+  ...reportCrimeSearchData,
+
   // --- WHY CHOOSE US (Features) ---
   {
     title: "Industry-Focused Cybersecurity",
@@ -1248,7 +1451,7 @@ export const iconMap = {
   PieChart,
   Globe2,
   HardDrive,
-  Infinity,
+  Infinity: InfinityIcon,
   Fingerprint,
   FileLock,
   Network,
@@ -1271,5 +1474,10 @@ export const iconMap = {
   UserPlus,
   Video,
   Send,
-  Edit3
+  Edit3,
+  ClipboardList,
+  HelpCircle,
+  FileSpreadsheet,
+  LifeBuoy,
+  Book
 };

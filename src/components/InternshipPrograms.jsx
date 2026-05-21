@@ -16,7 +16,6 @@ import {
   Award,
   Search,
   Rocket,
-  CheckCircle2,
   ChevronDown,
   ChevronUp
 } from 'lucide-react'
@@ -399,7 +398,7 @@ export default function InternshipPrograms() {
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <div className="text-center mb-[40px]">
-            <h3 className="text-[28px] font-[800] text-[#0F172A]">Professional Benefits</h3>
+            <h3 className="text-[28px] font-[800] text-[#0F172A]">📦 What We Provide</h3>
           </div>
           <div className="bg-[#F8FAFC] border-[1px] border-solid border-[#E2E8F0] rounded-[30px] py-[clamp(28px,5vw,50px)] px-[clamp(20px,4vw,40px)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]" ref={ref}>
             <div className="grid grid-cols-[repeat(4,1fr)] gap-[30px] items-start max-[1024px]:grid-cols-[repeat(2,1fr)] max-[600px]:grid-cols-[repeat(2,1fr)] max-[600px]:gap-[12px]">
