@@ -385,10 +385,10 @@ export default function Purpose() {
               THE SOUL OF OUR MISSION
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
-              Driven by <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Pure Purpose</span>
+              The Soul of Justice &  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Protection</span>
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-              Every action we take is rooted in a deep sense of purpose. Explore the 80 foundational pillars that drive our commitment to a safer digital society.
+              CRCCF exists not for profit, but for a greater purpose—to serve, support, and uplift society in the face of digital threats.
             </p>
           </motion.div>
 

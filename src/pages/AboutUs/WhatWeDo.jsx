@@ -354,10 +354,10 @@ export default function WhatWeDo() {
               ACTION & IMPACT
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
-              Operational <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Security Excellence</span>
+              Our Actions, <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Your Security</span>
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-              From high-tech forensic investigation to grassroots literacy camps, we deploy comprehensive strategies to protect the digital frontier.
+              From victim support to high-tech forensics, legal guidance to corporate compliance. We provide comprehensive solutions for a safer digital world.
             </p>
           </motion.div>
 

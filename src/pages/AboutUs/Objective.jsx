@@ -458,7 +458,9 @@ export default function Objective() {
               Our Vision for a <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Secure Nation</span>
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-              Explore the complete 80-point strategic roadmap of CRCCF. Flip through the pages of our digital chronicle to understand how we are protecting India's future.
+             To empower citizens with digital literacy, assist victims of cybercrime, and strengthen cybersecurity frameworks across the country.
+
+             We strive to be a one-stop solution for awareness, prevention, and legal assistance in cybercrime cases.
             </p>
           </motion.div>
 

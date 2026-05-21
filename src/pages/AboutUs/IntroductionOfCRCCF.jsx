@@ -646,7 +646,7 @@ export default function IntroductionOfCRCCF() {
               Building a <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Secure Digital Future</span>
             </h1>
             <p className="text-lg text-slate-600 leading-relaxed max-w-xl mb-8">
-              Welcome to CRCCF. We are dedicated to creating a safe, inclusive, and empowered digital world for every citizen, student, and organization through innovation and education.
+             Welcome to CRCCF. We are dedicated to creating a safe, inclusive, and empowered digital world for every citizen, student, and organization.
             </p>
             <div className="flex flex-wrap gap-3">
               {["Trust", "Safety", "Empowerment", "Education"].map((pill) => (

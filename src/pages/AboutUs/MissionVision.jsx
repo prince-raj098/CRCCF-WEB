@@ -391,10 +391,10 @@ export default function MissionVision() {
               OUR STRATEGIC COMPASS
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-slate-900 leading-[1.05] mb-8 tracking-tight">
-              A Future Defined by <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">Cyber Resilience</span>
+              Our Mission & <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">Vision</span>
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-xl">
-              Our mission is clear, and our vision is bold. Explore the 100 core statements that guide our foundation towards a digitally sovereign and safe India.
+              A guiding beacon of justice, hope, and digital empowerment. We are committed to building a safer, more ethical, and legally protected digital world for all.
             </p>
           </motion.div>
 
