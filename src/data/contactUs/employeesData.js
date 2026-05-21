@@ -1,4 +1,4 @@
-import Suraj from "../../assets/ContactUs/Employee_image/Suraj.png";
+import Suraj from "../../assets/ContactUs/Employee_image/suraj.png";
 import Rasmi from "../../assets/ContactUs/Employee_image/Rasmi.png";
 import gyanaranjan from "../../assets/ContactUs/Employee_image/gyanaranjan.png";
 import subrajit from "../../assets/ContactUs/Employee_image/Subrajit.png";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // ✨ FIXED: Added 'Filter' back to the imports here!
 import { Users, Mail, ArrowLeft, Search, Filter } from "lucide-react";
 import { FaLinkedin } from "react-icons/fa";
-import { employees } from "../../data/ContactUs/employeesData";
+import { employees } from "../../data/contactUs/employeesData";
 
 const EmployeeSection = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);

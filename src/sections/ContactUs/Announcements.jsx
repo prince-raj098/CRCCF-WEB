@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Confetti from "react-confetti";
 //  ✨ 1. Import the images you want to pass to the Announcement here!
-import suraj from "../../assets/ContactUs/Employee_image/Suraj.png";
+import suraj from "../../assets/ContactUs/Employee_image/suraj.png";
 
 const Announcements = ({
   onClose,

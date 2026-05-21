@@ -18,14 +18,14 @@ import Announcements from "../../sections/ContactUs/Announcements";
 
 
 // --- DATA ---
-import { employees } from "../../data/ContactUs/employeesData";
-import { officers } from "../../data/ContactUs/officersData";
-import { teachers } from "../../data/ContactUs/teachersData";
-import { reporters } from "../../data/ContactUs/reportersData";
-import { advocates } from "../../data/ContactUs/advocatesData";
-import { legalAdvisors } from "../../data/ContactUs/legalAdvisorsData";
-import { directors } from "../../data/ContactUs/directorsData";
-import { members } from "../../data/ContactUs/membersData";
+import { employees } from "../../data/contactUs/employeesData";
+import { officers } from "../../data/contactUs/officersData";
+import { teachers } from "../../data/contactUs/teachersData";
+import { reporters } from "../../data/contactUs/reportersData";
+import { advocates } from "../../data/contactUs/advocatesData";
+import { legalAdvisors } from "../../data/contactUs/legalAdvisorsData";
+import { directors } from "../../data/contactUs/directorsData";
+import { members } from "../../data/contactUs/membersData";
 
 
 // --- ICONS ---
