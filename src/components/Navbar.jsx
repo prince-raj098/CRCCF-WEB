@@ -32,6 +32,7 @@ export default function Navbar() {
   const [openDd, setOpenDd] = useState(null)
   const [mobileExp, setMobileExp] = useState(null)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [notifOpen, setNotifOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -59,21 +60,29 @@ export default function Navbar() {
     setSelectedIndex(0)
   }
 
-  // Close search on outside click or Escape
   useEffect(() => {
-    if (!searchOpen) return
-    const onKey = (e) => { if (e.key === 'Escape') closeSearch() }
+    if (!searchOpen && !notifOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        closeSearch();
+        setNotifOpen(false);
+      }
+    };
     const onClick = (e) => {
-      if (!e.target.closest('.nav-search-zone')) closeSearch()
-    }
-    document.addEventListener('keydown', onKey)
-    document.addEventListener('mousedown', onClick)
+      if (!e.target.closest('.nav-search-zone')) closeSearch();
+      if (!e.target.closest('.nav-notif-zone')) setNotifOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('mousedown', onClick);
     return () => {
-      document.removeEventListener('keydown', onKey)
-      document.removeEventListener('mousedown', onClick)
-    }
-  }, [searchOpen])
-
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('mousedown', onClick);
+    };
+  }, [searchOpen, notifOpen]);
+  // Close notification when search box is opened
+  useEffect(() => {
+    if (searchOpen && notifOpen) setNotifOpen(false);
+  }, [searchOpen, notifOpen]);
   const go = (href) => {
     setMobileOpen(false)
     if (href.startsWith('/#')) {
@@ -288,10 +297,27 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            <button className="relative bg-transparent border-none p-0 text-[rgba(255,255,255,0.75)] cursor-pointer flex items-center transition-all duration-180 hover:text-[#fff]">
-              <Bell size={20} strokeWidth={2} />
-              <span className="absolute top-[-2px] right-[-4px] w-[14px] h-[14px] bg-[#E02424] text-[#fff] text-[8px] font-[900] rounded-full flex items-center justify-center border-[1.5px] border-[#0C1A3A]">3</span>
-            </button>
+            <div className="nav-notif-zone relative">
+              <button className="relative bg-transparent border-none p-0 text-[rgba(255,255,255,0.75)] cursor-pointer flex items-center transition-all duration-180 hover:text-[#fff]"
+                onClick={() => setNotifOpen(v => !v)}
+              >
+                <Bell size={20} strokeWidth={2} />
+                <span className="absolute top-[-2px] right-[-4px] w-[14px] h-[14px] bg-[#E02424] text-[#fff] text-[8px] font-[900] rounded-full flex items-center justify-center border-[1.5px] border-[#0C1A3A]">0</span>
+              </button>
+              <AnimatePresence>
+                {notifOpen && (
+                  <motion.div
+                    className="absolute top-[calc(100%+12px)] right-0 w-[200px] bg-[#0C1A3A] border border-[rgba(255,255,255,0.15)] rounded-[12px] p-[12px] shadow-[0_8px_24px_rgba(0,0,0,0.4)] z-[1000]"
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <p className="text-[13px] text-[#fff] text-center">No new notifications</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             <button
               className="inline-flex items-center justify-center bg-[#E02424] text-white font-['Inter',sans-serif] text-[13px] font-[800] h-[34px] px-[16px] rounded-[6px] border-none cursor-pointer whitespace-nowrap transition-all duration-180 hover:bg-[#C01C1C] hover:-translate-y-[1px] hover:shadow-[0_4px_12px_rgba(224,36,36,0.25)] max-[1100px]:hidden sm:flex max-[520px]:hidden"

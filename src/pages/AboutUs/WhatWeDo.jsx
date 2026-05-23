@@ -1,5 +1,5 @@
 // src/pages/AboutUs/WhatWeDo.jsx
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ShieldCheck, Zap, Activity, Users, Globe, Lock } from "lucide-react";
 import {
@@ -137,6 +137,13 @@ const InsightCard = ({ allPages }) => {
   const [showScrubber, setShowScrubber] = useState(false);
   const scrubberTimer = useRef(null);
 
+  // Cleanup timer on unmount to avoid memory leaks
+  useEffect(() => {
+    return () => {
+      if (scrubberTimer.current) clearTimeout(scrubberTimer.current);
+    };
+  }, []);
+
   const keepScrubberVisible = () => {
     setShowScrubber(true);
     if (scrubberTimer.current) clearTimeout(scrubberTimer.current);
@@ -172,7 +179,8 @@ const InsightCard = ({ allPages }) => {
       >
         {/* Pages Stack */}
         {allPages.map((page, pageIdx) => {
-          const isVisible = Math.abs(pageIdx - activePageIndex) <= 2 || pageIdx < activePageIndex;
+          // Render only a small window around the active page to keep DOM lightweight
+          const isVisible = Math.abs(pageIdx - activePageIndex) <= 2;
           if (!isVisible) return null;
 
           const isFlipped = activePageIndex > pageIdx;
