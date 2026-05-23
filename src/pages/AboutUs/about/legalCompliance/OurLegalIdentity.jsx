@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
 import {
@@ -6,33 +6,10 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
-  AnimatePresence,
 } from "framer-motion";
 
 // Import data
 import { legalIdentityData } from '../../../../data/aboutUs/legalCompliance/LegalIdentitydata';
-
-/* -------------------------------- Palette -------------------------------- */
-const color = {
-  indigo50: "#EEF2FF",
-  indigo100: "#E0E7FF",
-  indigo500: "#6366F1",
-  indigo600: "#4F46E5",
-  indigo900: "#312E81",
-  violet50: "#F5F3FF",
-  violet500: "#8B5CF6",
-  violet600: "#7C3AED",
-  slate50: "#F8FAFC",
-  slate100: "#F1F5F9",
-  slate200: "#E2E8F0",
-  slate300: "#CBD5E1",
-  slate400: "#94A3B8",
-  slate700: "#334155",
-  slate800: "#1E293B",
-  slate900: "#0F172A",
-  white: "#FFFFFF",
-  gold500: "#EAB308",
-};
 
 /* -------------------------------- Motion -------------------------------- */
 const useAnims = () => {
@@ -167,6 +144,13 @@ const InsightCard = ({ allPages }) => {
 
   const isDesktop = () => window.innerWidth > 1024;
 
+  const handleMouseEnter = () => { if (isDesktop()) setIsOpen(true); };
+  const handleMouseLeave = () => {
+    if (isDesktop() && !showScrubber) {
+      setIsOpen(false);
+    }
+  };
+
   const handleOpen = (e) => {
     e.stopPropagation();
     setIsOpen(prev => !prev);
@@ -175,6 +159,8 @@ const InsightCard = ({ allPages }) => {
   return (
     <div className="flex flex-col gap-6 w-full max-w-2xl mx-auto">
       <motion.article
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         className={`
           relative bg-white border border-slate-200 rounded-[24px] 
           h-[420px] sm:h-[500px] md:h-[600px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
@@ -272,7 +258,7 @@ const InsightCard = ({ allPages }) => {
           onClick={handleOpen}
         >
           <div className="w-[120px] h-[120px] rounded-[32px] flex items-center justify-center mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4">
-            <img src="/CRCCF_LOGO-removebg-preview.png" alt="CRCCF Logo" className="w-full h-full object-contain" />
+            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" className="w-full h-full object-contain" />
           </div>
 
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>
@@ -302,9 +288,29 @@ const InsightCard = ({ allPages }) => {
             </span>
           </div>
           <div className="relative pt-2">
+            {previewPageIndex !== null && (
+              <motion.div
+                className="absolute -top-10 px-3 py-1.5 bg-slate-800 text-white text-[10px] font-bold rounded-lg whitespace-nowrap pointer-events-none z-20 shadow-2xl flex items-center gap-2"
+                animate={{
+                  left: `${(previewPageIndex / (allPages.length - 1)) * 100}%`,
+                  x: "-50%"
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 35 }}
+              >
+                <span className="bg-white/20 px-1.5 py-0.5 rounded text-[9px]">{previewPageIndex + 1}</span>
+                <span>{allPages[previewPageIndex].heading.slice(0, 35)}{allPages[previewPageIndex].heading.length > 35 ? "..." : ""}</span>
+              </motion.div>
+            )}
             <input
               type="range" min="0" max={allPages.length - 1} value={activePageIndex}
               onChange={(e) => { setActivePageIndex(parseInt(e.target.value)); keepScrubberVisible(); }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percent = Math.min(Math.max(x / rect.width, 0), 1);
+                setPreviewPageIndex(Math.round(percent * (allPages.length - 1)));
+              }}
+              onMouseLeave={() => setPreviewPageIndex(null)}
               className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all shadow-inner"
             />
           </div>

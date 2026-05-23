@@ -1,4 +1,3 @@
-import React from "react";
 // Link is for navigating between pages.
 // useLocation is a hook that tells us the current URL of the browser!
 import { Link, useLocation } from "react-router-dom";

@@ -41,7 +41,7 @@ export default function ReportCrime() {
             <div className="marquee-track marquee-right">
               {[...Array(8)].map((_, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <img src="/images/logo.jpg" className="w-6 h-6" />
+                  <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" className="w-6 h-6" />
                   <span className="font-semibold text-[#0F172A]">
                     CR CYBER CRIME FOUNDATION
                   </span>
@@ -49,7 +49,7 @@ export default function ReportCrime() {
               ))}
               {[...Array(8)].map((_, i) => (
                 <div key={"dup-" + i} className="flex items-center gap-3">
-                  <img src="/images/logo.jpg" className="w-6 h-6" />
+                  <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" className="w-6 h-6" />
                   <span className="font-semibold text-[#0F172A]">
                     CR CYBER CRIME FOUNDATION
                   </span>
@@ -93,7 +93,7 @@ export default function ReportCrime() {
             <div className="marquee-track marquee-left">
               {[...Array(8)].map((_, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <img src="/images/logo.jpg" className="w-6 h-6" />
+                  <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" className="w-6 h-6" />
                   <span className="font-semibold text-[#0F172A]">
                     CR CYBER CRIME FOUNDATION
                   </span>
@@ -101,7 +101,7 @@ export default function ReportCrime() {
               ))}
               {[...Array(8)].map((_, i) => (
                 <div key={"dup-" + i} className="flex items-center gap-3">
-                  <img src="/images/logo.jpg" className="w-6 h-6" />
+                  <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" className="w-6 h-6" />
                   <span className="font-semibold text-[#0F172A]">
                     CR CYBER CRIME FOUNDATION
                   </span>

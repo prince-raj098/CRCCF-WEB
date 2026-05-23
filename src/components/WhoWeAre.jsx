@@ -78,7 +78,7 @@ const cards = [
     icon: <OrgIcon />,
     color: '#2563EB',
     title: 'About the Organization',
-    bg: '/about.png',
+    bg: 'https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403768/about_drgeac.jpg',
     desc: (
       <>
         CR Cyber Crime Foundation (Cyber Revolution) is a non-profit organization dedicated to advancing cybercrime awareness 🛡️, supporting digital investigations 🔍, and transforming how individuals and organizations engage with the digital world 🌐.
@@ -89,7 +89,7 @@ const cards = [
     icon: <ServeIcon />,
     color: '#3B82F6',
     title: 'Who We Serve',
-    bg: '/serve.png',
+    bg: 'https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403772/serve_c3m079.jpg',
     desc: (
       <>
         We serve :<br />
@@ -105,7 +105,7 @@ const cards = [
     icon: <FocusIcon />,
     color: '#1D4ED8',
     title: 'Our Core Focus',
-    bg: '/focus.png',
+    bg: 'https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403770/focus_z5jjcr.jpg',
     desc: (
       <>
         Our focus extends to :<br /><br />
@@ -119,7 +119,7 @@ const cards = [
     icon: <VisionIcon />,
     color: '#0F2B5B',
     title: 'Our Vision',
-    bg: '/vision.png',
+    bg: 'https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403773/vision_kxgkbv.jpg',
     desc: (
       <>
          by integrating:<br /><br />
@@ -177,6 +177,7 @@ export default function WhoWeAre() {
           <h2 className="section-title">
             About <span className="section-title-accent">CR Cyber Crime Foundation</span>
           </h2>
+
           <p className="section-subtitle">
             A trusted partner in India's cybersecurity ecosystem — combining technology expertise,
             legal knowledge, and community outreach to create a safer digital India.

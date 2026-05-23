@@ -84,7 +84,9 @@ export default function WhatWeDo() {
               Domains
             </span>
           </h2>
-                    {/* Description */}
+          
+
+          {/* Description */}
           <p className="text-[#64748B] text-base md:text-lg leading-relaxed max-w-3xl mx-auto font-medium">
          We work across multiple domains including
           </p>

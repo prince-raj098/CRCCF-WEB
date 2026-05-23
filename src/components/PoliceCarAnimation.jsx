@@ -1,4 +1,3 @@
-import React from "react";
 
 const ChaseScene = ({ direction, side, carInFront, delay }) => {
   const isUp = direction === "up";

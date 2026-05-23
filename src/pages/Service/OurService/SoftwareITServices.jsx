@@ -1,8 +1,7 @@
-import React from "react";
 import CompanyMarquee from "../../../components/Service/common/CompanyMarquee";
 import GearSystem from "../../../components/Service/softwareIT/GearSystem";
 import { motion } from "framer-motion";
-import { Cpu, ShieldCheck, Zap, Activity } from "lucide-react";
+import { Cpu, ShieldCheck, Zap } from "lucide-react";
 
 const SoftwareITServices = () => {
   return (

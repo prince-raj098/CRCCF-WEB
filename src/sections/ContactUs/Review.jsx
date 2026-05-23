@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // ✨ We brought back the Star icon, and removed the Upload icons!
 import { Star, Send, ChevronLeft } from "lucide-react";
 

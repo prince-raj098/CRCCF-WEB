@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import logo from '../../../assets/CRCCF_LOGO-removebg-preview.png'
+const logo = "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png";
 
 const marqueeItems = [
   'CR Cyber Crime Foundation',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const countries = [
   "India","United States","United Kingdom","Canada","Australia",

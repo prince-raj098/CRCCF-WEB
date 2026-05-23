@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Bot, Send, User, ArrowLeft, Loader2 } from "lucide-react";
 
 const AIChat = () => {

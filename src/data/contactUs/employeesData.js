@@ -1,17 +1,48 @@
-import Suraj from "../../assets/ContactUs/Employee_image/suraj.png";
-import Rasmi from "../../assets/ContactUs/Employee_image/Rasmi.png";
-import gyanaranjan from "../../assets/ContactUs/Employee_image/gyanaranjan.png";
-import subrajit from "../../assets/ContactUs/Employee_image/Subrajit.png";
-import Dibyasha from "../../assets/ContactUs/Employee_image/Dibya.png";
-import Sai_priyadarshani from "../../assets/ContactUs/Employee_image/Sai.png";
-import Prince from "../../assets/ContactUs/Employee_image/Prince.png";
-import Debajani from "../../assets/ContactUs/Employee_image/Debajani.png";
-import Aryaman from "../../assets/ContactUs/Employee_image/Aryman.png";
-import Priyanka from "../../assets/ContactUs/Employee_image/Priyanka.png";
-import Jagadish from "../../assets/ContactUs/Employee_image/Jagadish.png";
-import Niranjan from "../../assets/ContactUs/Employee_image/Niranjan.png";
-import Debanshu from "../../assets/ContactUs/Employee_image/Debanshu.png";
-import Biswajit from "../../assets/ContactUs/Employee_image/Biswajit.png";
+const Suraj =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403103/suraj_tdxc2f.png";
+
+const Rasmi =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403100/Rasmi_oda5rb.png";
+
+const gyanaranjan =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403096/gyanaranjan_pycnzg.jpg";
+
+const subrajit =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403102/Subrajit_ti5vk4.jpg";
+
+const Dibyasha =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403096/Dibya_lrjez3.jpg";
+
+const Sai_priyadarshani =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403101/Sai_uh2nqx.png";
+
+const Prince =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403099/Prince_icb8fs.jpg";
+
+const Debajani =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403094/Debajani_h9oc8f.png";
+
+const Aryaman =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403092/Aryman_ygz4yl.png";
+
+const Priyanka =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403100/Priyanka_k5xhq6.png";
+
+const Jagadish =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403097/Jagadish_u2eznn.jpg";
+
+const Niranjan =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403098/Niranjan_e9pqlj.jpg";
+
+const Debanshu =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403095/Debanshu_jgaqk2.jpg";
+
+const Biswajit =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403093/Biswajit_x33fn4.jpg";
+
+const Snehasish =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779517072/Snehashis_hali4e.png";
+
 
 export const employees = [
   {
@@ -30,8 +61,7 @@ export const employees = [
     ctc: "$85,000 / Year",
     skills: "React, Tailwind CSS, Node.js, Django",
     phone: "+91 98765 43210",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80",
+    image: Snehasish,
   },
 
   {

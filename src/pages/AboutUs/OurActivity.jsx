@@ -1,5 +1,5 @@
 // src/pages/AboutUs/OurActivity.jsx
-import React, { useState, useRef, useMemo } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import {
@@ -7,8 +7,6 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
-  useSpring,
-  AnimatePresence,
 } from "framer-motion";
 
 // Import data
@@ -357,7 +355,7 @@ const InsightCard = ({ allPages }) => {
           onClick={handleOpen}
         >
           <div className="w-[100px] h-[100px] rounded-[28px] flex items-center justify-center mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4">
-            <img src="/CRCCF_LOGO-removebg-preview.png" alt="CRCCF Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
+            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
           </div>
 
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>

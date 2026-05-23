@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Newspaper, ArrowRight, ArrowLeft, Calendar } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
@@ -198,10 +198,13 @@ export default function Insights({ limit, hideViewAll = false }) {
         </div>
 
         {!hideViewAll && (
-          <div className="flex justify-center mt-[40px]">
-            <button className="btn btn-blue" onClick={() => navigate('/insights')}>
-              View All Insights <ArrowRight size={15} />
-            </button>
+         <div className="flex justify-center mt-[40px]">
+           <button
+            className="px-6 py-3 border border-blue-500 text-blue-500 rounded-lg bg-transparent  hover:bg-blue-500 hover:text-white transition-all duration-300 flex items-center gap-2"
+            onClick={() => navigate('/insights')}
+            >
+            View All Insights <ArrowRight size={15} />
+           </button>
           </div>
         )}
       </div>

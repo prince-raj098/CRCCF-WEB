@@ -1,4 +1,3 @@
-import React from 'react'
 import LegalComplianceKeyboard from '../../components/AboutUs/legalCompliance/LegalComplianceKeyboard'
 import CompanyMarquee from '../../components/AboutUs/common/CompanyMarquee'
 

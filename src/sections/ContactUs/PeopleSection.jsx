@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // ✨ FIXED: Added 'Filter' back to the imports here!
 import { Users, Mail, ArrowLeft, Search, Filter } from "lucide-react";
 import { FaLinkedin } from "react-icons/fa";
@@ -25,7 +25,7 @@ const EmployeeSection = () => {
   // ==========================================
   if (selectedEmployee) {
     return (
-      <section className="scroll-mt-8 bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 animate-[fadeIn_0.3s_ease-out]">
+      <section className="scroll-mt-8 bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 animate-[fadeIn_0.3s_ease-out] h-screen overflow-y-auto">
         <div className="flex items-center gap-4 mb-8 pb-4 border-b border-slate-200">
           <button
             onClick={() => setSelectedEmployee(null)}

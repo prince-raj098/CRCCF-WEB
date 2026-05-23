@@ -1,13 +1,10 @@
 // src/pages/AboutUs/LegalDisclaimer.jsx
-import React, { useState, useRef, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Scale, ShieldAlert, Gavel, FileCheck, Landmark, AlertTriangle } from "lucide-react";
 import {
   motion,
   useReducedMotion,
-  useScroll,
-  useTransform,
-  useSpring,
 } from "framer-motion";
 
 // Import data
@@ -261,7 +258,7 @@ const InsightCard = ({ allPages }) => {
           onClick={handleOpen}
         >
           <div className="w-[100px] h-[100px] rounded-[28px] flex items-center justify-center mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4 border border-slate-100">
-            <img src="/CRCCF_LOGO-removebg-preview.png" alt="CRCCF Logo" className="w-full h-full object-contain" />
+            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" className="w-full h-full object-contain" />
           </div>
 
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');`}</style>

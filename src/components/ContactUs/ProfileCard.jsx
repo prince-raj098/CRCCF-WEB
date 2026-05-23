@@ -1,4 +1,3 @@
-import React from "react";
 
 // The ProfileCard component receives 2 props:
 // - name: The person's full name (e.g., "John Doe")

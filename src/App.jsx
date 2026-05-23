@@ -3,8 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUp } from 'lucide-react'
 import { Routes, Route } from 'react-router-dom'
 
-import TopBar from './components/TopBar'
-import Navbar from './components/Navbar'
+
 import ScrollToTop from './components/ScrollToTop'
 import EventBanner from './components/EventBanner'
 import Hero from './components/Hero'
@@ -19,12 +18,10 @@ import Testimonials from './components/Testimonials'
 import Insights from './components/Insights'
 import WhyChooseUs from './components/WhyChooseUs'
 import Activities from './components/Activities'
-import Footer from './components/Footer'
 import GalleryPage from './pages/GalleryPage'
 import CategoryPage from './pages/CategoryPage'
 import ReachUsPage from './pages/ReachUsPage'
 import InsightsPage from './pages/InsightsPage'
-import ServicesPage from './pages/ServicesPage'
 import ServiceRouter from './pages/Service/ServiceRouter'
 import RootLayout from './layouts/RootLayout'
 import LaptopLayout from './layouts/ContactUs/LaptopLayout'
@@ -34,7 +31,6 @@ import PageWrapper from './components/ContactUs/PageWrapper'
 
 // --- CONTACT HUB SECTIONS ---
 import HelpDesk from './sections/ContactUs/HelpDesk'
-import FollowApps from './sections/ContactUs/FollowApps'
 import BranchDetails from './sections/ContactUs/BranchDetails'
 import AIChat from './sections/ContactUs/AIChat'
 import Review from './sections/ContactUs/Review'
@@ -139,6 +135,7 @@ function HomePageContent() {
         <Insights limit={3} />
         <StatsBar />
         <Testimonials />
+
       </main>
 
       <AnimatePresence>

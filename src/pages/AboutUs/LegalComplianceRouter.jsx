@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LegalCompliance from './LegalCompliance';
 import OurLegalIdentity from './about/legalCompliance/OurLegalIdentity';

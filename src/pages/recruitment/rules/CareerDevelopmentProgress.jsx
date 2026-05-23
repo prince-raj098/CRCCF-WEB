@@ -1,4 +1,3 @@
-import React from 'react'
 import RecruitmentPageLayout from '../RecruitmentPageLayout'
 
 const CareerDevelopmentProgress = () => (

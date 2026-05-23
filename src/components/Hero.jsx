@@ -2,11 +2,27 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // IMPORTING LOCAL IMAGES FROM ASSETS FOLDER
-import cyberNetwork from "../assets/heroimages/cyber-network.png";
-import holographicPadlock from "../assets/heroimages/holographic-padlock.png";
-import serverRoom from "../assets/heroimages/server-room.png";
-import aiBrain from "../assets/heroimages/ai-brain.png";
-import legalScale from "../assets/heroimages/legal-scale.png";
+// import cyberNetwork from "../assets/heroimages/cyber-network.png";
+// import holographicPadlock from "../assets/heroimages/holographic-padlock.png";
+// import serverRoom from "../assets/heroimages/server-room.png";
+// import aiBrain from "../assets/heroimages/ai-brain.png";
+// import legalScale from "../assets/heroimages/legal-scale.png";
+
+const cyberNetwork =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779402304/cyber-network_jmukxj.png";
+
+const holographicPadlock =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779402399/holographic-padlock_lypzmc.png";
+
+const serverRoom =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779402464/server-room_nmgcaj.png";
+
+const legalScale =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779402436/legal-scale_bqsmvs.png";
+
+const aiBrain =
+  "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779398594/ai-brain_dv8lbu.png";
+
 
 const slides = [
   {

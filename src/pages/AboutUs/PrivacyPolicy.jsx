@@ -1,5 +1,4 @@
 // src/pages/about/PrivacyPolicy.jsx
-import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";

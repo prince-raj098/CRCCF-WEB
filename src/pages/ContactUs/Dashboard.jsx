@@ -1,4 +1,3 @@
-import React from "react";
 import { useOutletContext } from "react-router-dom";
 import Card from "../../components/ContactUs/Card";
 import { LayoutDashboard } from "lucide-react";

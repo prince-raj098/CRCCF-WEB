@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { ArrowLeft, Search, Mail, X, Megaphone, UserX } from "lucide-react";
-import { FaLinkedin } from "react-icons/fa";
+import { useState, useEffect, useMemo } from "react";
+import { ArrowLeft, Search, X, Megaphone, UserX } from "lucide-react";
 import { Link } from "react-router-dom";
 import Announcements from "../../sections/ContactUs/Announcements";
 import { createPortal } from "react-dom";
@@ -89,7 +88,7 @@ const DirectorySection = ({ title, Icon, data = [] }) => {
     if (selectedPerson) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       if (window.innerWidth >= 1024) {
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = "auto";
       }
     } else {
       document.body.style.overflow = "unset";

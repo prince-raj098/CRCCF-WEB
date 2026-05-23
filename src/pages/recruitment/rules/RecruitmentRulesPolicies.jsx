@@ -1,4 +1,3 @@
-import React from 'react'
 import CompanyMarquee from '../../../components/common/CompanyMarquee'
 import RecruitmentRulesKeyboard from '../../../components/recruitment/RecruitmentRulesKeyboard'
 

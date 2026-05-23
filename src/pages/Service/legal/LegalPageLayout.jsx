@@ -1,10 +1,7 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import CompanyMarquee from "../../../components/Service/common/CompanyMarquee";
 import BackButton from "../../../components/Service/common/BackButton";
 
 const LegalPageLayout = ({ title, description }) => {
-  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-6">

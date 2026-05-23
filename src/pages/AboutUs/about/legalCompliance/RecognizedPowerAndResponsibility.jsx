@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Crown, Scale, Globe, Shield, Landmark } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
@@ -36,8 +36,18 @@ const getSvgIcon = (id) => {
 const InsightCard = ({ allPages }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activePageIndex, setActivePageIndex] = useState(0);
+  const [previewPageIndex, setPreviewPageIndex] = useState(null);
   const [showScrubber, setShowScrubber] = useState(false);
   const scrubberTimer = useRef(null);
+
+  const isDesktop = () => window.innerWidth > 1024;
+
+  const handleMouseEnter = () => { if (isDesktop()) setIsOpen(true); };
+  const handleMouseLeave = () => {
+    if (isDesktop() && !showScrubber) {
+      setIsOpen(false);
+    }
+  };
 
   const keepScrubberVisible = () => {
     setShowScrubber(true);
@@ -53,6 +63,8 @@ const InsightCard = ({ allPages }) => {
   return (
     <div className="flex flex-col gap-6 w-full max-w-2xl mx-auto">
       <motion.article
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         className={`
           relative bg-white border border-slate-200 rounded-[24px] 
           h-[420px] sm:h-[500px] md:h-[600px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
@@ -149,7 +161,7 @@ const InsightCard = ({ allPages }) => {
           onClick={handleOpen}
         >
           <div className="w-[80px] h-[80px] sm:w-[110px] sm:h-[110px] rounded-[24px] sm:rounded-[30px] flex items-center justify-center mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4">
-            <img src="/CRCCF_LOGO-removebg-preview.png" alt="CRCCF Logo" className="w-full h-full object-contain" />
+            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" className="w-full h-full object-contain" />
           </div>
 
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>
@@ -179,9 +191,29 @@ const InsightCard = ({ allPages }) => {
             </span>
           </div>
           <div className="relative pt-2">
+            {previewPageIndex !== null && (
+              <motion.div
+                className="absolute -top-10 px-3 py-1.5 bg-slate-800 text-white text-[10px] font-bold rounded-lg whitespace-nowrap pointer-events-none z-20 shadow-2xl flex items-center gap-2"
+                animate={{
+                  left: `${(previewPageIndex / (allPages.length - 1)) * 100}%`,
+                  x: "-50%"
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 35 }}
+              >
+                <span className="bg-white/20 px-1.5 py-0.5 rounded text-[9px]">{previewPageIndex + 1}</span>
+                <span>{allPages[previewPageIndex].heading.slice(0, 35)}{allPages[previewPageIndex].heading.length > 35 ? "..." : ""}</span>
+              </motion.div>
+            )}
             <input
               type="range" min="0" max={allPages.length - 1} value={activePageIndex}
               onChange={(e) => { setActivePageIndex(parseInt(e.target.value)); keepScrubberVisible(); }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percent = Math.min(Math.max(x / rect.width, 0), 1);
+                setPreviewPageIndex(Math.round(percent * (allPages.length - 1)));
+              }}
+              onMouseLeave={() => setPreviewPageIndex(null)}
               className="w-full h-2 bg-slate-200 rounded-full appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all shadow-inner"
             />
           </div>

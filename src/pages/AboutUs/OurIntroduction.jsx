@@ -1,5 +1,4 @@
 // Template for any page (e.g., OurIntroduction.jsx)
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { contentData } from '../../data/aboutUs/contentData'

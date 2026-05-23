@@ -1,4 +1,3 @@
-import React from "react";
 import { Headset, Mail, MessageCircle } from "lucide-react";
 
 const HelpDesk = () => (

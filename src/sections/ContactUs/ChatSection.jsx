@@ -1,4 +1,3 @@
-import React from "react";
 // ✨ CHANGED: Imported MessageCircle instead of PlayCircle
 import { MessageCircle } from "lucide-react";
 

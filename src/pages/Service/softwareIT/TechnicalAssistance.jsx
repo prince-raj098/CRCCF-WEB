@@ -1,4 +1,3 @@
-import React from "react";
 import SoftwareITPageLayout from "./SoftwareITPageLayout";
 
 const TechnicalAssistance = () => {

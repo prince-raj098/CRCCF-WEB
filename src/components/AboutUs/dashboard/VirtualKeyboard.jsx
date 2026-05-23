@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   User, Info, Wrench, Target, Activity, Lightbulb,

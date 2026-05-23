@@ -17,7 +17,7 @@ import {
 } from "react-icons/fa";
 
 import { MdAnimation, MdAutoGraph } from "react-icons/md";
-import { FiCode, FiPenTool, FiCpu, FiTrendingUp, FiShield, FiCheckCircle } from "react-icons/fi";
+import { FiCode, FiPenTool, FiCpu, FiTrendingUp, FiCheckCircle } from "react-icons/fi";
 import { motion, useMotionValue, useAnimationFrame, useTransform, wrap } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
@@ -372,7 +372,15 @@ const TechStack = () => {
 
       <div className="tech-header">
         <div className="tech-badge">Our Tech Stack</div>
-        <h2 className="tech-title">Technologies We Work With</h2>
+
+      <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">
+            Technologies{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+              We Work With
+            </span>
+          </h2>
+
+
         <p className="tech-desc">
           We leverage modern, scalable, and industry-standard technologies to build secure, high-performance, and user-friendly digital solutions across platforms.
         </p>

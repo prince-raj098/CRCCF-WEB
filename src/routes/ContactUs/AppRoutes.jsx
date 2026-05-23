@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // --- COMPONENTS & LAYOUTS ---
@@ -8,8 +7,7 @@ import DirectorySection from "../../pages/ContactUs/DirectorySection";
 
 // --- PAGES & SECTIONS ---
 import Dashboard from "../../pages/ContactUs/Dashboard";
-import HelpDesk from "../../sections/ContactUs/HelpDesk";
-import FollowApps from "../../sections/ContactUs/FollowApps";
+import HelpDesk from "../../sections/ContactUs/HelpDesk";;
 import BranchDetails from "../../sections/ContactUs/BranchDetails";
 import AIChat from "../../sections/ContactUs/AIChat";
 import Review from "../../sections/ContactUs/Review";
@@ -56,7 +54,6 @@ import {
   Megaphone,
   Sparkles,
 } from "lucide-react";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const AppRoutes = () => {
   return (

@@ -93,7 +93,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-12 gap-12 border-b border-white/10 pb-12">
           {/* BRANDING (Spans 3 cols) */}
           <div className="space-y-6 md:col-span-3">
-            <img src="/Logo.png" alt="CRCCF" className="w-24 drop-shadow-lg" />
+            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF" className="w-24 drop-shadow-lg" />
             <p className="text-gray-300 text-sm leading-relaxed">
               Empowering India through cyber awareness, cybersecurity support,
               and cutting-edge IT services including development, SEO, and

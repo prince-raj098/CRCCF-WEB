@@ -95,8 +95,12 @@ export default function ProjectsPortfolio() {
           <div className="section-tag flex items-center gap-[6px]">
             <Briefcase size={14} /> Projects & Portfolio
           </div>
-          <h2 className="section-title">
-            Our <span className="section-title-accent">Projects</span> & Portfolio
+
+          <h2 className="text-4xl md:text-5xl   font-extrabold text-slate-900 mb-2">
+            Our Projects{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+             & Portfolio
+            </span>
           </h2>
           
           <p className="section-subtitle !max-w-4xl">
@@ -115,7 +119,13 @@ export default function ProjectsPortfolio() {
             viewport={{ once:true }}
             transition={{ duration:.5 }}
           >
-            <h3 className="text-[28px] font-[800] text-[#0F172A] m-0">Project Statistics 📊</h3>
+          <h2 className="text-4xl md:text-5xl   font-extrabold text-slate-900 mb-2">
+            Project{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+             Statistics 
+            </span>
+          </h2>
+
           </motion.div>
 
           <div className="grid grid-cols-[repeat(4,1fr)] gap-[20px] max-[1024px]:grid-cols-[repeat(2,1fr)] max-[900px]:grid-cols-[repeat(2,1fr)] max-[600px]:grid-cols-[repeat(2,1fr)] max-[600px]:gap-[12px]">

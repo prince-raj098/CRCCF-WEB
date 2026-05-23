@@ -1,4 +1,3 @@
-import React from 'react'
 import CompanyMarquee from '../components/Service/common/CompanyMarquee'
 import ServicesKeyboard from '../components/Service/services/ServicesKeyboard'
 import { motion } from 'framer-motion'

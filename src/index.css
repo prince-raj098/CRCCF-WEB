@@ -561,3 +561,15 @@
 .animate-tug {
   animation: tug 0.6s ease-in-out infinite;
 }
+
+@keyframes floatAmbient {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  50% {
+    transform: translate(15px, -25px) rotate(15deg);
+  }
+  100% {
+    transform: translate(-10px, 20px) rotate(-10deg);
+  }
+}

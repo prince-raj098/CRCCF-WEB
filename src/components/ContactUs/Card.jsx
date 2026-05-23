@@ -1,11 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
-const Card = ({ title, subtitle, id, Icon, href, setHoveredCardId }) => {
+const Card = ({ title, subtitle, id, Icon, setHoveredCardId }) => {
   return (
     <Link
-      to={href || `/contact/${id}`}
+      to={`/${id}`}
       onMouseEnter={() => setHoveredCardId(id)}
       onMouseLeave={() => setHoveredCardId(null)}
       onClick={() => setHoveredCardId(null)}
