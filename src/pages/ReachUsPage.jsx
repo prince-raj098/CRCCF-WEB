@@ -17,8 +17,14 @@ import {
   Mail,
   Edit3,
   MessageSquare,
-  MapPin, 
-
+  MapPin,
+  Star,
+  GraduationCap,
+  Briefcase,
+  ShieldCheck,
+  Users,
+  UserPlus,
+  PlusCircle
 } from 'lucide-react';
 
 export default function ReachUsPage() {
@@ -102,7 +108,7 @@ export default function ReachUsPage() {
       icon: <FaFacebookF />, 
       label: 'Facebook', 
       handle: 'Crcyber-Crime', 
-      link: 'https://www.facebook.com/people/Crcyber-Crime/61576052739281/', 
+      link: 'https://www.facebook.com/crcybercrimeofficialpage', 
       color: '#1877F2',
       gradient: 'linear-gradient(45deg, #1877F2, #3b5998)'
     },
@@ -150,7 +156,7 @@ export default function ReachUsPage() {
       icon: <FaTelegram />, 
       label: 'Telegram', 
       handle: 'crccf_updates', 
-      link: '#', 
+      link: 'https://t.me/crcybercrimeofficialchannel', 
       color: '#26A5E4',
       gradient: 'linear-gradient(45deg, #26A5E4, #229ED9)'
     },
@@ -159,6 +165,14 @@ export default function ReachUsPage() {
       label: 'WhatsApp', 
       handle: '+91 97779 99529', 
       link: 'https://api.whatsapp.com/send/?phone=919777999529&text&type=phone_number&app_absent=0', 
+      color: '#25D366',
+      gradient: 'linear-gradient(45deg, #25D366, #128C7E)'
+    },
+    { 
+      icon: <FaWhatsapp />, 
+      label: 'WhatsApp Channel', 
+      handle: 'CRCCF Channel', 
+      link: 'https://whatsapp.com/channel/0029VbCU1Uv0VycPVnYj2r3T', 
       color: '#25D366',
       gradient: 'linear-gradient(45deg, #25D366, #128C7E)'
     },
@@ -291,6 +305,7 @@ export default function ReachUsPage() {
                       "M450 500 C400 500 250 550 200 480",   // 7
                       "M450 500 C500 500 650 550 700 480",   // 8
                       "M450 500 C450 480 400 480 450 400",   // 9
+                      "M450 500 C450 400 450 300 450 200",   // 10
                     ].map((d, i) => (
                       <motion.path
                         key={i}
@@ -325,7 +340,7 @@ export default function ReachUsPage() {
                   { top: '5%', left: '50%' },   { top: '15%', left: '25%' },  { top: '15%', left: '75%' },
                   { top: '40%', left: '13%' },  { top: '40%', left: '87%' },  { top: '35%', left: '35%' },
                   { top: '35%', left: '65%' },  { top: '60%', left: '22%' },  { top: '60%', left: '78%' },
-                  { top: '50%', left: '50%' },
+                  { top: '50%', left: '50%' },  { top: '25%', left: '50%' },
                 ];
 
                 const isMobile = windowWidth <= 768;
@@ -389,6 +404,52 @@ export default function ReachUsPage() {
               })}
             </div>
           </motion.div>
+        </section>
+
+        {/* Reviews & Testimonials Section */}
+        <section className="mb-[80px]">
+          <motion.div 
+            className="flex items-center gap-[24px] mb-[48px] cursor-default group"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-[28px] font-[800] text-[#0F172A] whitespace-nowrap transition-all duration-[0.4s] relative group-hover:text-[#2563EB] group-hover:translate-x-[5px]">Our <span className="text-[#2563EB]">Reviews</span></h3>
+            <div className="h-[2px] flex-1 bg-[linear-gradient(to_right,#E2E8F0,transparent)] relative overflow-hidden transition-all duration-[0.5s] group-hover:flex-[1.2] after:content-[''] after:absolute after:top-0 after:left-[-100%] after:w-full after:h-full after:bg-[linear-gradient(to_right,transparent,#2563EB,transparent)] group-hover:after:left-[100%] group-hover:after:transition-[left] group-hover:after:duration-[0.8s]"></div>
+          </motion.div>
+
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-[24px]">
+            {[
+              { title: "Google Reviews", icon: <Star size={24} />, color: "#F59E0B", bg: "rgba(245,158,11,0.1)", link: "#" },
+              { title: "Student Reviews", icon: <GraduationCap size={24} />, color: "#3B82F6", bg: "rgba(59,130,246,0.1)", link: "#" },
+              { title: "Client Reviews", icon: <Briefcase size={24} />, color: "#10B981", bg: "rgba(16,185,129,0.1)", link: "#" },
+              { title: "Victim Testimonials", icon: <ShieldCheck size={24} />, color: "#EF4444", bg: "rgba(239,68,68,0.1)", link: "#" },
+              { title: "Employee Reviews", icon: <Users size={24} />, color: "#8B5CF6", bg: "rgba(139,92,246,0.1)", link: "#" },
+              { title: "Candidate Reviews", icon: <UserPlus size={24} />, color: "#06B6D4", bg: "rgba(6,182,212,0.1)", link: "#" },
+              { title: "Add Review", icon: <PlusCircle size={24} />, color: "#EC4899", bg: "rgba(236,72,153,0.1)", link: "#" }
+            ].map((review, i) => (
+              <motion.a
+                key={i}
+                href={review.link}
+                className="group relative bg-white rounded-[20px] p-[24px] flex flex-col items-center justify-center text-center gap-[16px] shadow-[0_10px_30px_rgba(0,0,0,0.03)] border border-solid border-[#F1F5F9] transition-all duration-[0.3s] hover:shadow-[0_20px_40px_rgba(37,99,235,0.1)] hover:translate-y-[-5px] no-underline overflow-hidden"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#F8FAFC] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                <div 
+                  className="w-[60px] h-[60px] rounded-[16px] flex items-center justify-center transition-all duration-[0.4s] group-hover:scale-110 group-hover:rotate-3"
+                  style={{ backgroundColor: review.bg, color: review.color }}
+                >
+                  {review.icon}
+                </div>
+                <h4 className="text-[17px] font-[700] text-[#0F172A] m-0 transition-colors duration-300 group-hover:text-[#2563EB] relative z-10">{review.title}</h4>
+                <div className="absolute bottom-0 left-0 w-full h-[3px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" style={{ backgroundColor: review.color }}></div>
+              </motion.a>
+            ))}
+          </div>
         </section>
 
         <div className="grid grid-cols-1 gap-[60px] mb-[80px] justify-items-center lg:gap-[80px]">
@@ -504,6 +565,7 @@ export default function ReachUsPage() {
             ))}
           </div>
         </section>
+
 
         {/* Map Section */}
         <section className="mt-[80px]">

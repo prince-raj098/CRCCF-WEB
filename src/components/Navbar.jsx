@@ -10,19 +10,10 @@ const navLinks = [
   { label: 'Home', href: '/#home' },
   { label: 'About Us', href: '/about' },
   { label: 'Our Services', href: '/services' },
-  {
-    label: 'Skill Development',
-    href: '/#skill',
-    children: [
-      { label: 'Cyber Security Training', href: '/#skill' },
-      { label: 'Software Development', href: '/#skill' },
-      { label: 'Ethical Hacking', href: '/#skill' },
-      { label: 'Digital Forensics', href: '/#skill' },
-    ],
-  },
-  { label: 'Insights', href: '/insights' },
+  { label: 'Software Products', href: '/software-products' },
+  { label: 'Skill Development', href: '/skill-development' },
   { label: 'Careers', href: '/careers' },
-  { label: 'Gallery', href: '/gallery' },
+  { label: 'Insights', href: '/insights' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -355,7 +346,7 @@ export default function Navbar() {
               transition={{ type: 'tween', duration: 0.28 }}
             >
               <div className="flex items-center justify-between p-[14px_18px] bg-[#0C1A3A] border-b border-b-[rgba(255,255,255,0.08)]">
-                <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403771/Logo_vutq53.png" alt="CRCCF" className="h-[40px] w-[40px] object-contain" />
+                <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF" className="h-[40px] w-[40px] object-contain" />
                 <button className="bg-[rgba(255,255,255,0.10)] border-none text-[#fff] cursor-pointer w-[32px] h-[32px] rounded-[6px] flex items-center justify-center transition-all duration-150 hover:bg-[rgba(255,255,255,0.20)]" onClick={() => setMobileOpen(false)}>
                   <X size={20} />
                 </button>

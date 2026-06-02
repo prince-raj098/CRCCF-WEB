@@ -2,7 +2,7 @@ import RecruitmentPageLayout from './RecruitmentPageLayout'
 
 const ApplicationStatus = () => (
   <RecruitmentPageLayout
-    title="Application Status"
+    title="Check Application Status"
     description="Check the current status and progress of your submitted job or internship applications."
   />
 )

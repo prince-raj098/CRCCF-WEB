@@ -222,7 +222,7 @@ const InsightCard = ({ allPages }) => {
                 <p className="text-[16px] text-slate-600 leading-relaxed font-medium italic whitespace-pre-line">{page.content}</p>
                 {page.tagline && (
                    <div className="mt-6 p-4 rounded-xl bg-orange-50/50 border border-orange-100 italic text-[14px] text-orange-700 font-bold">
-                     <span className="mr-2 not-italic">⚠️ Note:</span> {page.tagline}
+                     <span className="mr-2 not-italic">️ Note:</span> {page.tagline}
                    </div>
                 )}
               </div>

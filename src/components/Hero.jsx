@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-// IMPORTING LOCAL IMAGES FROM ASSETS FOLDER
-// import cyberNetwork from "../assets/heroimages/cyber-network.png";
-// import holographicPadlock from "../assets/heroimages/holographic-padlock.png";
-// import serverRoom from "../assets/heroimages/server-room.png";
-// import aiBrain from "../assets/heroimages/ai-brain.png";
-// import legalScale from "../assets/heroimages/legal-scale.png";
 
 const cyberNetwork =
   "https://res.cloudinary.com/dbwnbfdij/image/upload/v1779402304/cyber-network_jmukxj.png";
@@ -61,6 +56,7 @@ const SLIDE_DURATION = 4000;
 
 export default function Hero() {
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
 
   // Auto-play timer
   useEffect(() => {
@@ -147,10 +143,16 @@ export default function Hero() {
 
               {/* BUTTONS */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl font-semibold shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:scale-105 transition-all duration-300 text-white cursor-pointer">
+                <button 
+                  onClick={() => navigate('/services')}
+                  className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl font-semibold shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:scale-105 transition-all duration-300 text-white cursor-pointer"
+                >
                   Explore Services
                 </button>
-                <button className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-black transition-all duration-300 cursor-pointer">
+                <button 
+                  onClick={() => navigate('/contact')}
+                  className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-3 rounded-xl font-semibold hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
+                >
                   Contact Services
                 </button>
               </div>

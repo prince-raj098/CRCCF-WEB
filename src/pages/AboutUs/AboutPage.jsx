@@ -14,7 +14,7 @@ const AboutPage = () => {
         <PageHeader 
           title="About Us — Fighting Cyber Threats with Innovation" 
           description="We empower individuals and organizations by combating cybercrime through awareness, research, and advanced technological solutions, ensuring a secure and trustworthy digital environment"
-          icon="🏢"
+          icon=""
         />
 
         {/* Marquee */}

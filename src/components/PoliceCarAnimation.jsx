@@ -1,15 +1,14 @@
+import React from 'react';
 
-const ChaseScene = ({ direction, side, carInFront, delay }) => {
-  const isUp = direction === "up";
+const ChaseScene = ({ direction, carInFront, delay }) => {
+  const isRight = direction === "right";
 
   return (
     <div
-      className="absolute w-[45px] h-[200px] z-20"
+      className="absolute w-[45px] h-[200px] z-20 top-1/2 -mt-[100px]"
       style={{
-        animation: `${isUp ? "police-car-drive" : "police-car-drive-reverse"} 12s linear infinite`,
+        animation: `${isRight ? "police-car-drive-right" : "police-car-drive-left"} 12s linear infinite`,
         animationDelay: delay,
-        [side]: "3%",
-        transform: isUp ? "none" : "rotate(180deg)",
       }}
     >
       {/* RUNNING PRISONER */}
@@ -103,25 +102,20 @@ const ChaseScene = ({ direction, side, carInFront, delay }) => {
   );
 };
 
-const PoliceCarAnimation = () => {
+const PoliceCarAnimation = ({ direction = "right" }) => {
   return (
-    <div className="absolute inset-0 pointer-events-none z-[10] overflow-hidden">
-      <div className="absolute left-[5%] top-0 w-1 h-full bg-slate-200/40 [background-image:linear-gradient(to_bottom,transparent_0,transparent_40px,#e2e8f0_40px,#e2e8f0_80px)] [background-size:100%_80px]" />
-      <div className="absolute right-[5%] top-0 w-1 h-full bg-slate-200/40 [background-image:linear-gradient(to_bottom,transparent_0,transparent_40px,#e2e8f0_40px,#e2e8f0_80px)] [background-size:100%_80px]" />
-      <ChaseScene direction="up" side="left" />
-      <ChaseScene direction="down" side="right" carInFront={true} />
+    <div className="relative w-full h-24 overflow-hidden pointer-events-none">
+      <ChaseScene direction={direction} carInFront={direction === "left"} delay="0s" />
       <style
         dangerouslySetInnerHTML={{
           __html: `
-        @keyframes police-car-drive {
-          0% { bottom: -220px; opacity: 1; transform: scale(0.95); }
-          50% { bottom: calc(100% + 220px); opacity: 1; transform: scale(0.95); }
-          50.01%, 100% { bottom: -220px; opacity: 0; }
+        @keyframes police-car-drive-right {
+          0% { left: -220px; opacity: 1; transform: scale(0.7) rotate(90deg); }
+          100% { left: calc(100% + 220px); opacity: 1; transform: scale(0.7) rotate(90deg); }
         }
-        @keyframes police-car-drive-reverse {
-          0%, 50% { top: -220px; opacity: 0; transform: scale(0.95) rotate(180deg); }
-          50.01% { top: -220px; opacity: 1; }
-          100% { top: calc(100% + 220px); opacity: 1; transform: scale(0.95) rotate(180deg); }
+        @keyframes police-car-drive-left {
+          0% { right: -220px; opacity: 1; transform: scale(0.7) rotate(-90deg); }
+          100% { right: calc(100% + 220px); opacity: 1; transform: scale(0.7) rotate(-90deg); }
         }
         @keyframes runner-body-bounce {
           0%, 100% { transform: translateY(0); }
@@ -155,3 +149,4 @@ const PoliceCarAnimation = () => {
 };
 
 export default PoliceCarAnimation;
+

@@ -35,33 +35,13 @@ export default function ReportCrime() {
           </div>
         </section>
 
-        {/* 🔷 TOP TICKER */}
-        <div id="report-crime-foundation-ticker" className="bg-[#F8FAFC] py-2 mt-6">
-          <div className="max-w-7xl mx-auto overflow-hidden">
-            <div className="marquee-track marquee-right">
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" className="w-6 h-6" />
-                  <span className="font-semibold text-[#0F172A]">
-                    CR CYBER CRIME FOUNDATION
-                  </span>
-                </div>
-              ))}
-              {[...Array(8)].map((_, i) => (
-                <div key={"dup-" + i} className="flex items-center gap-3">
-                  <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" className="w-6 h-6" />
-                  <span className="font-semibold text-[#0F172A]">
-                    CR CYBER CRIME FOUNDATION
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* 🔷 TOP ANIMATION */}
+        <div className="mt-6">
+          <PoliceCarAnimation direction="right" />
         </div>
 
         {/* 🔷 MAIN AREA */}
         <div id="report-crime-sections" className="flex justify-center mt-10 relative">
-          <PoliceCarAnimation />
           {/* 🔥 CARD PANEL */}
           <div className="bg-white rounded-2xl shadow-lg p-8 max-w-7xl w-full z-10">
             {/* TITLE */}
@@ -87,28 +67,9 @@ export default function ReportCrime() {
           </div>
         </div>
 
-        {/* 🔷 BOTTOM TICKER */}
-        <div className="bg-[#F8FAFC] py-2 mt-10">
-          <div className="max-w-7xl mx-auto overflow-hidden">
-            <div className="marquee-track marquee-left">
-              {[...Array(8)].map((_, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" className="w-6 h-6" />
-                  <span className="font-semibold text-[#0F172A]">
-                    CR CYBER CRIME FOUNDATION
-                  </span>
-                </div>
-              ))}
-              {[...Array(8)].map((_, i) => (
-                <div key={"dup-" + i} className="flex items-center gap-3">
-                  <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" className="w-6 h-6" />
-                  <span className="font-semibold text-[#0F172A]">
-                    CR CYBER CRIME FOUNDATION
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* 🔷 BOTTOM ANIMATION */}
+        <div className="mt-10 mb-10">
+          <PoliceCarAnimation direction="left" />
         </div>
       </main>
     </div>

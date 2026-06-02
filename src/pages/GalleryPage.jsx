@@ -1,40 +1,67 @@
-import GalleryHero from '../components/gallery/GalleryHero'
-import GalleryCategoryGrid from '../components/gallery/GalleryCategoryGrid'
-import GalleryFooterQuote from '../components/gallery/GalleryFooterQuote'
-import GalleryAnimatedBg from '../components/gallery/GalleryAnimatedBg'
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import GalleryAnimatedBg from '../components/gallery/GalleryAnimatedBg';
+import EventSlideshowSection from '../components/gallery/EventSlideshowSection';
+import { eventGalleryData } from '../data/gallery/eventGalleryData';
 
 export default function GalleryPage() {
-  const categoryImages = [
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/a86e66dfa_generated_b06e8f70.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/14024feb9_generated_be8043d0.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/41d80063f_generated_ee62a935.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/cd99b2cbe_generated_fd487187.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/9676c4c3d_generated_77243b6c.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/4b478b14f_generated_12c36e15.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/ec6ec2898_generated_764bf641.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/07c69415b_generated_54f8afc2.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/420e42652_generated_cca0721e.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/24bd5e374_generated_93784628.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/a5c3ea6f3_generated_004bc0e4.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/530471ed2_generated_b7ef040e.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/f8ff0a29c_generated_14407da9.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/096b624c0_generated_0e6d6180.png",
-    "https://media.base44.com/images/public/69e89f547154ba3350c8414c/a5c3ea6f3_generated_004bc0e4.png",
-  ];
+  const location = useLocation();
+  
+  // Inject CSS for the marquee animation
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes marquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+      }
+      .animate-marquee {
+        animation: marquee 20s linear infinite;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => { document.head.removeChild(style); };
+  }, []);
+
+  // Handle auto-scroll from Topbar Preview
+  useEffect(() => {
+    if (location.state?.targetEventId) {
+      const element = document.getElementById(location.state.targetEventId);
+      if (element) {
+        // Small delay ensures layout is ready before scrolling
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location.state]);
 
   return (
-    <div className="bg-[#F8FAFC] min-h-screen relative">
+    <div className="bg-[#F8FAFC] min-h-screen relative w-full overflow-x-hidden">
+      {/* Background Element */}
+      <GalleryAnimatedBg />
 
-      {/* Page body */}
-      <div className="relative w-full">
-        <GalleryAnimatedBg />
-        <div className="relative z-[10]">
-          <GalleryHero />
-          <GalleryCategoryGrid images={categoryImages} />
-          <GalleryFooterQuote />
-          <div style={{ height: 32 }} />
+      {/* Main Content */}
+      <div className="relative z-[10] w-full pt-32 pb-24">
+        
+        {/* Page Header (Optional, but good for context) */}
+        <div className="w-full max-w-[1200px] mx-auto px-4 mb-16 text-center">
+          <h1 className="text-4xl md:text-6xl font-black text-[#0F172A] tracking-tight mb-4">
+            Our <span className="text-blue-600">Event Gallery</span>
+          </h1>
+          <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+            Explore a visual timeline of our initiatives, campaigns, and key moments.
+          </p>
         </div>
+
+        {/* Render each event section independently */}
+        <div className="flex flex-col gap-12">
+          {eventGalleryData.map((event) => (
+            <EventSlideshowSection key={event.id} event={event} />
+          ))}
+        </div>
+
       </div>
     </div>
-  )
+  );
 }

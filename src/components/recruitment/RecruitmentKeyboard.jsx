@@ -7,7 +7,9 @@ import {
   Megaphone,
   Newspaper,
   SearchCheck,
-  Upload
+  Upload,
+  BadgeCheck,
+  IdCard
 } from 'lucide-react'
 
 const RecruitmentKeyboard = () => {
@@ -20,8 +22,10 @@ const RecruitmentKeyboard = () => {
     { label: 'Online Application Portal', path: '/recruitment/online-application-portal', icon: ClipboardList },
     { label: 'Recruitment Advertisements', path: '/recruitment/advertisements', icon: Megaphone },
     { label: 'Press Release and Notices', path: '/recruitment/press-release-notices', icon: Newspaper },
-    { label: 'Application Status', path: '/recruitment/application-status', icon: SearchCheck },
+    { label: 'Check Application Status', path: '/recruitment/application-status', icon: SearchCheck },
     { label: 'Submit Resume', path: '/recruitment/submit-resume', icon: Upload },
+    { label: 'Certificate Verification', path: '/recruitment/certificate-verification', icon: BadgeCheck },
+    { label: 'ID Card Verification', path: '/recruitment/id-card-verification', icon: IdCard },
   ]
 
   return (

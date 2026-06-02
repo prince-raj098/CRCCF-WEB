@@ -1,19 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 
-const OrgIcon = () => (
+const MissionIcon = () => (
   <svg width="42" height="42" viewBox="0 0 40 40" fill="none">
-    {/* Cloud behind */}
-    <path d="M26 14 A 5 5 0 0 0 16 10 A 7 7 0 0 0 6 16 A 4 4 0 0 0 10 24 L 28 24 A 6 6 0 0 0 26 14 Z" fill="#DBEAFE" stroke="#111827" strokeWidth="2" strokeLinejoin="round" />
-    {/* Main Building */}
-    <rect x="14" y="16" width="20" height="20" fill="#F8FAFC" stroke="#111827" strokeWidth="2" rx="1" />
-    {/* Door */}
-    <rect x="20" y="26" width="8" height="10" fill="#FDE047" stroke="#111827" strokeWidth="2" rx="1" />
-    {/* Windows */}
-    <rect x="17" y="20" width="4" height="4" fill="#60A5FA" stroke="#111827" strokeWidth="2" rx="0.5" />
-    <rect x="27" y="20" width="4" height="4" fill="#60A5FA" stroke="#111827" strokeWidth="2" rx="0.5" />
-    {/* Roof */}
-    <path d="M10 16 L24 6 L38 16" fill="#FCA5A5" stroke="#111827" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    {/* Rocket Body */}
+    <path d="M20 8 C26 14, 26 24, 20 28 C14 24, 14 14, 20 8 Z" fill="#DBEAFE" stroke="#111827" strokeWidth="2" strokeLinejoin="round" />
+    {/* Window */}
+    <circle cx="20" cy="18" r="3" fill="#F8FAFC" stroke="#111827" strokeWidth="2" />
+    {/* Fins */}
+    <path d="M16 24 L12 30 L16 28 Z" fill="#FCA5A5" stroke="#111827" strokeWidth="2" strokeLinejoin="round" />
+    <path d="M24 24 L28 30 L24 28 Z" fill="#FCA5A5" stroke="#111827" strokeWidth="2" strokeLinejoin="round" />
+    {/* Flame */}
+    <path d="M18 28 L20 34 L22 28 Z" fill="#FDE047" stroke="#111827" strokeWidth="2" strokeLinejoin="round" />
+    {/* Stars */}
+    <circle cx="10" cy="12" r="1" fill="#86EFAC" />
+    <circle cx="30" cy="16" r="1.5" fill="#FDE047" />
   </svg>
 )
 
@@ -75,17 +76,6 @@ const VisionIcon = () => (
 
 const cards = [
   {
-    icon: <OrgIcon />,
-    color: '#2563EB',
-    title: 'About the Organization',
-    bg: 'https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403768/about_drgeac.jpg',
-    desc: (
-      <>
-        CR Cyber Crime Foundation (Cyber Revolution) is a non-profit organization dedicated to advancing cybercrime awareness 🛡️, supporting digital investigations 🔍, and transforming how individuals and organizations engage with the digital world 🌐.
-      </>
-    ),
-  },
-  {
     icon: <ServeIcon />,
     color: '#3B82F6',
     title: 'Who We Serve',
@@ -93,11 +83,11 @@ const cards = [
     desc: (
       <>
         We serve :<br />
-        🎓 Students<br />
-        👨‍👩‍👧‍👦 The Public<br />
-        🏢 Organizations<br />
-        ⚖️ Victims<br /><br />
-        by providing research-driven insights 📊, guidance 🧭, and practical resources 🧩 to combat evolving cyber threats effectively ⚠️.
+         Students<br />
+         The Public<br />
+         Organizations<br />
+         Victims<br />
+        by providing research-driven insights , guidance , and practical resources to combat evolving cyber threats effectively .
       </>
     ),
   },
@@ -109,24 +99,35 @@ const cards = [
     desc: (
       <>
         Our focus extends to :<br /><br />
-        🛡️ Cybersecurity Awareness<br />
-        💻 Advanced IT & Software Development<br />
-        🎓 Industry-Oriented Training & Internship Programs
+         Cybersecurity Awareness<br />
+         Advanced IT & Software Development<br />
+         Industry-Oriented Training & Internship Programs
+      </>
+    ),
+  },
+  {
+    icon: <MissionIcon />,
+    color: '#0284C7',
+    title: 'Our Mission',
+    bg: 'https://res.cloudinary.com/dbwnbfdij/image/upload/v1780381961/Mission_azi7c5.png',
+    desc: (
+      <>
+        Our mission is to lead the Cyber Revolution by integrating cybersecurity awareness , advanced technology , and research-driven solutions . We are committed to empowering the next generation with practical skills, industry knowledge, and ethical values to build a secure and future-ready digital ecosystem .
       </>
     ),
   },
   {
     icon: <VisionIcon />,
-    color: '#0F2B5B',
+    color: '#2563EB',
     title: 'Our Vision',
     bg: 'https://res.cloudinary.com/dbwnbfdij/image/upload/v1779403773/vision_kxgkbv.jpg',
     desc: (
       <>
-         by integrating:<br /><br />
-        ⚙️ Technology<br />
-        📚 Research<br />
-        🧠 Cyber Intelligence<br /><br />
-         we equip the next generation with essential skills while striving to build a secure 🔐, innovative 💡, and future-ready digital ecosystem 🌍 for all.
+        by integrating:<br /><br />
+         Technology<br />
+         Research<br />
+         Cyber Intelligence<br /><br />
+        we equip the next generation with essential skills while striving to build a secure , innovative , and future-ready digital ecosystem for all.
       </>
     ),
   },
@@ -154,7 +155,6 @@ export default function WhoWeAre() {
 
   const handleTap = (e, index) => {
     e.stopPropagation()
-    // If they tap during auto-flip, we should probably stop auto-flip and just handle the tap
     setIsAutoFlipped(false)
     setFlippedCards(prev => 
       prev.includes(index) 
@@ -184,8 +184,8 @@ export default function WhoWeAre() {
           </p>
         </motion.div>
 
-
-        <div className="grid grid-cols-[repeat(2,1fr)] gap-[20px] max-[640px]:gap-[12px] max-[380px]:gap-[8px]">
+        {/* ── FIXED GRID CONTAINER USING ITEMS-STRETCH ── */}
+        <div className="grid grid-cols-2 items-stretch gap-[24px] max-[640px]:gap-[14px] max-[380px]:gap-[10px]">
           {cards.map((c, i) => (
             <motion.div
               key={c.title}
@@ -196,34 +196,52 @@ export default function WhoWeAre() {
               transition={{ duration: .5, delay: i * .10 }}
               onClick={(e) => handleTap(e, i)}
             >
+              {/* ── FIXED WRAPPER TO FORCE FULL HEIGHT GRID ── */}
               <div 
-                className={`grid flex-1 transition-transform duration-[0.6s] ease-[cubic-bezier(0.4,0,0.2,1)] [transform-style:preserve-3d] w-full rounded-[14px] max-[640px]:min-h-[160px] max-[380px]:min-h-[145px] ${flippedCards.includes(i) || isAutoFlipped ? '[transform:rotateY(180deg)]' : 'group-hover:[transform:rotateY(180deg)]'}`}
+                className={`grid h-full min-h-[300px] laptop:min-h-[340px] transition-transform duration-[0.6s] ease-[cubic-bezier(0.4,0,0.2,1)] [transform-style:preserve-3d] w-full rounded-[14px] max-[640px]:min-h-[190px] max-[380px]:min-h-[175px] ${
+                  flippedCards.includes(i) || isAutoFlipped 
+                    ? '[transform:rotateY(180deg)]' 
+                    : 'group-hover:[transform:rotateY(180deg)]'
+                }`}
               >
-                {/* ── FRONT ── */}
+                {/* ── FRONT CARD ── */}
                 <div
-                  className="[grid-area:1/1] bg-[rgba(255,255,255,0.7)] backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)] border-[1px] border-solid border-[rgba(255,255,255,0.3)] rounded-[14px] p-[28px] [backface-visibility:hidden] box-border flex flex-col justify-center transition-all duration-[0.3s] ease-[ease] [transform:rotateY(0deg)] z-[2] items-center text-center pt-[45px] bg-no-repeat relative group-hover:shadow-[0_10px_36px_rgba(0,0,0,0.10)] group-hover:border-[rgba(26,86,219,0.20)] max-[640px]:p-[12px_10px] max-[640px]:min-h-[160px] max-[640px]:pt-[24px] max-[380px]:p-[10px_8px] max-[380px]:min-h-[145px] max-[380px]:pt-[22px]"
+                  className="[grid-area:1/1] bg-[rgba(255,255,255,0.72)] backdrop-blur-[10px] [-webkit-backdrop-filter:blur(10px)] border-[1px] border-solid border-[rgba(255,255,255,0.35)] rounded-[14px] px-[24px] pb-[28px] pt-[48px] [backface-visibility:hidden] box-border flex flex-col justify-center items-center text-center bg-no-repeat relative transition-all duration-300 group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.10)] group-hover:border-[rgba(26,86,219,0.20)] [transform:rotateY(0deg)] z-[2] max-[640px]:px-[12px] max-[640px]:pb-[16px] max-[640px]:pt-[34px]"
                   style={{
-                    backgroundImage: `linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), url(${c.bg})`,
+                    backgroundImage: `linear-gradient(rgba(255,255,255,0.45), rgba(255,255,255,0.45)), url(${c.bg})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}
                 >
-                  <div className="absolute top-[-26px] left-[50%] translate-x-[-50%] bg-[#fff] rounded-[50%] p-[6px] max-[640px]:top-[-15px] max-[640px]:p-[3px] max-[380px]:top-[-13px] max-[380px]:p-[2px]">
+                  <div className="absolute top-[-26px] left-[50%] translate-x-[-50%] bg-[#fff] rounded-[50%] p-[6px] max-[640px]:top-[-16px] max-[640px]:p-[3px]">
                     <div
-                      className="w-[52px] h-[52px] rounded-[50%] flex items-center justify-center shadow-[0_4px_10px_rgba(0,0,0,0.06)] max-[640px]:w-[30px] max-[640px]:h-[30px] max-[380px]:w-[26px] max-[380px]:h-[26px] [&>svg]:max-[640px]:w-[16px] [&>svg]:max-[640px]:h-[16px] [&>svg]:max-[380px]:w-[14px] [&>svg]:max-[380px]:h-[14px]"
+                      className="w-[52px] h-[52px] rounded-[50%] flex items-center justify-center shadow-[0_4px_10px_rgba(0,0,0,0.06)] max-[640px]:w-[32px] max-[640px]:h-[32px] [&>svg]:max-[640px]:w-[18px] [&>svg]:max-[640px]:h-[18px]"
                       style={{ background: `${c.color}14`, color: c.color }}
                     >
                       {c.icon}
                     </div>
                   </div>
-                  <h3 className="text-[clamp(15px,2.2vw,19px)] font-[800] text-[#0F172A] mb-[12px] [text-shadow:0_2px_4px_rgba(255,255,255,0.8)] max-[640px]:text-[clamp(11px,3vw,13.5px)] max-[640px]:mb-[5px] max-[380px]:text-[11px] max-[380px]:mb-[4px]">{c.title}</h3>
+                  <h3 className="text-[clamp(16px,2vw,20px)] font-[800] text-[#0F172A] mb-[12px] [text-shadow:0_1px_2px_rgba(255,255,255,0.9)] max-[640px]:text-[13px] max-[640px]:mb-[6px]">
+                    {c.title}
+                  </h3>
                   <div className="w-[36px] h-[3px] rounded-[2px] max-[640px]:w-[24px] max-[640px]:h-[2px]" style={{ background: c.color }} />
                 </div>
 
-                {/* ── BACK ── */}
-                <div className="[grid-area:1/1] bg-[rgba(255,255,255,0.7)] backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)] border-[1px] border-solid border-[rgba(255,255,255,0.3)] rounded-[14px] p-[28px] [backface-visibility:hidden] box-border flex flex-col justify-center transition-all duration-[0.3s] ease-[ease] [transform:rotateY(180deg)] items-start p-[30px_24px] group-hover:shadow-[0_10px_36px_rgba(0,0,0,0.10)] group-hover:border-[rgba(26,86,219,0.20)] max-[640px]:p-[12px_10px] max-[640px]:min-h-[160px] max-[640px]:p-[14px_10px] max-[380px]:p-[10px_8px] max-[380px]:min-h-[145px]">
-                  <h3 className="text-[clamp(15px,2.2vw,19px)] font-[800] text-[#0F172A] mb-[12px] [text-shadow:0_2px_4px_rgba(255,255,255,0.8)] max-[640px]:text-[clamp(11px,3vw,13.5px)] max-[640px]:mb-[5px] max-[380px]:text-[11px] max-[380px]:mb-[4px]" style={{ color: c.color }}>{c.title}</h3>
-                  <p className="text-[clamp(12px,1.5vw,14.5px)] text-[#4B5563] leading-[1.65] max-[640px]:text-[clamp(10px,2.2vw,11.5px)] max-[640px]:leading-[1.4] max-[380px]:text-[10px] max-[380px]:leading-[1.35]">{c.desc}</p>
+                {/* ── BACK CARD (FIXES SPACING & ALIGNMENT COMPLETELY) ── */}
+                <div 
+                  className="[grid-area:1/1] bg-[rgba(255,255,255,0.85)] backdrop-blur-[10px] [-webkit-backdrop-filter:blur(10px)] border-[1px] border-solid border-[rgba(255,255,255,0.35)] rounded-[14px] px-[28px] py-[28px] [backface-visibility:hidden] box-border flex flex-col justify-center items-start text-left transition-all duration-300 [transform:rotateY(180deg)] group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.10)] group-hover:border-[rgba(26,86,219,0.20)] max-[640px]:px-[14px] max-[640px]:py-[16px]"
+                >
+                  <h3 
+                    className="text-[clamp(16px,2vw,20px)] font-[800] mb-[14px] max-[640px]:text-[13px] max-[640px]:mb-[8px]" 
+                    style={{ color: c.color }}
+                  >
+                    {c.title}
+                  </h3>
+                  <p 
+                    className="text-[clamp(12.5px,1.4vw,14.5px)] text-[#4B5563] leading-[1.65] w-full max-[640px]:text-[10.5px] max-[640px]:leading-[1.45]"
+                  >
+                    {c.desc}
+                  </p>
                 </div>
               </div>
             </motion.div>

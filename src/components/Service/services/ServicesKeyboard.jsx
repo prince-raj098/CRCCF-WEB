@@ -10,6 +10,10 @@ import {
   GraduationCap,
   BriefcaseBusiness,
   Handshake,
+  Eye,
+  Gavel,
+  Headset,
+  Cpu,
 } from "lucide-react";
 
 const ServicesKeyboard = () => {
@@ -75,6 +79,30 @@ const ServicesKeyboard = () => {
       label: "Placement Services",
       path: "/services/placement",
       icon: BriefcaseBusiness,
+    },
+    {
+      id: "cyber-awareness",
+      label: "Cyber Awareness Services",
+      path: "/services/cyber-awareness",
+      icon: Eye,
+    },
+    {
+      id: "legal-support-new",
+      label: "Legal Support",
+      path: "/services/legal-support-new",
+      icon: Gavel,
+    },
+    {
+      id: "technical-assistance",
+      label: "Technical Assistance",
+      path: "/services/technical-assistance",
+      icon: Headset,
+    },
+    {
+      id: "innovation-technology",
+      label: "Innovation & Technology",
+      path: "/services/innovation-technology",
+      icon: Cpu,
     },
   ];
 

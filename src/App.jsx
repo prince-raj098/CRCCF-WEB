@@ -16,6 +16,7 @@ import InternshipPrograms from './components/InternshipPrograms'
 import StatsBar from './components/StatsBar'
 import Testimonials from './components/Testimonials'
 import Insights from './components/Insights'
+import CareerOpportunities from './components/CareerOpportunities'
 import WhyChooseUs from './components/WhyChooseUs'
 import Activities from './components/Activities'
 import GalleryPage from './pages/GalleryPage'
@@ -25,6 +26,7 @@ import InsightsPage from './pages/InsightsPage'
 import ServiceRouter from './pages/Service/ServiceRouter'
 import RootLayout from './layouts/RootLayout'
 import LaptopLayout from './layouts/ContactUs/LaptopLayout'
+import SoftwareComingSoon from './pages/SoftwareComingSoon'
 import Dashboard from './pages/ContactUs/Dashboard'
 import DirectorySection from './pages/ContactUs/DirectorySection'
 import PageWrapper from './components/ContactUs/PageWrapper'
@@ -75,6 +77,10 @@ import CopyrightRegistration from './pages/AboutUs/CopyrightRegistration'
 import PartnershipCollaboration from './pages/AboutUs/PartnershipCollaboration'
 import History from './pages/AboutUs/History'
 import ReportCrime from './pages/report/ReportCrime'
+import ReportComingSoon from './pages/report/ReportComingSoon'
+import { reportCards } from './data/report/reportCards'
+import SkillDevelopmentPage from './pages/SkillDevelopment/SkillDevelopmentPage'
+import SkillDevelopmentDetail from './pages/SkillDevelopment/SkillDevelopmentDetail'
 
 
 // Recruitment Pages
@@ -86,6 +92,8 @@ import RecruitmentAdvertisements from './pages/recruitment/RecruitmentAdvertisem
 import PressReleaseNotices from './pages/recruitment/PressReleaseNotices'
 import ApplicationStatus from './pages/recruitment/ApplicationStatus'
 import SubmitResume from './pages/recruitment/SubmitResume'
+import CertificateVerification from './pages/recruitment/CertificateVerification'
+import CertificateComingSoon from './pages/recruitment/CertificateComingSoon'
 import CourseMaterials from './pages/Resources/CourseMaterials'
 import PracticalTraining from './pages/Resources/PracticalTraining'
 import MentorshipEvaluation from './pages/Resources/MentorshipEvaluation'
@@ -132,7 +140,7 @@ function HomePageContent() {
         <ProjectsPortfolio />
         <InternshipPrograms />
         <WhyChooseUs />
-        <Insights limit={3} />
+        <CareerOpportunities />
         <StatsBar />
         <Testimonials />
 
@@ -168,8 +176,21 @@ export default function App() {
           <Route path="/gallery/category/:id" element={<CategoryPage />} />
           <Route path="/reachus" element={<ReachUsPage />} />
           <Route path="/insights" element={<InsightsPage />} />
+          <Route path="/software-products" element={<SoftwareComingSoon />} />
           <Route path="/services/*" element={<ServiceRouter />} />
           <Route path="/report-crime" element={<ReportCrime />} />
+          
+          {/* Map through report cards for dynamic coming soon pages */}
+          {reportCards.map((card) => (
+            <Route 
+              key={card.path} 
+              path={card.path} 
+              element={<ReportComingSoon title={card.title} />} 
+            />
+          ))}
+
+          <Route path="/skill-development" element={<SkillDevelopmentPage />} />
+          <Route path="/skill-development/:slug" element={<SkillDevelopmentDetail />} />
 
           <Route path="/resources/course-materials" element={<CourseMaterials />} />
           <Route path="/resources/practical-training" element={<PracticalTraining />} />
@@ -328,6 +349,8 @@ export default function App() {
           <Route path="/recruitment/press-release-notices" element={<PressReleaseNotices />} />
           <Route path="/recruitment/application-status" element={<ApplicationStatus />} />
           <Route path="/recruitment/submit-resume" element={<SubmitResume />} />
+          <Route path="/recruitment/certificate-verification" element={<CertificateVerification />} />
+          <Route path="/recruitment/certificate-verification/:slug" element={<CertificateComingSoon />} />
 
           <Route path="/recruitment/rules-policies" element={<RecruitmentRulesPolicies />} />
           <Route path="/recruitment/rules-policies/employment-overview" element={<RecruitmentPolicyEmploymentOverview />} />

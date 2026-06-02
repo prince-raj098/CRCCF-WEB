@@ -1,7 +1,11 @@
 import { motion } from "framer-motion"
 import { ShieldCheck } from "lucide-react"
 
-const PageHeader = () => {
+const PageHeader = ({ 
+  title = "About Us — Fighting Cyber Threats with Innovation", 
+  description = "We empower individuals and organizations by combating cybercrime through awareness, research, and advanced technological solutions — ensuring a secure and trustworthy digital environment.",
+  Icon = ShieldCheck
+}) => {
   return (
     <div className="relative mb-10">
       {/* Background Gradient */}
@@ -16,7 +20,7 @@ const PageHeader = () => {
           transition={{ repeat: Infinity, duration: 2 }}
           className="relative w-20 h-20 mx-auto mb-4 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md shadow-lg"
         >
-          <ShieldCheck className="w-10 h-10 text-white" />
+          <Icon className="w-10 h-10 text-white" />
         </motion.div>
 
         {/* Title */}
@@ -26,7 +30,7 @@ const PageHeader = () => {
           transition={{ duration: 0.6 }}
           className="relative text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug"
         >
-          About Us — Fighting Cyber Threats with Innovation
+          {title}
         </motion.h1>
 
         {/* Description */}
@@ -36,9 +40,7 @@ const PageHeader = () => {
           transition={{ delay: 0.3 }}
           className="relative mt-4 text-sm sm:text-base md:text-lg text-blue-100 max-w-3xl mx-auto leading-relaxed"
         >
-          We empower individuals and organizations by combating cybercrime through awareness,
-          research, and advanced technological solutions — ensuring a secure and trustworthy
-          digital environment.
+          {description}
         </motion.p>
 
         {/* Decorative Light Circle */}

@@ -1,21 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { eventGalleryData } from '../data/gallery/eventGalleryData'
 
 /* ─── Marquee text ─────────────────────────────────────────── */
 const NOTICE =
   'Welcome to CR Cyber Crime Foundation — a leading IT, software, and cybersecurity organization in India. With 24/7 dedication, CRCCF delivers innovative software products, scalable web and mobile applications, and end-to-end IT solutions.       '
 const TRACK = (NOTICE + NOTICE).repeat(2)
 
-/* ─── Gallery preview thumbnails ──────────────────────── */
-const GALLERY = [
-  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/a86e66dfa_generated_b06e8f70.png', alt: 'Our Student' },
-  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/14024feb9_generated_be8043d0.png', alt: 'Media & Press' },
-  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/41d80063f_generated_ee62a935.png', alt: 'Events' },
-  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/cd99b2cbe_generated_fd487187.png', alt: 'Team Moments' },
-  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/9676c4c3d_generated_77243b6c.png', alt: 'Certificates' },
-  { src: 'https://media.base44.com/images/public/69e89f547154ba3350c8414c/4b478b14f_generated_12c36e15.png', alt: 'Client Work' },
-]
+
 
 /* ─── SVG Analog Clock ──────────────────────────────────────── */
 function AnalogClock() {
@@ -98,10 +91,39 @@ function AnalogClock() {
 
 /* ─── Gallery Popup ─────────────────────────────────────────── */
 function GalleryPopup({ navigate }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (!eventGalleryData || eventGalleryData.length === 0) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % eventGalleryData.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!eventGalleryData || eventGalleryData.length === 0) {
+    return (
+      <motion.div
+        className="gallery-popup absolute top-[calc(100%+6px)] right-0 w-[340px] overflow-hidden rounded-[14px] border border-[#E5E7EB] bg-[#fff] shadow-[0_20px_60px_rgba(0,0,0,.22)] z-[9999] max-[480px]:w-[280px] max-[480px]:right-[-10px]"
+        initial={{ opacity: 0, y: -6, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -6, scale: 0.96 }}
+        transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <div className="p-6 text-center text-slate-500 font-medium">
+          No Gallery Events Available
+        </div>
+      </motion.div>
+    );
+  }
+
+  const activeEvent = eventGalleryData[activeIndex];
+  const coverImage = activeEvent.photos && activeEvent.photos.length > 0 ? activeEvent.photos[0].url : '';
+
   return (
     <motion.div
       className="gallery-popup absolute top-[calc(100%+6px)] right-0 w-[340px] overflow-hidden rounded-[14px] border border-[#E5E7EB] bg-[#fff] shadow-[0_20px_60px_rgba(0,0,0,.22)] z-[9999] max-[480px]:w-[280px] max-[480px]:right-[-10px]"
-      onClick={() => navigate('/gallery')}
+      onClick={() => navigate('/gallery', { state: { targetEventId: activeEvent.id } })}
       initial={{ opacity: 0, y: -6, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -6, scale: 0.96 }}
@@ -109,37 +131,65 @@ function GalleryPopup({ navigate }) {
       style={{ cursor: 'pointer' }}
     >
       <div className="gallery-popup-head flex items-center justify-between px-[16px] pt-[12px] pb-[10px] border-b border-[#F3F4F6] text-[13px] font-[700] text-[#111827]">
-        <span>📸 Gallery Preview</span>
-        <span className="gallery-popup-count text-[11px] font-[600] text-[#9CA3AF] bg-[#F3F4F6] px-[9px] py-[2px] rounded-[999px]">{GALLERY.length} photos</span>
+        <span> Latest Events </span>
+        <span className="gallery-popup-count text-[10px] font-[600] text-[#1A56DB] bg-[#EFF6FF] px-[8px] py-[2px] rounded-[999px]">
+          {activeIndex + 1} of {eventGalleryData.length}
+        </span>
       </div>
-      <div className="gallery-popup-grid grid grid-cols-3 gap-[6px] p-[10px] max-[480px]:grid-cols-2">
-        {GALLERY.map((img, i) => (
-          <motion.div
-            key={i}
-            className="gallery-thumb group relative aspect-[4/3] overflow-hidden rounded-[8px] cursor-pointer"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.04, duration: 0.22 }}
-            whileHover={{ scale: 1.06, zIndex: 2 }}
-          >
-            <img
-              src={img.src}
-              alt={img.alt}
-              loading="lazy"
-              className="w-full h-full object-cover block transition-transform duration-[350ms] group-hover:scale-[1.08]"
+      
+      <div className="p-[12px]">
+        <div className="relative w-full aspect-video rounded-[10px] overflow-hidden bg-slate-100 mb-3 group">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={activeEvent.id}
+              src={coverImage}
+              alt={activeEvent.title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
             />
-            <div className="gallery-thumb-overlay absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.65)_0%,transparent_50%)] opacity-0 transition-opacity duration-[250ms] flex items-end p-[6px_7px] group-hover:opacity-100">
-              <span className="text-[10px] text-[#fff] font-[600] leading-[1.2]">{img.alt}</span>
-            </div>
-          </motion.div>
-        ))}
+          </AnimatePresence>
+          {/* Overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          
+          <div className="absolute bottom-3 left-3 flex gap-2">
+            <span className="text-[10px] font-bold text-white bg-blue-600/90 px-2 py-0.5 rounded-full backdrop-blur-sm shadow-sm">
+              {activeEvent.photos?.length || 0} Photos
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-1 px-1">
+          <AnimatePresence mode="wait">
+             <motion.div
+               key={activeEvent.id}
+               initial={{ opacity: 0, y: 5 }}
+               animate={{ opacity: 1, y: 0 }}
+               exit={{ opacity: 0, y: -5 }}
+               transition={{ duration: 0.3 }}
+             >
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5">
+                  {activeEvent.date}
+                </div>
+                <h4 className="text-[14px] font-bold text-slate-800 leading-tight">
+                  {activeEvent.title}
+                </h4>
+             </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
+
       <button
-        onClick={() => navigate('/gallery')}
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate('/gallery', { state: { targetEventId: activeEvent.id } });
+        }}
         className="gallery-popup-cta w-full flex items-center justify-center p-[10px] text-[12.5px] font-[700] text-[#1A56DB] no-underline transition-[background] duration-[150ms] tracking-[.03em] hover:bg-[#EFF6FF]"
         style={{width: '100%', background: 'none', border: 'none', borderTop: '1px solid #F3F4F6', cursor: 'pointer'}}
       >
-        View Full Gallery →
+        View Event Details →
       </button>
     </motion.div>
   )
@@ -148,7 +198,7 @@ function GalleryPopup({ navigate }) {
 /* ─── Reach Us Popup ─────────────────────────────────────────── */
 function ReachUsPopup({ navigate }) {
   const socialIcons = [
-    { name: 'Facebook', color: '#1877F2', link: 'https://www.facebook.com/people/Crcyber-Crime/61576052739281/' },
+    { name: 'Facebook', color: '#1877F2', link: 'https://www.facebook.com/crcybercrimeofficialpage' },
     { name: 'LinkedIn', color: '#0A66C2', link: 'https://www.linkedin.com/company/cr-cyber-crime/posts/?feedView=all' },
     { name: 'Instagram', color: '#E4405F', link: 'https://www.instagram.com/crcybercrime/' },
     { name: 'YouTube', color: '#FF0000', link: 'https://youtube.com/@crcybercrimeofficialchannel?si=n96o6iVeJTas66Z6' },
@@ -166,7 +216,7 @@ function ReachUsPopup({ navigate }) {
       style={{ width: '300px', right: 0, cursor: 'pointer' }}
     >
       <div className="gallery-popup-head flex items-center justify-between px-[16px] pt-[12px] pb-[10px] border-b border-[#F3F4F6] text-[13px] font-[700] text-[#111827]">
-        <span>🌍 Reach Our Support</span>
+        <span> Reach Our Support</span>
       </div>
       
       <div style={{ padding: '14px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -301,7 +351,7 @@ export default function TopBar() {
     }, 3000)
   }
 
-  const navigateWithPreviewCooldown = (path) => {
+  const navigateWithPreviewCooldown = (path, options) => {
     if (path.startsWith('/gallery')) {
       startPreviewCooldown('gallery')
     }
@@ -310,7 +360,7 @@ export default function TopBar() {
       startPreviewCooldown('reach')
     }
 
-    navigate(path)
+    navigate(path, options)
   }
 
   useEffect(() => {

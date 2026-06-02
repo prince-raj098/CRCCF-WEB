@@ -12,22 +12,22 @@ export default function Activities() {
     {
       icon: <FaChartLine />,
       title: "Cyber Awareness Campaigns",
-      desc: "Conducting widespread campaigns to educate communities about digital threats and safety practices.",
+      desc: "CRCCF conducts impactful cyber awareness campaigns to educate communities about online safety, cyber threats, digital fraud prevention, responsible internet usage, cyber hygiene, and secure digital practices for a safer future.",
     },
     {
       icon: <FaUserGraduate />,
-      title: "Training & Workshops",
-      desc: "Organizing hands-on training sessions and interactive workshops for skill development.",
+      title: "Training And Workshops",
+      desc: "CRCCF organizes practical training and workshops to empower learners with industry-focused skills, hands-on knowledge, professional guidance, technology exposure, teamwork, confidence, career-ready learning for future growth, digital success and innovation.",
     },
     {
       icon: <FaBrain />,
       title: "Research Initiatives",
-      desc: "Supporting cutting-edge research in cybersecurity and digital innovation domains.",
+      desc: "CRCCF leads meaningful research initiatives to explore cyber trends, digital risks, security challenges, innovation, technology solutions, awareness strategies, data-driven insights, and practical knowledge for safer digital ecosystems and future-ready communities.",
     },
     {
       icon: <FaCode />,
       title: "Technology-Driven Projects",
-      desc: "Engaging in innovative technology projects that address real-world challenges and promote digital transformation across various sectors.",
+      desc: "CRCCF develops technology-driven projects to build innovative digital solutions, cyber tools, AI systems, software applications, security platforms, research-based products, and practical technologies that support safer, smarter, future-ready digital transformation growth.",
     },
   ];
 

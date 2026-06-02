@@ -16,63 +16,33 @@ import {
   FileText,
   Book,
   Trophy,
-  FileSpreadsheet, // ✅ Case Study
-  ShieldCheck, // ✅ Cyber Security Prevention
-  LifeBuoy, // ✅ Cyber Crime Safety Tips
+  FileSpreadsheet,
+  ShieldCheck,
+  LifeBuoy,
+  FileEdit,
+  Activity,
+  Clock,
+  Globe,
+  MessageSquare
 } from "lucide-react";
 
 export const reportCards = [
-  { title: "Report Cyber Crime", icon: ShieldAlert, path: "/report" },
-
-  { title: "Check Complaint Status", icon: Search, path: "/status" },
-
+  { title: "Report a Cyber Crime– Important Information", icon: Info, path: "/report-important-info" },
+  { title: "How to Report a Cyber Crime", icon: HelpCircle, path: "/how-to-report" },
+  { title: "Cyber Fraud Complaint Registration", icon: FileEdit, path: "/fraud-complaint" },
+  { title: "Track Your Case Status", icon: Search, path: "/track-status" },
+  { title: "Types of Cyber Crime", icon: FileText, path: "/types" },
   { title: "Cyber Security Tips", icon: Lightbulb, path: "/tips" },
-
-  { title: "Cyber Safety for Women", icon: Users, path: "/women-safety" },
-
-  { title: "Victim Rights & Support", icon: HeartHandshake, path: "/rights" },
-
-  { title: "Introduction", icon: Info, path: "/introduction" },
-
-  { title: "Instructions", icon: BookOpen, path: "/instructions" },
-
-  { title: "Guidelines", icon: ClipboardList, path: "/guidelines" },
-
-  { title: "Rules & Regulations", icon: Scale, path: "/rules" },
-
-  { title: "Legal Guidance", icon: Gavel, path: "/legal" },
-
-  { title: "Declarations", icon: FileCheck, path: "/declarations" },
-
-  { title: "How to Report", icon: HelpCircle, path: "/how-to-report" },
-
-  { title: "Case Reporting", icon: AlertTriangle, path: "/case-report" },
-
-  { title: "Awareness & Prevention", icon: Eye, path: "/awareness" },
-
-  { title: "Types of Cyber Crimes", icon: FileText, path: "/types" },
-
-  { title: "Cyber Laws & Rights", icon: Book, path: "/laws" },
-
-  { title: "Success Stories", icon: Trophy, path: "/stories" },
-
-  // ✅ UPDATED LAST 3 CARDS
-
-  {
-    title: "Case Study",
-    icon: FileSpreadsheet,
-    path: "/case-study",
-  },
-
-  {
-    title: "Cyber Security Prevention",
-    icon: ShieldCheck,
-    path: "/cyber-security-prevention",
-  },
-
-  {
-    title: "Cyber Crime Safety Tips",
-    icon: LifeBuoy,
-    path: "/cyber-crime-safety-tips",
-  },
+  { title: "Report a Cyber Crime – Awareness & Prevention Tips", icon: Eye, path: "/awareness-prevention" },
+  { title: "Legal Guidance & Awareness", icon: Gavel, path: "/legal-guidance" },
+  { title: "Cyber Laws & Rights", icon: Book, path: "/laws-rights" },
+  { title: "Cyber Safety & Support for Girls and Women", icon: Users, path: "/women-safety" },
+  { title: "Report a Cyber Crime – Victim Rights & Support", icon: HeartHandshake, path: "/victim-rights" },
+  { title: "Report a Cyber Crime – Victim Support and assistance", icon: LifeBuoy, path: "/victim-support" },
+  { title: "Cyber Crime Prevention", icon: ShieldCheck, path: "/prevention" },
+  { title: "Case Status", icon: Activity, path: "/case-status" },
+  { title: "Success Case Stories", icon: Trophy, path: "/stories" },
+  { title: "Ongoing Investigation Cases", icon: Clock, path: "/ongoing-cases" },
+  { title: "Cyber Threat Intelligence", icon: Globe, path: "/threat-intelligence" },
+  { title: "Cyber Crime FAQs", icon: MessageSquare, path: "/faqs" },
 ];

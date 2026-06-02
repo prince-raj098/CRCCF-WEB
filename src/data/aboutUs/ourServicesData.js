@@ -49,4 +49,24 @@ export const ourServicesData = [
     image: "https://res.cloudinary.com/dstfxfxje/image/upload/v1761736485/legal_support_documentaion_kioiym.jpg",
     path: "/services/placement-services",
   },
+  {
+    title: "Cyber Awareness Services",
+    image: "https://res.cloudinary.com/dstfxfxje/image/upload/v1761736485/legal_support_documentaion_kioiym.jpg",
+    path: "/services/cyber-awareness",
+  },
+  {
+    title: "Legal Support",
+    image: "https://res.cloudinary.com/dstfxfxje/image/upload/v1761736485/legal_support_documentaion_kioiym.jpg",
+    path: "/services/legal-support-new",
+  },
+  {
+    title: "Technical Assistance",
+    image: "https://res.cloudinary.com/dstfxfxje/image/upload/v1761736485/legal_support_documentaion_kioiym.jpg",
+    path: "/services/technical-assistance",
+  },
+  {
+    title: "Innovation & Technology",
+    image: "https://res.cloudinary.com/dstfxfxje/image/upload/v1761736485/legal_support_documentaion_kioiym.jpg",
+    path: "/services/innovation-technology",
+  },
 ];

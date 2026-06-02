@@ -708,7 +708,7 @@ export const searchableData = [
     title: "Telegram Updates",
     description: "Join our official Telegram channel for instant notifications.",
     category: "Social",
-    link: "#",
+    link: "https://t.me/crcybercrimeofficialchannel",
     tags: ["telegram", "updates", "notifications", "chat"],
     iconName: "Send"
   },
@@ -724,7 +724,7 @@ export const searchableData = [
     title: "Facebook Official",
     description: "Follow us on Facebook for latest updates and news.",
     category: "Social",
-    link: "https://www.facebook.com/people/Crcyber-Crime/61576052739281/",
+    link: "https://www.facebook.com/crcybercrimeofficialpage",
     tags: ["facebook", "social", "media", "updates"],
     iconName: "Globe2"
   },
@@ -1200,7 +1200,7 @@ export const searchableData = [
     iconName: "MousePointer2"
   },
   {
-    title: "Application Status",
+    title: "Check Application Status",
     description: "Track the status of your submitted job applications.",
     category: "Careers",
     link: "/recruitment/application-status",

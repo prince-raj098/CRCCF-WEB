@@ -1,10 +1,39 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
+import CrimeCardLock from "./CrimeCardLock";
 
 export default function ReportCard({ id, title, Icon, onClick }) {
+  const [isUnlocking, setIsUnlocking] = useState(false);
+
+  const handleClick = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (isUnlocking) return;
+
+    setIsUnlocking(true);
+
+    // Wait for the unlock animation to finish before navigating
+    setTimeout(() => {
+      onClick();
+      // Optional: reset state in case user navigates back to this page via browser back button
+      setTimeout(() => setIsUnlocking(false), 200);
+    }, 600);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick(e);
+    }
+  };
+
   return (
     <motion.div
       id={id}
-      onClick={onClick}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-label={`Report ${title}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{
@@ -53,24 +82,8 @@ export default function ReportCard({ id, title, Icon, onClick }) {
 
       {/* CONTENT */}
       <div className="relative z-10 flex flex-col items-center">
-        {/* 🔷 ICON */}
-        <motion.div
-          whileHover={{ rotate: 10 }}
-          className="
-          w-12 h-12 flex items-center justify-center 
-          
-          rounded-lg 
-          bg-[#DBEAFE] text-[#2563EB]
-          
-          group-hover:rounded-full   /* 🔥 SHAPE CHANGE */
-          group-hover:bg-[#2563EB]
-          group-hover:text-white
-          
-          transition-all duration-300
-          "
-        >
-          <Icon size={22} />
-        </motion.div>
+        {/* 🔷 ICON AREA (REPLACED WITH LOCK) */}
+        <CrimeCardLock isUnlocking={isUnlocking} />
 
         {/* 🔷 TITLE */}
         <h3

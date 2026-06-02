@@ -152,17 +152,17 @@ export default function ProjectsPortfolio() {
             {
               title: "Our Approach",
               icon: Rocket,
-              description: "We focus on building projects that are: \n• Innovative and solution-oriented 💡\n• Secure and technology-driven 🔐\n• Scalable and future-ready 🚀\n• Aligned with real-world requirements 🌐 \n•Aligned with real-world challenges and requirements 🌐 "
+              description: "• CRCCF-driven innovation planning\n• Professional outcomes for communities, businesses, institutions, startups, and modern industry needs\n• AI-powered technology solutions\n• Secure, scalable project execution\n• Real-world problem-solving approach\n• Research-based development\n• Future-ready digital growth"
             },
             {
               title: "Our Commitment",
               icon: Trophy,
-              description: " •Through continuous research, development, and innovation, CR Cyber Crime Foundation aims to deliver high-quality projects that contribute to digital advancement, cybersecurity awareness, and technological growth."
+              description: "• CRCCF commits to ethical innovation\n• Secure, scalable project delivery\n• Quality-focused technology solutions\n• Reliable support for communities, businesses, institutions, startups, and future-ready growth with professional impact, trust, success\n• AI-driven digital excellence"
             },
             {
               title: "Project Scope",
               icon: Globe,
-              description: " Our project portfolio includes: \n• National-level initiatives 🇮🇳\n• Government-related projects 🏛️\n• International collaborations 🌍"
+              description: "• CRCCF defines clear project scope through AI-enabled planning\n• Future-ready solutions for communities, businesses, institutions, digital growth, long-term innovation success\n• Secure development areas\n• Measurable outcomes\n• Practical deliverables\n• Scalable execution"
             }
           ].map((item, index) => (
             <motion.div
@@ -240,7 +240,7 @@ export default function ProjectsPortfolio() {
                   {item.description.split('\n').map((line, i) => (
                     <div key={i} className="flex items-start gap-2 mb-1 group/line">
                       <span className="w-1 h-1 rounded-full bg-[#1A56DB]/40 mt-1.5 shrink-0 group-hover/line:bg-[#1A56DB] transition-colors" />
-                      <p className="text-[12px] leading-relaxed text-slate-500 text-left m-0 group-hover:text-slate-700 transition-colors">
+                      <p className="text-[12px] lg:text-[10.5px] xl:text-[11px] leading-[1.4] text-slate-500 text-left m-0 group-hover:text-slate-700 transition-colors">
                         {line.replace('• ', '').replace('- ', '')}
                       </p>
                     </div>

@@ -7,6 +7,8 @@ import {
   FaGlobe,
   FaWhatsapp,
   FaTelegramPlane,
+  FaPhone,
+  FaEnvelope,
 } from "react-icons/fa";
 import {
   MdLocationOn,
@@ -94,15 +96,13 @@ export default function Footer() {
           {/* BRANDING (Spans 3 cols) */}
           <div className="space-y-6 md:col-span-3">
             <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF" className="w-24 drop-shadow-lg" />
-            <p className="text-gray-300 text-sm leading-relaxed">
-              Empowering India through cyber awareness, cybersecurity support,
-              and cutting-edge IT services including development, SEO, and
-              digital marketing.
+            <p className="text-gray-300 text-sm leading-relaxed text-justify pr-4 lg:pr-6">
+              CRCCF empowers society through AI-driven software innovation, cyber security, and awareness initiatives, building a safer, smarter, and socially responsible digital future.
             </p>
           </div>
 
-          {/* USEFUL LINKS (Spans 4 cols) - RESTORED FULL LIST & ADDED HOVER LINE */}
-          <div className="md:col-span-4">
+          {/* USEFUL LINKS (Spans 3 cols) - RESTORED FULL LIST & ADDED HOVER LINE */}
+          <div className="md:col-span-3">
             <h3 className="text-lg font-semibold border-b-2 border-cyan-400 inline-block pb-2 mb-6">
               Useful Links
             </h3>
@@ -110,15 +110,13 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-y-4 gap-x-4 text-sm">
               {[
                 { name: "Home", path: "/#home" },
-                { name: "About Us", path: "/#about" },
-                { name: "Education & Internship", path: "/#skill" },
-                { name: "IT and Software", path: "/#skill" },
-                { name: "Gallery", path: "/gallery" },
-                { name: "Reach Us", path: "/reachus" },
-                { name: "Report a Cyber Crime", path: "/#contact" },
+                { name: "About Us", path: "/about" },
+                { name: "Our Services", path: "/services" },
+                { name: "Software Products", path: "/software-products" },
+                { name: "Skill Development", path: "/skill-development" },
                 { name: "Careers", path: "/careers" },
-                { name: "Insights", path: "/#insights" },
-                { name: "Contact Us", path: "/#contact" },
+                { name: "Insights", path: "/insights" },
+                { name: "Contact", path: "/contact" },
               ].map((item, i) => (
                 <Link
                   key={i}
@@ -168,57 +166,30 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* ACTION BUTTONS & REVIEW (Spans 2 cols) */}
-          <div className="md:col-span-2">
+          {/* SUPPORT TEXT (Spans 3 cols) */}
+          <div className="md:col-span-3">
             <h3 className="text-lg font-semibold border-b-2 border-red-500 inline-block pb-2 mb-6 text-red-100">
               Support
             </h3>
-            <div className="flex flex-col gap-3">
-              {/* Emergency Button */}
-              <button className="bg-blue-600 hover:bg-blue-500 text-white w-full py-2.5 rounded-lg font-medium shadow-lg transition-all transform active:scale-95 text-sm">
-                Emergency Report
-              </button>
-
-              {/* RESTORED: Review Button */}
-              <button className="bg-white hover:bg-gray-100 text-[#0C1A3A] w-full py-2.5 rounded-lg font-medium shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 text-sm">
-                <MdRateReview className="text-lg" /> Add Your Review
-              </button>
-
-              <div className="grid grid-cols-2 gap-2 mt-2">
-                {/* Help Button */}
-                <button className="bg-transparent border border-white/20 hover:border-cyan-400 hover:bg-cyan-500/10 text-white py-2 rounded-lg flex flex-col items-center justify-center gap-1 transition-all group">
-                  <MdHelpOutline className="text-lg text-cyan-400 group-hover:scale-110 transition" />
-                  <span className="text-[10px] text-white">Help Center</span>
-                </button>
-
-                {/* Map Button */}
-                <a
-                  href="https://www.google.com/maps?q=DLF+Cyber+City+Bhubaneswar"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-transparent border border-white/20 hover:border-blue-400 hover:bg-blue-500/10 text-white py-2 rounded-lg flex flex-col items-center justify-center gap-1 transition-all group"
-                >
-                  <MdMap className="text-lg text-blue-400 group-hover:scale-110 transition" />
-                  <span className="text-[10px] text-white">View Map</span>
-                </a>
-              </div>
-            </div>
+            <p className="text-gray-300 text-sm leading-relaxed text-justify pr-2 lg:pr-4">
+              CRCCF advances social impact through AI-powered software innovation, cyber security excellence, and awareness initiatives, creating a safer, smarter, and digitally responsible future.
+            </p>
           </div>
         </div>
 
         {/* BOTTOM SOCIAL & COPYRIGHT */}
         <div className="flex flex-col md:flex-row justify-between items-center mt-8 gap-6">
-          <div className="text-gray-400 text-sm">
+          <div className="text-gray-400 text-sm text-center md:text-left">
             © 2026 CR Cyber Crime Foundation. All rights reserved.
           </div>
 
-          <div className="flex gap-5 text-lg">
+          <div className="flex flex-wrap justify-center gap-5 text-lg">
             {[
               {
                 Icon: FaFacebookF,
                 color: "hover:text-[#1877F2]",
                 label: "Facebook",
-                link: "https://www.facebook.com/people/Crcyber-Crime/61576052739281/",
+                link: "https://www.facebook.com/crcybercrimeofficialpage",
               },
               {
                 Icon: FaTwitter,
@@ -245,18 +216,41 @@ export default function Footer() {
                 link: "https://youtube.com/@crcybercrimeofficialchannel?si=n96o6iVeJTas66Z6",
               },
               {
+                Icon: FaGlobe,
+                color: "hover:text-[#2563EB]",
+                label: "Website",
+                link: "https://crcybercrime.com/",
+              },
+              {
+                Icon: FaTelegramPlane,
+                color: "hover:text-[#26A5E4]",
+                label: "Telegram",
+                link: "https://t.me/crcybercrimeofficialchannel",
+              },
+              {
                 Icon: FaWhatsapp,
                 color: "hover:text-[#25D366]",
                 label: "WhatsApp",
                 link: "https://api.whatsapp.com/send/?phone=919777999529&text&type=phone_number&app_absent=0",
               },
               {
-                Icon: FaTelegramPlane,
-                color: "hover:text-[#229ED9]",
-                label: "Telegram",
-                link: "#",
+                Icon: FaWhatsapp,
+                color: "hover:text-[#25D366]",
+                label: "WhatsApp Channel",
+                link: "https://whatsapp.com/channel/0029VbCU1Uv0VycPVnYj2r3T",
               },
-              { Icon: FaGlobe, color: "hover:text-cyan-400", label: "Website", link: "https://crcybercrime.com/" },
+              {
+                Icon: FaPhone,
+                color: "hover:text-[#3B82F6]",
+                label: "Phone",
+                link: "tel:+919777999529",
+              },
+              {
+                Icon: FaEnvelope,
+                color: "hover:text-[#EA4335]",
+                label: "Email",
+                link: "mailto:hr@crcybercrime.org",
+              },
             ].map((social, index) => (
               <a
                 key={index}

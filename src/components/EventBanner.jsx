@@ -41,7 +41,7 @@ export default function EventBanner() {
                   <span className="text-[#D1D5DB] text-[11px]">&bull;</span>
                   <div className="flex items-center gap-[4px] text-[11.5px] text-[#6B7280] font-[500] [&_svg]:text-[#9CA3AF]">
                     <MapPin size={12} />
-                    <span>May 8th, 2025 &bull; Bubaneshwar, Odisha</span>
+                    <span>May 25th, 2026 &bull; Bubaneshwar, Odisha</span>
                   </div>
                 </div>
 

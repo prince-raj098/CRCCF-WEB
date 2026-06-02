@@ -11,6 +11,7 @@ import LegalServices from "./OurService/LegalServices";
 import EducationServices from "./OurService/EducationServices";
 import TrainingInternshipServices from "./OurService/TrainingInternshipServices";
 import PlacementServices from "./OurService/PlacementServices";
+import ServiceComingSoon from "./ServiceComingSoon";
 
 import CompanyRegistration from "./legal/CompanyRegistration";
 import GSTRegistrationService from "./legal/GSTRegistrationService";
@@ -65,6 +66,12 @@ const ServiceRouter = () => {
       <Route path="education" element={<EducationServices />} />
       <Route path="training-internship" element={<TrainingInternshipServices />} />
       <Route path="placement" element={<PlacementServices />} />
+      
+      {/* NEW PENDING SERVICES */}
+      <Route path="cyber-awareness" element={<ServiceComingSoon title="Cyber Awareness Services" />} />
+      <Route path="legal-support-new" element={<ServiceComingSoon title="Legal Support" />} />
+      <Route path="technical-assistance" element={<ServiceComingSoon title="Technical Assistance" />} />
+      <Route path="innovation-technology" element={<ServiceComingSoon title="Innovation & Technology" />} />
 
       {/* ✅ LEGAL SERVICES */}
       <Route path="legal/company-registration" element={<CompanyRegistration />} />
