@@ -189,7 +189,7 @@ export default function WhoWeAre() {
           {cards.map((c, i) => (
             <motion.div
               key={c.title}
-              className="[perspective:1000px] w-full relative z-[1] mt-[26px] flex flex-col group cursor-pointer max-[640px]:mt-[18px] max-[380px]:mt-[16px]"
+              className="[perspective:1000px] w-full relative z-[1] mt-[26px] flex flex-col group cursor-pointer max-[640px]:mt-[18px] max-[380px]:mt-[16px] max-[640px]:h-[200px] max-[380px]:h-[180px]"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -198,7 +198,7 @@ export default function WhoWeAre() {
             >
               {/* ── FIXED WRAPPER TO FORCE FULL HEIGHT GRID ── */}
               <div 
-                className={`grid h-full min-h-[300px] laptop:min-h-[340px] transition-transform duration-[0.6s] ease-[cubic-bezier(0.4,0,0.2,1)] [transform-style:preserve-3d] w-full rounded-[14px] max-[640px]:min-h-[190px] max-[380px]:min-h-[175px] ${
+                className={`grid h-full min-h-[300px] laptop:min-h-[340px] transition-transform duration-[0.6s] ease-[cubic-bezier(0.4,0,0.2,1)] [transform-style:preserve-3d] w-full rounded-[14px] max-[640px]:h-[200px] max-[640px]:min-h-0 max-[380px]:h-[180px] ${
                   flippedCards.includes(i) || isAutoFlipped 
                     ? '[transform:rotateY(180deg)]' 
                     : 'group-hover:[transform:rotateY(180deg)]'
@@ -238,7 +238,7 @@ export default function WhoWeAre() {
                     {c.title}
                   </h3>
                   <p 
-                    className="text-[clamp(12.5px,1.4vw,14.5px)] text-[#4B5563] leading-[1.65] w-full max-[640px]:text-[10.5px] max-[640px]:leading-[1.45]"
+                    className="text-[clamp(12.5px,1.4vw,14.5px)] text-[#4B5563] leading-[1.65] w-full max-[640px]:text-[10.5px] max-[640px]:leading-[1.35] overflow-y-auto max-[640px]:max-h-[120px]"
                   >
                     {c.desc}
                   </p>

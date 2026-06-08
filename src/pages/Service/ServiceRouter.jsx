@@ -12,34 +12,9 @@ import EducationServices from "./OurService/EducationServices";
 import TrainingInternshipServices from "./OurService/TrainingInternshipServices";
 import PlacementServices from "./OurService/PlacementServices";
 import ServiceComingSoon from "./ServiceComingSoon";
+import LegalSupport from "./OurService/LegalSupport";
+import CyberAwareness from "./cyberAwareness/CyberAwareness";
 
-import CompanyRegistration from "./legal/CompanyRegistration";
-import GSTRegistrationService from "./legal/GSTRegistrationService";
-import GSTReturnFilingServices from "./legal/GSTReturnFilingServices";
-import CompanyAnnualFilingServices from "./legal/CompanyAnnualFilingServices";
-import CompanyAuditSupportServices from "./legal/CompanyAuditSupportServices";
-import FSSAIRegistrationServices from "./legal/FSSAIRegistrationServices";
-import MSMEUdyamRegistrationServices from "./legal/MSMEUdyamRegistrationServices";
-import IECRegistrationServices from "./legal/IECRegistrationServices";
-import ShopEstablishmentRegistrationServices from "./legal/ShopEstablishmentRegistrationServices";
-import ProfessionalTaxRegistrationServices from "./legal/ProfessionalTaxRegistrationServices";
-import PFRegistrationServices from "./legal/PFRegistrationServices";
-import ESICRegistrationServices from "./legal/ESICRegistrationServices";
-import DigitalSignatureCertificate from "./legal/DigitalSignatureCertificate";
-import DataITComplianceConsultingServices from "./legal/DataITComplianceConsultingServices";
-import TrustRegistrationServices from "./legal/TrustRegistrationServices";
-import NGORegistrationServices from "./legal/NGORegistrationServices";
-import SocietyRegistrationServices from "./legal/SocietyRegistrationServices";
-import DocumentDraftingServices from "./legal/DocumentDraftingServices";
-import IdentityDocumentVerificationServices from "./legal/IdentityDocumentVerificationServices";
-import LegalResearchComplianceCheckServices from "./legal/LegalResearchComplianceCheckServices";
-import CyberCrimeComplaintAssistanceServices from "./legal/CyberCrimeComplaintAssistanceServices";
-import ConsumerCourtCaseSupportServices from "./legal/ConsumerCourtCaseSupportServices";
-import LegalNoticePreparationServices from "./legal/LegalNoticePreparationServices";
-import ContractDraftingAgreementPreparationServices from "./legal/ContractDraftingAgreementPreparationServices";
-import CaseDraftingLegalDocumentationServices from "./legal/CaseDraftingLegalDocumentationServices";
-import CyberLawConsultantServices from "./legal/CyberLawConsultantServices";
-import LegalConsultationServices from "./legal/LegalConsultationServices";
 
 import SoftwareServicesIntroduction from "./softwareIT/SoftwareServicesIntroduction";
 import AMCServices from "./softwareIT/AMCServices";
@@ -68,39 +43,12 @@ const ServiceRouter = () => {
       <Route path="placement" element={<PlacementServices />} />
       
       {/* NEW PENDING SERVICES */}
-      <Route path="cyber-awareness" element={<ServiceComingSoon title="Cyber Awareness Services" />} />
-      <Route path="legal-support-new" element={<ServiceComingSoon title="Legal Support" />} />
+      <Route path="cyber-awareness" element={<CyberAwareness />} />
+      <Route path="legal-support" element={<LegalSupport />} />
       <Route path="technical-assistance" element={<ServiceComingSoon title="Technical Assistance" />} />
       <Route path="innovation-technology" element={<ServiceComingSoon title="Innovation & Technology" />} />
 
       {/* ✅ LEGAL SERVICES */}
-      <Route path="legal/company-registration" element={<CompanyRegistration />} />
-      <Route path="legal/gst-registration-service" element={<GSTRegistrationService />} />
-      <Route path="legal/gst-return-filing-services" element={<GSTReturnFilingServices />} />
-      <Route path="legal/company-annual-filing-services" element={<CompanyAnnualFilingServices />} />
-      <Route path="legal/company-audit-support-services" element={<CompanyAuditSupportServices />} />
-      <Route path="legal/fssai-registration-services" element={<FSSAIRegistrationServices />} />
-      <Route path="legal/msme-udyam-registration-services" element={<MSMEUdyamRegistrationServices />} />
-      <Route path="legal/iec-registration-services" element={<IECRegistrationServices />} />
-      <Route path="legal/shop-establishment-registration-services" element={<ShopEstablishmentRegistrationServices />} />
-      <Route path="legal/professional-tax-registration-services" element={<ProfessionalTaxRegistrationServices />} />
-      <Route path="legal/pf-registration-services" element={<PFRegistrationServices />} />
-      <Route path="legal/esic-registration-services" element={<ESICRegistrationServices />} />
-      <Route path="legal/digital-signature-certificate" element={<DigitalSignatureCertificate />} />
-      <Route path="legal/data-it-compliance-consulting-services" element={<DataITComplianceConsultingServices />} />
-      <Route path="legal/trust-registration-services" element={<TrustRegistrationServices />} />
-      <Route path="legal/ngo-registration-services" element={<NGORegistrationServices />} />
-      <Route path="legal/society-registration-services" element={<SocietyRegistrationServices />} />
-      <Route path="legal/document-drafting-services" element={<DocumentDraftingServices />} />
-      <Route path="legal/identity-document-verification-services" element={<IdentityDocumentVerificationServices />} />
-      <Route path="legal/legal-research-compliance-check-services" element={<LegalResearchComplianceCheckServices />} />
-      <Route path="legal/cyber-crime-complaint-assistance-services" element={<CyberCrimeComplaintAssistanceServices />} />
-      <Route path="legal/consumer-court-case-support-services" element={<ConsumerCourtCaseSupportServices />} />
-      <Route path="legal/legal-notice-preparation-services" element={<LegalNoticePreparationServices />} />
-      <Route path="legal/contract-drafting-agreement-preparation-services" element={<ContractDraftingAgreementPreparationServices />} />
-      <Route path="legal/case-drafting-legal-documentation-services" element={<CaseDraftingLegalDocumentationServices />} />
-      <Route path="legal/cyber-law-consultant-services" element={<CyberLawConsultantServices />} />
-      <Route path="legal/legal-consultation-services" element={<LegalConsultationServices />} />
 
       {/* ✅ SOFTWARE SERVICES */}
       <Route path="software-it/software-services-introduction" element={<SoftwareServicesIntroduction />} />

@@ -12,9 +12,9 @@ import {
   Handshake,
   Eye,
   Gavel,
-  Headset,
   Cpu,
 } from "lucide-react";
+
 
 const ServicesKeyboard = () => {
   const navigate = useNavigate();
@@ -87,16 +87,10 @@ const ServicesKeyboard = () => {
       icon: Eye,
     },
     {
-      id: "legal-support-new",
+      id: "legal-support",
       label: "Legal Support",
-      path: "/services/legal-support-new",
+      path: "/services/legal-support",
       icon: Gavel,
-    },
-    {
-      id: "technical-assistance",
-      label: "Technical Assistance",
-      path: "/services/technical-assistance",
-      icon: Headset,
     },
     {
       id: "innovation-technology",

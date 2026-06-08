@@ -1,4 +1,4 @@
-// src/pages/AboutUs/MissionVision.jsx
+﻿// src/pages/AboutUs/MissionVision.jsx
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -414,21 +414,6 @@ export default function MissionVision() {
             <InsightCard allPages={missionAndVisionData} />
           </div>
         </div>
-
-        {/* Footer Call to Action */}
-        <motion.div variants={itemUp} className="mt-16 text-center">
-          <div className="bg-slate-900 rounded-[40px] p-12 md:p-16 relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600 blur-[150px] opacity-20" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-violet-600 blur-[100px] opacity-10" />
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Our vision is collective.</h3>
-            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto relative z-10">We believe in a future where every citizen is empowered with the knowledge to protect themselves in the digital world.</p>
-            <div className="flex flex-wrap justify-center gap-6 relative z-10">
-              <Link to="/contact" className="px-10 py-5 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-900/30 flex items-center gap-2">
-                Support Our Mission <ArrowRight size={22} />
-              </Link>
-            </div>
-          </div>
-        </motion.div>
       </motion.section>
     </div>
   );

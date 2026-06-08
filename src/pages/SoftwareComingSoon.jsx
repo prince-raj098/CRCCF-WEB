@@ -1,6 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import PageHeader from '../components/AboutUs/common/PageHeader'
+import SoftwareCard from '../components/SoftwareCard'
+import { softwareCards } from '../data/software/softwareCards'
+
+const toSoftwareCardId = (title) =>
+  `software-product-${title.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
 
 const SoftwareComingSoon = () => {
   const navigate = useNavigate()
@@ -22,14 +27,30 @@ const SoftwareComingSoon = () => {
           description="We are currently building innovative software solutions."
         />
 
-        <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg sm:shadow-xl p-8 sm:p-12 md:p-16 text-center max-w-3xl mx-auto border border-[#DBEAFE] mt-8">
-          <div className="inline-block bg-[#EFF6FF] text-[#1A56DB] px-6 py-3 rounded-full font-semibold text-lg sm:text-xl shadow-sm border border-[#BFDBFE]">
-            Data Coming Soon
+        {/* 🔷 MAIN AREA */}
+        <div id="software-product-sections" className="flex justify-center mt-10 relative">
+          {/* 🔥 CARD PANEL */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 max-w-7xl w-full z-10">
+            {/* TITLE */}
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-semibold text-[#0F172A]">Explore Categories</h2>
+              <p className="text-sm text-[#64748B]">
+                Click any section to explore
+              </p>
+            </div>
+
+            {/* GRID */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
+              {softwareCards.map((card, index) => (
+                <SoftwareCard
+                  key={index}
+                  id={toSoftwareCardId(card.title)}
+                  title={card.title}
+                  onClick={() => navigate(`/software-products/${card.slug}`)}
+                />
+              ))}
+            </div>
           </div>
-          
-          <p className="mt-8 text-[#64748B] text-base sm:text-lg">
-            Please check back later for updates on our software products!
-          </p>
         </div>
         
       </div>

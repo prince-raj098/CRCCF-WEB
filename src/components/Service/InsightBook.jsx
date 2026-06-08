@@ -33,6 +33,59 @@ const getSvgComponent = (item) => {
   return SVG_Star;
 };
 
+/* ------------------------------ Content Renderer ------------------------------ */
+/**
+ * Parses content string and renders **bold** markdown as <strong> elements.
+ * Preserves all real newlines (whitespace-pre-line handles them on the <p>).
+ */
+const BOLD_RE = /\*\*([^*]+)\*\*/g;
+
+function renderContent(text) {
+  if (!text) return null;
+  const lines = text.split('\n');
+  const result = [];
+
+  lines.forEach((line, lineIdx) => {
+    if (lineIdx > 0) result.push('\n');
+
+    // Split the line into plain/bold segments
+    const segments = [];
+    let lastIndex = 0;
+    let match;
+    BOLD_RE.lastIndex = 0;
+
+    while ((match = BOLD_RE.exec(line)) !== null) {
+      if (match.index > lastIndex) {
+        segments.push({ type: 'text', value: line.slice(lastIndex, match.index) });
+      }
+      segments.push({ type: 'bold', value: match[1] });
+      lastIndex = match.index + match[0].length;
+    }
+
+    if (lastIndex < line.length) {
+      segments.push({ type: 'text', value: line.slice(lastIndex) });
+    }
+
+    if (segments.length === 0) {
+      result.push(line);
+    } else {
+      segments.forEach((seg, segIdx) => {
+        if (seg.type === 'bold') {
+          result.push(
+            <strong key={`${lineIdx}-${segIdx}`} className="font-bold not-italic text-slate-700">
+              {seg.value}
+            </strong>
+          );
+        } else {
+          result.push(seg.value);
+        }
+      });
+    }
+  });
+
+  return result;
+}
+
 /* ------------------------------ InsightBook Component ------------------------------ */
 export default function InsightBook({ 
   allPages, 
@@ -120,7 +173,9 @@ export default function InsightBook({
               </div>
 
               <div className="flex-1 overflow-y-auto pr-3 [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full">
-                <p className="text-[16px] text-slate-600 leading-relaxed font-medium italic whitespace-pre-line">{page.content}</p>
+                <p className="text-[16px] text-slate-600 leading-relaxed font-medium italic whitespace-pre-line">
+                  {renderContent(page.content)}
+                </p>
               </div>
 
               <div className="pt-8 mt-auto border-t border-slate-100">

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+﻿import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ShieldCheck, FileText, Settings, Users, BarChart3, Database, Globe, Landmark, Heart, Rocket } from "lucide-react";
 import {
@@ -309,21 +309,6 @@ export default function ResourceAndReport() {
                     <p className="relative z-10 text-slate-400 text-xs font-bold uppercase tracking-wider transition-colors duration-300 group-hover:text-[#475569]">{item.sub}</p>
                 </div>
             ))}
-        </motion.div>
-
-        {/* Footer Call to Action */}
-        <motion.div variants={itemUp} className="mt-24 text-center">
-          <div className="bg-slate-900 rounded-[40px] p-12 md:p-16 relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600 blur-[150px] opacity-20" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600 blur-[100px] opacity-10" />
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Accountability in Every Byte</h3>
-            <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto relative z-10">Our resources and reporting framework ensure that digital evidence is translated into meaningful justice, backed by absolute integrity.</p>
-            <div className="flex flex-wrap justify-center gap-6 relative z-10">
-              <Link to="/contact" className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-900/30 flex items-center gap-2">
-                Access Resources <ArrowRight size={22} />
-              </Link>
-            </div>
-          </div>
         </motion.div>
       </motion.section>
     </div>

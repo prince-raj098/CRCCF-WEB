@@ -46,36 +46,6 @@ const ServicesPage = () => {
 
         <CompanyMarquee direction="left" />
 
-        {/* Feature Section */}
-        <section className="mt-20 grid md:grid-cols-3 gap-8">
-          {[
-            {
-              title: "Expert Investigation",
-              desc: "Deep-dive analysis and forensic support for cyber crime incidents.",
-              icon: "🔍"
-            },
-            {
-              title: "Secure Development",
-              desc: "Building robust software solutions with security-first architecture.",
-              icon: "💻"
-            },
-            {
-              title: "Proactive Defense",
-              desc: "Continuous monitoring and threat intelligence to prevent attacks.",
-              icon: "🛡️"
-            }
-          ].map((feature, i) => (
-            <motion.div 
-              key={i}
-              whileHover={{ y: -10 }}
-              className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center"
-            >
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-bold text-[#0C1A3A] mb-3">{feature.title}</h3>
-              <p className="text-gray-600">{feature.desc}</p>
-            </motion.div>
-          ))}
-        </section>
       </main>
     </div>
   )

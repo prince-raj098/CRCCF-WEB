@@ -79,6 +79,8 @@ import History from './pages/AboutUs/History'
 import ReportCrime from './pages/report/ReportCrime'
 import ReportComingSoon from './pages/report/ReportComingSoon'
 import { reportCards } from './data/report/reportCards'
+import SoftwareProductDetailComingSoon from './pages/SoftwareProductDetailComingSoon'
+import { softwareCards } from './data/software/softwareCards'
 import SkillDevelopmentPage from './pages/SkillDevelopment/SkillDevelopmentPage'
 import SkillDevelopmentDetail from './pages/SkillDevelopment/SkillDevelopmentDetail'
 
@@ -186,6 +188,15 @@ export default function App() {
               key={card.path} 
               path={card.path} 
               element={<ReportComingSoon title={card.title} />} 
+            />
+          ))}
+
+          {/* Map through software cards for dynamic coming soon pages */}
+          {softwareCards.map((card) => (
+            <Route 
+              key={card.slug} 
+              path={`/software-products/${card.slug}`} 
+              element={<SoftwareProductDetailComingSoon title={card.title} />} 
             />
           ))}
 
