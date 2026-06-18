@@ -1,3 +1,5 @@
+import { playPageTurnSound } from "../../../utils/pageTurnSound";
+
 ﻿import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';

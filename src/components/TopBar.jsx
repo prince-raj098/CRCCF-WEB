@@ -392,11 +392,11 @@ export default function TopBar() {
         setReachHovered(false)
       } else {
         startPreviewCooldown('gallery')
-        navigate('/gallery');
+        navigate('/gallery-collections');
       }
     } else {
       startPreviewCooldown('gallery')
-      navigate('/gallery');
+      navigate('/gallery-collections');
     }
   }
 

@@ -1,3 +1,5 @@
+import { playPageTurnSound } from "../../../utils/pageTurnSound";
+
 ﻿import React, { useState, useRef, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
@@ -214,7 +216,7 @@ function CyberBook({ allPages, bookTitle = "Cyber Security", bookSubtitle = "Our
   };
 
   const isDesktop = () => window.innerWidth > 1024;
-  const handleOpen = (e) => { e.stopPropagation(); setIsOpen(prev => !prev); };
+  const handleOpen = (e) => { e.stopPropagation(); playPageTurnSound(); setIsOpen(prev => !prev); };
   const handleMouseEnter = () => { if (isDesktop()) setIsOpen(true); };
   const handleMouseLeave = () => { if (isDesktop() && !showScrubber) setIsOpen(false); };
 
@@ -244,8 +246,8 @@ function CyberBook({ allPages, bookTitle = "Cyber Security", bookSubtitle = "Our
               pageIdx={pageIdx}
               activePageIndex={activePageIndex}
               totalPages={allPages.length}
-              onNext={() => { setActivePageIndex(pageIdx + 1); keepScrubberVisible(); }}
-              onBack={() => { setActivePageIndex(pageIdx - 1); keepScrubberVisible(); }}
+              onNext={() => { playPageTurnSound(); setActivePageIndex(pageIdx + 1); keepScrubberVisible(); }}
+              onBack={() => { playPageTurnSound(); setActivePageIndex(pageIdx - 1); keepScrubberVisible(); }}
             />
           );
         })}
@@ -305,7 +307,7 @@ function CyberBook({ allPages, bookTitle = "Cyber Security", bookSubtitle = "Our
             )}
             <input
               type="range" min="0" max={allPages.length - 1} value={activePageIndex}
-              onChange={(e) => { setActivePageIndex(parseInt(e.target.value)); keepScrubberVisible(); }}
+              onChange={(e) => { playPageTurnSound(); setActivePageIndex(parseInt(e.target.value)); keepScrubberVisible(); }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 const x = e.clientX - rect.left;

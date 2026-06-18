@@ -1,10 +1,7 @@
-import RecruitmentPageLayout from './RecruitmentPageLayout'
+import { JobPortal } from './JobVacancyPortal';
 
 const JobVacancy = () => (
-  <RecruitmentPageLayout
-    title="Job Vacancy"
-    description="Explore current job openings and career opportunities at CR Cyber Crime Foundation."
-  />
-)
+  <JobPortal />
+);
 
-export default JobVacancy
+export default JobVacancy;

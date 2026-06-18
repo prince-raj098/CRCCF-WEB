@@ -1,3 +1,5 @@
+import { playPageTurnSound } from "../../utils/pageTurnSound";
+
 ﻿// src/pages/AboutUs/OurIdentity.jsx
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -191,7 +193,7 @@ const InsightCard = ({ allPages }) => {
 
   const handleOpen = (e) => {
     e.stopPropagation();
-    setIsOpen(prev => !prev);
+    playPageTurnSound(); setIsOpen(prev => !prev);
   };
 
   const handleMouseEnter = () => { if (isDesktop()) setIsOpen(true); };
@@ -262,7 +264,7 @@ const InsightCard = ({ allPages }) => {
                   <div className="flex gap-4">
                     {pageIdx > 0 && (
                       <button
-                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx - 1); keepScrubberVisible(); }}
+                        onClick={(e) => { e.stopPropagation(); playPageTurnSound(); setActivePageIndex(pageIdx - 1); keepScrubberVisible(); }}
                         className="text-[12px] font-black text-rose-600 flex items-center gap-2 hover:gap-3 transition-all bg-transparent border-none cursor-pointer p-0"
                       >
                         <ArrowLeft size={16} /> Back
@@ -272,7 +274,7 @@ const InsightCard = ({ allPages }) => {
                   <div className="flex items-center gap-5">
                     {pageIdx < allPages.length - 1 && (
                       <button
-                        onClick={(e) => { e.stopPropagation(); setActivePageIndex(pageIdx + 1); keepScrubberVisible(); }}
+                        onClick={(e) => { e.stopPropagation(); playPageTurnSound(); setActivePageIndex(pageIdx + 1); keepScrubberVisible(); }}
                         className="text-[12px] font-black text-rose-600 flex items-center gap-2 hover:gap-3 transition-all bg-transparent border-none cursor-pointer p-0"
                       >
                         Next <ArrowRight size={16} />
@@ -348,7 +350,7 @@ const InsightCard = ({ allPages }) => {
             )}
             <input
               type="range" min="0" max={allPages.length - 1} value={activePageIndex}
-              onChange={(e) => { setActivePageIndex(parseInt(e.target.value)); keepScrubberVisible(); }}
+              onChange={(e) => { playPageTurnSound(); setActivePageIndex(parseInt(e.target.value)); keepScrubberVisible(); }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 const x = e.clientX - rect.left;

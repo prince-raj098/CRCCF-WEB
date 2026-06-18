@@ -1,3 +1,5 @@
+import { playPageTurnSound } from "../../../utils/pageTurnSound";
+
 ﻿import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";

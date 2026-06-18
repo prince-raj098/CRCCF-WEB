@@ -510,7 +510,7 @@ export default function InternshipPrograms() {
                     style={{ overflow: 'hidden' }}
                   >
                     <p className="text-[14.5px] text-[#4B5563] leading-[1.7] mb-[16px] last:mb-0">Our mentors ensure that students receive proper guidance, industry insights, and continuous support throughout the program.</p>
-                    <p className="text-[14.5px] text-[#4B5563] leading-[1.7] mb-[16px] last:mb-0">We also provide placement assistance to eligible candidates <Rocket size={14} className="vertical-middle mx-[4px] inline-block text-[#1A56DB]" />, helping them transition into real-world career opportunities based on their performance, skills, and evaluation.</p>
+                    <p className="text-[14.5px] text-[#4B5563] leading-[1.7] mb-[16px] last:mb-0">We also provide the Talent Placement Program to eligible candidates <Rocket size={14} className="vertical-middle mx-[4px] inline-block text-[#1A56DB]" />, helping them transition into real-world career opportunities based on their performance, skills, and evaluation.</p>
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -13,7 +13,7 @@ const slugToTitle = {
   'mentorship': 'Mentorship Programs',
   'corporate': 'Corporate Training',
   'hackathons': 'Hackathons',
-  'placement': 'Placement Assistance',
+  'placement': 'Talent Placement Program',
   'career': 'Career Guidance',
   'library': 'Digital Libraries'
 }

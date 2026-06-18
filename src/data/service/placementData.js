@@ -22,7 +22,7 @@ export const placementData = [
   {
     id: 5,
     heading: "Placement Based on Course, Training and Internship Completion",
-    content: "CRCCF placement support will be provided only to candidates who complete CRCCF’s course, training or internship program successfully. Placement assistance depends on the candidate’s attendance, performance, skill improvement, discipline, learning attitude and successful completion of the selected program.\n\nConclusion: This ensures that placement support is given only to deserving and properly trained CRCCF candidates."
+    content: "CRCCF placement support will be provided only to candidates who complete CRCCF’s course, training or internship program successfully. Talent Placement Program depends on the candidate’s attendance, performance, skill improvement, discipline, learning attitude and successful completion of the selected program.\n\nConclusion: This ensures that placement support is given only to deserving and properly trained CRCCF candidates."
   },
   {
     id: 6,
@@ -41,8 +41,8 @@ export const placementData = [
   },
   {
     id: 9,
-    heading: "Training-Based Placement Assistance",
-    content: "Learners who complete training programs at CRCCF may receive placement assistance in relevant domains. This assistance helps candidates understand industry expectations, job responsibilities, interview process and skill requirements for professional roles.\n\nConclusion: Training-based placement assistance helps CRCCF learners become more prepared for job opportunities."
+    heading: "Training-Based Talent Placement Program",
+    content: "Learners who complete training programs at CRCCF may participate in the Talent Placement Program in relevant domains. This program helps candidates understand industry expectations, job responsibilities, interview process and skill requirements for professional roles.\n\nConclusion: Training-based Talent Placement Program helps CRCCF learners become more prepared for job opportunities."
   },
   {
     id: 10,
@@ -97,6 +97,6 @@ export const placementData = [
   {
     id: 20,
     heading: "Responsible Placement and Career Growth Support",
-    content: "CRCCF provides placement support and career guidance to candidates who complete our course, training or internship programs, but final selection depends on candidate eligibility, interview performance, skill level, company/project requirements and available openings. Our goal is to connect education, training, internship, certification, project exposure and placement support into one complete career growth system.\n\nConclusion: In conclusion, CRCCF’s Placement Services help learners move toward career growth through course completion, training, internship, project exposure and responsible placement assistance."
+    content: "CRCCF provides placement support and career guidance to candidates who complete our course, training or internship programs, but final selection depends on candidate eligibility, interview performance, skill level, company/project requirements and available openings. Our goal is to connect education, training, internship, certification, project exposure and placement support into one complete career growth system.\n\nConclusion: In conclusion, CRCCF’s Placement Services help learners move toward career growth through course completion, training, internship, project exposure and responsible Talent Placement Program."
   }
 ];

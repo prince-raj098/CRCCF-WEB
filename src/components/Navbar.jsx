@@ -250,7 +250,7 @@ export default function Navbar() {
               <AnimatePresence>
                 {searchOpen && (
                   <motion.form
-                    className="absolute top-[calc(100%+16px)] right-[-10px] w-[240px] bg-[#0C1A3A] border border-[rgba(255,255,255,0.15)] rounded-[12px] p-[10px] shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_20px_rgba(26,86,219,0.15)] z-[1000] max-[480px]:right-[-60px] max-[480px]:w-[280px]"
+                    className="absolute top-[calc(100%+16px)] right-[-10px] w-[360px] bg-[#0C1A3A] border border-[rgba(255,255,255,0.15)] rounded-[12px] p-[10px] shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_20px_rgba(26,86,219,0.15)] z-[1000] max-[480px]:right-[-60px] max-[480px]:w-[280px] max-[600px]:w-[320px]"
                     onSubmit={handleSearch}
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}

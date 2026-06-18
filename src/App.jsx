@@ -20,6 +20,7 @@ import CareerOpportunities from './components/CareerOpportunities'
 import WhyChooseUs from './components/WhyChooseUs'
 import Activities from './components/Activities'
 import GalleryPage from './pages/GalleryPage'
+import GalleryLandingPage from './pages/GalleryLandingPage'
 import CategoryPage from './pages/CategoryPage'
 import ReachUsPage from './pages/ReachUsPage'
 import InsightsPage from './pages/InsightsPage'
@@ -38,6 +39,7 @@ import AIChat from './sections/ContactUs/AIChat'
 import Review from './sections/ContactUs/Review'
 import Feedback from './sections/ContactUs/Feedback'
 import Announcements from './sections/ContactUs/Announcements'
+import FollowApps from './sections/ContactUs/FollowApps'
 
 // --- CONTACT HUB DATA ---
 import { employees } from './data/contactUs/employeesData'
@@ -56,6 +58,7 @@ import {
   Navigation, User, Briefcase, FileText, Star, ThumbsUp, MessageCircle,
   Bot, Megaphone, Sparkles
 } from "lucide-react";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import AboutLayout from './layouts/AboutLayout'
 import AboutPage from './pages/AboutUs/AboutPage'
 import OurIdentity from './pages/AboutUs/OurIdentity'
@@ -88,6 +91,7 @@ import SkillDevelopmentDetail from './pages/SkillDevelopment/SkillDevelopmentDet
 // Recruitment Pages
 import RecruitmentPortal from './pages/recruitment/RecruitmentPortal'
 import JobVacancy from './pages/recruitment/JobVacancy'
+import { JobVacancyPage } from './pages/recruitment/JobVacancyPortal'
 import PostVacancyMembersOnly from './pages/recruitment/PostVacancyMembersOnly'
 import OnlineApplicationPortal from './pages/recruitment/OnlineApplicationPortal'
 import RecruitmentAdvertisements from './pages/recruitment/RecruitmentAdvertisements'
@@ -174,6 +178,7 @@ export default function App() {
       <Routes>
         <Route element={<RootLayout />}>
           <Route path="/" element={<HomePageContent />} />
+          <Route path="/gallery-collections" element={<GalleryLandingPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/gallery/category/:id" element={<CategoryPage />} />
           <Route path="/reachus" element={<ReachUsPage />} />
@@ -221,7 +226,22 @@ export default function App() {
               </PageWrapper>
             }
           />
-          <Route path="/contact/follow-apps" />
+          <Route
+            path="/contact/follow-apps"
+            element={
+              <PageWrapper bgIcons={[FaFacebook, FaTwitter, FaInstagram, FaLinkedin]}>
+                <FollowApps />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/follow-apps"
+            element={
+              <PageWrapper bgIcons={[FaFacebook, FaTwitter, FaInstagram, FaLinkedin]}>
+                <FollowApps />
+              </PageWrapper>
+            }
+          />
           <Route
             path="/contact/branch-details"
             element={
@@ -354,6 +374,7 @@ export default function App() {
           <Route path="/careers" element={<RecruitmentPortal />} />
           <Route path="/recruitment" element={<RecruitmentPortal />} />
           <Route path="/recruitment/job-vacancy" element={<JobVacancy />} />
+          <Route path="/recruitment/job-vacancy-details" element={<JobVacancyPage />} />
           <Route path="/recruitment/post-vacancy-members-only" element={<PostVacancyMembersOnly />} />
           <Route path="/recruitment/online-application-portal" element={<OnlineApplicationPortal />} />
           <Route path="/recruitment/advertisements" element={<RecruitmentAdvertisements />} />

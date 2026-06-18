@@ -37,7 +37,7 @@ export default function GalleryPage() {
   }, [location.state]);
 
   return (
-    <div className="bg-[#F8FAFC] min-h-screen relative w-full overflow-x-hidden">
+    <div className="bg-[#F8FAFC] min-h-screen relative w-full">
       {/* Background Element */}
       <GalleryAnimatedBg />
 
@@ -47,7 +47,11 @@ export default function GalleryPage() {
         {/* Page Header (Optional, but good for context) */}
         <div className="w-full max-w-[1200px] mx-auto px-4 mb-16 text-center">
           <h1 className="text-4xl md:text-6xl font-black text-[#0F172A] tracking-tight mb-4">
-            Our <span className="text-blue-600">Event Gallery</span>
+            {location.state?.category ? (
+              location.state.category
+            ) : (
+              <>Our <span className="text-blue-600">Event Gallery</span></>
+            )}
           </h1>
           <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl mx-auto">
             Explore a visual timeline of our initiatives, campaigns, and key moments.

@@ -20,7 +20,7 @@ const SkillDevelopmentPage = () => {
     { id: 'mentorship', label: 'Mentorship Programs', path: '/skill-development/mentorship', icon: HeartHandshake },
     { id: 'corporate', label: 'Corporate Training', path: '/skill-development/corporate', icon: Building },
     { id: 'hackathons', label: 'Hackathons', path: '/skill-development/hackathons', icon: Code },
-    { id: 'placement', label: 'Placement Assistance', path: '/skill-development/placement', icon: Target },
+    { id: 'placement', label: 'Talent Placement Program', path: '/skill-development/placement', icon: Target },
     { id: 'career', label: 'Career Guidance', path: '/skill-development/career', icon: Compass },
     { id: 'library', label: 'Digital Libraries', path: '/skill-development/library', icon: Library }
   ]

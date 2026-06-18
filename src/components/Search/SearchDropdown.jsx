@@ -3,18 +3,18 @@ import { iconMap } from '../../data/global/searchData';
 import { Search } from 'lucide-react';
 
 export default function SearchDropdown({ results, selectedIndex, onSelect, query }) {
-  const highlightMatch = (text, query) => {
+  const highlightMatch = (text, query, isHeading = false) => {
     if (!query) return text;
     const parts = text.split(new RegExp(`(${query})`, 'gi'));
     return (
-      <span>
+      <span className={isHeading ? "text-white" : ""}>
         {parts.map((part, i) => 
           part.toLowerCase() === query.toLowerCase() ? (
-            <span key={i} className="text-[#3B82F6] font-bold underline decoration-2 underline-offset-2">
+            <span key={i} className="text-[#3B82F6] font-extrabold bg-[#3B82F6]/20 rounded-[2px]">
               {part}
             </span>
           ) : (
-            part
+            <span key={i}>{part}</span>
           )
         )}
       </span>
@@ -58,10 +58,10 @@ export default function SearchDropdown({ results, selectedIndex, onSelect, query
                   <Icon size={18} strokeWidth={2.5} />
                 </div>
 
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-2 mb-0.5">
-                    <h4 className="text-[14px] font-bold text-white truncate">
-                      {highlightMatch(result.item.title, query)}
+                <div className="flex-1 min-w-0 flex flex-col justify-center">
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <h4 className="text-[14px] font-bold text-white line-clamp-2 leading-[1.2] pr-1">
+                      {highlightMatch(result.item.title, query, true)}
                     </h4>
                     <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.05)]">
                       {result.item.category}

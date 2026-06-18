@@ -1,3 +1,5 @@
+import { playPageTurnSound } from "../utils/pageTurnSound";
+
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Newspaper, ArrowRight, ArrowLeft, Calendar } from 'lucide-react'
@@ -76,19 +78,19 @@ function InsightCard({ p, index }) {
   const handleOpen = (e) => {
     if (window.innerWidth <= 1024) {
       e.stopPropagation();
-      setIsOpen(prev => !prev);
+      playPageTurnSound(); setIsOpen(prev => !prev);
       if (isOpen) setIsFlipped(false); // Reset flip if closing
     }
   };
 
   const handleReadMore = (e) => {
     e.stopPropagation();
-    setIsFlipped(true);
+    playPageTurnSound(); setIsFlipped(true);
   };
 
   const handleGoBack = (e) => {
     e.stopPropagation();
-    setIsFlipped(false);
+    playPageTurnSound(); setIsFlipped(false);
   };
 
   const handleMouseLeave = () => {

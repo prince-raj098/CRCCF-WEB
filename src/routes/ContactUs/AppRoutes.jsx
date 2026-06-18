@@ -1,29 +1,31 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // --- COMPONENTS & LAYOUTS ---
-import LaptopLayout from "../../layouts/ContactUs/LaptopLayout";
-import PageWrapper from "../../components/ContactUs/PageWrapper";
-import DirectorySection from "../../pages/ContactUs/DirectorySection";
+import LaptopLayout from "../layouts/LaptopLayout";
+import PageWrapper from "../components/PageWrapper";
+import DirectorySection from "../pages/DirectorySection";
 
 // --- PAGES & SECTIONS ---
-import Dashboard from "../../pages/ContactUs/Dashboard";
-import HelpDesk from "../../sections/ContactUs/HelpDesk";;
-import BranchDetails from "../../sections/ContactUs/BranchDetails";
-import AIChat from "../../sections/ContactUs/AIChat";
-import Review from "../../sections/ContactUs/Review";
-import Feedback from "../../sections/ContactUs/Feedback";
-import Announcements from "../../sections/ContactUs/Announcements";
+import Dashboard from "../pages/Dashboard";
+import HelpDesk from "../sections/HelpDesk";
+import FollowApps from "../sections/FollowApps";
+import BranchDetails from "../sections/BranchDetails";
+import AIChat from "../sections/AIChat";
+import Review from "../sections/Review";
+import Feedback from "../sections/Feedback";
+import Announcements from "../sections/Announcements";
 
 
 // --- DATA ---
-import { employees } from "../../data/contactUs/employeesData";
-import { officers } from "../../data/contactUs/officersData";
-import { teachers } from "../../data/contactUs/teachersData";
-import { reporters } from "../../data/contactUs/reportersData";
-import { advocates } from "../../data/contactUs/advocatesData";
-import { legalAdvisors } from "../../data/contactUs/legalAdvisorsData";
-import { directors } from "../../data/contactUs/directorsData";
-import { members } from "../../data/contactUs/membersData";
+import { employees } from "../data/employeesData";
+import { officers } from "../data/officersData";
+import { teachers } from "../data/teachersData";
+import { reporters } from "../data/reportersData";
+import { advocates } from "../data/advocatesData";
+import { legalAdvisors } from "../data/legalAdvisorsData";
+import { directors } from "../data/directorsData";
+import { members } from "../data/membersData";
 
 
 // --- ICONS ---
@@ -53,7 +55,9 @@ import {
   Bot,
   Megaphone,
   Sparkles,
+  Mail,
 } from "lucide-react";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const AppRoutes = () => {
   return (
@@ -76,6 +80,11 @@ const AppRoutes = () => {
       {/* Follow Apps */}
       <Route
         path="/follow-apps"
+        element={
+          <PageWrapper bgIcons={[FaFacebook, FaTwitter, FaInstagram, FaLinkedin, Mail]}>
+            <FollowApps />
+          </PageWrapper>
+        }
       />
 
       {/* Branch Details */}

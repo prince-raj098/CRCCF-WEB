@@ -242,7 +242,7 @@ Knowledge is the seed of justice ️ . CRCCF’s Legal Education, Internship & C
 Our certified programs cover Cyber Law, IT Act 2000, Evidence Act, Data Protection, AI & Law, Cyber Forensics, and Legal Drafting  .
 Each module is curated by judicial experts, practicing lawyers, and cyber law specialists, ensuring a balance of academic depth and field experience  ‍ ️ .
 Interns participate in live investigations, case documentation, legal research, court visits, and client interactions, gaining insight into both cyber and civil justice systems ️ .
-We provide e-certificates, research opportunities, and placement assistance, ensuring our learners step into the professional world with confidence and clarity  .
+We provide e-certificates, research opportunities, and Talent Placement Program, ensuring our learners step into the professional world with confidence and clarity  .
 This initiative builds not just lawyers but digital defenders, ethical leaders, and justice ambassadors ️ .
 Because every student trained is a guardian of tomorrow’s justice ️ .`,
   },
