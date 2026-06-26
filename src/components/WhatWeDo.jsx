@@ -75,19 +75,15 @@ export default function WhatWeDo() {
       <div className="max-w-[1280px] mx-auto px-6 md:px-10 relative z-10 w-full">
         {/* HEADER */}
         <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-blue-600 text-[10px] font-bold tracking-widest uppercase mb-4">
-            ️ What We Do
-          </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-2">
+          <p className="section-tag">What We Do</p>
+          <h2 className="section-title">
             Our Core Work{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+            <span className="section-title-accent">
               Domains
             </span>
           </h2>
-          
-          {/* Description */}
-          <p className="text-[#64748B] text-sm md:text-lg leading-relaxed max-w-3xl mx-auto font-medium">
-         We work across multiple domains including
+          <p className="section-subtitle mx-auto">
+            We work across multiple domains including
           </p>
         </div>
 

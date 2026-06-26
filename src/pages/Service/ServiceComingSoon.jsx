@@ -9,13 +9,7 @@ const ServiceComingSoon = ({ title }) => {
     <div className="bg-[#F8FAFC] min-h-screen relative w-full overflow-x-hidden pt-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
         
-        <button 
-          onClick={() => navigate('/services')}
-          className="flex items-center gap-2 text-[#64748B] hover:text-[#2563EB] transition-colors mb-8 sm:mb-12 cursor-pointer bg-transparent border-none p-0"
-        >
-          <ArrowLeft size={20} />
-          <span className="font-medium">Back to Services</span>
-        </button>
+        
 
         <PageHeader 
           title={title}

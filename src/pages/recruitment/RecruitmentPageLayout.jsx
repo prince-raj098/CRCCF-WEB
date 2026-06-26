@@ -25,12 +25,7 @@ const RecruitmentPageLayout = ({ title, description, backPath = '/recruitment' }
             <h2 className="text-2xl font-bold text-[#0F172A] mb-4">{title}</h2>
             <p className="text-[#475569] text-base sm:text-lg leading-8">{description}</p>
 
-            <button
-              onClick={() => navigate(backPath)}
-              className="mt-8 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
-            >
-              Back to Careers
-            </button>
+            
           </div>
 
           <div className="mt-6">

@@ -22,12 +22,7 @@ const PrivacyPolicy = () => {
         <p className="text-gray-600 mb-8">
           We do not share your personal data with third parties without consent.
         </p>
-        <Link
-          to="/about"
-          className="inline-flex items-center px-5 py-2 rounded-lg bg-gray-600 text-white hover:bg-gray-700 transition-all"
-        >
-          <FiArrowLeft className="mr-2" /> Back to About Us
-        </Link>
+
       </motion.div>
     </section>
   );

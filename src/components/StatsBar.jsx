@@ -155,7 +155,7 @@ export default function StatsBar() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
+            <h3 className="text-[clamp(20px,3vw,28px)] font-[800] text-white mb-8">
               Our <span className="text-blue-400">Impact</span>
             </h3>
 

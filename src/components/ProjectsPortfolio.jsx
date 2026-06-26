@@ -96,10 +96,10 @@ export default function ProjectsPortfolio() {
             <Briefcase size={14} /> Projects & Portfolio
           </div>
 
-          <h2 className="text-4xl md:text-5xl   font-extrabold text-slate-900 mb-2">
+          <h2 className="section-title">
             Our Projects{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-             & Portfolio
+            <span className="section-title-accent">
+             &amp; Portfolio
             </span>
           </h2>
           
@@ -119,10 +119,10 @@ export default function ProjectsPortfolio() {
             viewport={{ once:true }}
             transition={{ duration:.5 }}
           >
-          <h2 className="text-4xl md:text-5xl   font-extrabold text-slate-900 mb-2">
+          <h2 className="section-title">
             Project{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-             Statistics 
+            <span className="section-title-accent">
+             Statistics
             </span>
           </h2>
 

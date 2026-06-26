@@ -7,7 +7,7 @@ import PageHeader from '../../components/AboutUs/common/PageHeader'
 
 const SkillDevelopmentPage = () => {
   const navigate = useNavigate()
-  
+
   const menuItems = [
     { id: 'internships', label: 'Internships', path: '/skill-development/internships', icon: Briefcase },
     { id: 'training', label: 'Training Programs', path: '/skill-development/training', icon: GraduationCap },
@@ -27,10 +27,10 @@ const SkillDevelopmentPage = () => {
 
   return (
     <div className="w-full overflow-x-hidden bg-[#F8FAFC] min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
-        
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 pt-4 pb-16">
+
         {/* Header Section */}
-        <PageHeader 
+        <PageHeader
           title="Skill Development"
           description="Empower your career with our specialized programs, courses, and resources designed for the modern digital landscape."
           Icon={GraduationCap}

@@ -406,7 +406,7 @@ export default function InternshipPrograms() {
           </h3>
           </div>
           <div className="bg-[#F8FAFC] border-[1px] border-solid border-[#E2E8F0] rounded-[30px] py-[clamp(28px,5vw,50px)] px-[clamp(20px,4vw,40px)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]" ref={ref}>
-            <div className="grid grid-cols-[repeat(4,1fr)] gap-[30px] items-start max-[1024px]:grid-cols-[repeat(2,1fr)] max-[600px]:grid-cols-[repeat(2,1fr)] max-[600px]:gap-[12px]">
+            <div className="grid grid-cols-[repeat(4,1fr)] gap-[30px] items-stretch max-[1024px]:grid-cols-[repeat(2,1fr)] max-[600px]:grid-cols-[repeat(2,1fr)] max-[600px]:gap-[12px]">
               {[
                 { 
                   id: 'benefit1', 
@@ -432,23 +432,23 @@ export default function InternshipPrograms() {
                   text: 'Professional & Structured Learning Environment',
                   desc: 'Experience a professional, collaborative, and technology-driven learning ecosystem at CR Cyber Crime Foundation designed to promote discipline, innovation, continuous learning, and career-oriented skill development in a supportive environment.'
                 }
-              ].map((item, idx) => (
-                <div 
-                  key={idx} 
-                  className={`group w-full h-[180px] bg-[#F8FAFC] text-center border-[6px] border-solid border-[#F8FAFC] rounded-[30px] shadow-[inset_4px_4px_10px_rgba(37,99,235,0.05),inset_-4px_-4px_10px_#fff] transition-all duration-500 ease-in-out flex flex-col items-center py-[24px] px-[15px] overflow-hidden relative cursor-pointer ${isAutoHovering || tappedBenefits.includes(item.id) ? 'h-[450px] bg-[#ffffff] border-[#DBEAFE] shadow-[15px_15px_35px_rgba(37,99,235,0.1),-15px_-15px_35px_#ffffff]' : 'hover:h-[450px] hover:bg-[#ffffff] hover:border-[#DBEAFE] hover:shadow-[15px_15px_35px_rgba(37,99,235,0.1),-15px_-15px_35px_#ffffff]'} max-[600px]:h-[160px] max-[600px]:py-[16px] max-[600px]:px-[10px] max-[600px]:border-[4px] max-[600px]:rounded-[20px] ${isAutoHovering || tappedBenefits.includes(item.id) ? 'max-[600px]:h-[500px]' : 'max-[600px]:hover:h-[500px]'}`}
-
-
-
-                  onClick={(e) => handleBenefitTap(e, item.id)}
-                >
+              ].map((item, idx) => {
+                const isExpanded = isAutoHovering || tappedBenefits.includes(item.id);
+                return (
+                  <div 
+                    key={idx} 
+                    className={`group w-full h-full bg-[#F8FAFC] text-center border-[6px] border-solid rounded-[30px] transition-all duration-500 ease-in-out flex flex-col items-center py-[24px] px-[15px] relative cursor-pointer max-[600px]:py-[16px] max-[600px]:px-[10px] max-[600px]:border-[4px] max-[600px]:rounded-[20px] ${isExpanded ? 'border-[#DBEAFE] bg-[#ffffff] shadow-[15px_15px_35px_rgba(37,99,235,0.1),-15px_-15px_35px_#ffffff]' : 'border-[#F8FAFC] shadow-[inset_4px_4px_10px_rgba(37,99,235,0.05),inset_-4px_-4px_10px_#fff] hover:border-[#DBEAFE] hover:bg-[#ffffff] hover:shadow-[15px_15px_35px_rgba(37,99,235,0.1),-15px_-15px_35px_#ffffff]'}`}
+                    onClick={(e) => handleBenefitTap(e, item.id)}
+                  >
                   <div className={`w-[70px] h-[70px] text-[#1A56DB] bg-[#ffffff] flex items-center justify-center rounded-[50%] shadow-[8px_8px_15px_rgba(26,86,219,0.05),-8px_-8px_15px_#ffffff] transition-all duration-500 ease-in-out z-[2] shrink-0 ${isAutoHovering || tappedBenefits.includes(item.id) ? '-translate-y-[5px] shadow-[0_10px_20px_rgba(37,99,235,0.1)]' : 'group-hover:-translate-y-[5px] group-hover:shadow-[0_10px_20px_rgba(37,99,235,0.1)]'} max-[600px]:w-[50px] max-[600px]:h-[50px]`}>{item.icon}</div>
                   
                   <div className="mt-[12px] px-[8px] z-[2]">
                     <h4 className="text-[13px] font-[800] text-[#1E3A8A] m-0 leading-[1.3] uppercase tracking-tight max-[600px]:text-[11px]">{item.text}</h4>
                   </div>
 
-                  <div className={`mt-[12px] transition-all duration-500 ease-in-out w-full flex flex-col items-center ${isAutoHovering || tappedBenefits.includes(item.id) ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-[20px] scale-95 opacity-0 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100'}`}>
-                    <div className="bg-[#F8FAFC] p-[12px] rounded-[18px] border border-[#DBEAFE] shadow-[inset_4px_4px_10px_rgba(0,0,0,0.02)] w-full mb-3">
+                  {/* Expandable: description + CTA — max-height so content never gets clipped */}
+                  <div className={`mt-[12px] overflow-hidden transition-all duration-500 ease-in-out w-full flex flex-col flex-1 items-center ${isExpanded ? 'max-h-[600px] opacity-100 translate-y-0 scale-100' : 'max-h-0 opacity-0 translate-y-[20px] scale-95 group-hover:max-h-[600px] group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100'}`}>
+                    <div className="bg-[#F8FAFC] p-[12px] rounded-[18px] border border-[#DBEAFE] shadow-[inset_4px_4px_10px_rgba(0,0,0,0.02)] w-full mb-3 flex-grow">
                       <p className="text-[11.5px] font-[500] text-[#475569] m-0 leading-[1.6] max-[600px]:text-[10px]">{item.desc}</p>
                     </div>
                     
@@ -463,19 +463,15 @@ export default function InternshipPrograms() {
                         }
                         navigate(routes[item.id])
                       }}
-                      className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black shadow-[0_4px_12px_rgba(37,99,235,0.3)] hover:bg-blue-700 hover:shadow-[0_6px_20px_rgba(37,99,235,0.4)] transition-all active:scale-95 animate-pulse"
+                      className="flex items-center gap-2 px-4 py-2 mb-2 bg-blue-600 text-white rounded-full text-[10px] font-black shadow-[0_4px_12px_rgba(37,99,235,0.3)] hover:bg-blue-700 hover:shadow-[0_6px_20px_rgba(37,99,235,0.4)] transition-all active:scale-95 animate-pulse"
                     >
                       Click to know more
                       <Rocket size={13} className="animate-bounce" />
                     </button>
-
                   </div>
-                </div>
-
-
-
-              ))}
-
+                  </div>
+                );
+              })}
             </div>
           </div>
         </motion.div>

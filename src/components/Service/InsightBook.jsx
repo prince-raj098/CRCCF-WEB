@@ -157,8 +157,8 @@ export default function InsightBook({
                 ${isFlipped
                   ? '[transform:rotateY(-130deg)_scale(0.9)_translateX(-20px)] opacity-100 pointer-events-none shadow-[-15px_0_40px_rgba(0,0,0,0.1)]'
                   : pageIdx === activePageIndex
-                    ? 'opacity-100 translate-x-0 rotate-y-0 scale-100'
-                    : 'opacity-0 pointer-events-none translate-x-8'
+                    ? '[transform:rotateY(0deg)_scale(1)_translateX(0px)] opacity-100'
+                    : '[transform:rotateY(0deg)_scale(1)_translateX(32px)] opacity-0 pointer-events-none'
                 }
               `}
             >
@@ -226,7 +226,7 @@ export default function InsightBook({
           onClick={handleOpen}
         >
           <div className="w-[100px] h-[100px] rounded-[28px] flex items-center justify-center mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4">
-            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
+            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" loading="lazy" decoding="async" width="100" height="100" className="w-full h-full object-contain filter drop-shadow-sm" />
           </div>
 
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>

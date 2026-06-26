@@ -76,13 +76,16 @@ export default function Hero() {
           <motion.img
             key={i}
             src={slide.image}
-            alt={`Slide ${i}`}
+            alt={slide.badge}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding={i === 0 ? 'sync' : 'async'}
+            fetchpriority={i === 0 ? 'high' : 'auto'}
             initial={false}
             animate={{
-              opacity: index === i ? 0.35 : 0, // Keeps image slightly dark so text pops
-              scale: index === i ? 1 : 1.05,   // Adds a subtle cinematic zoom-out
+              opacity: index === i ? 0.35 : 0,
+              scale: index === i ? 1 : 1.05,
             }}
-            transition={{ duration: 1.2, ease: "easeInOut" }} // Smooth 1.2s crossfade
+            transition={{ duration: 1.2, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
           />
         ))}

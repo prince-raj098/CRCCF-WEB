@@ -58,7 +58,7 @@ export default function CategoryPage() {
           </div>
 
           <div>
-            <img
+            <img loading="lazy" decoding="async"
               src={heroImage}
               alt="hero"
               className="w-full h-[260px] object-cover rounded-[16px] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]"
@@ -71,7 +71,7 @@ export default function CategoryPage() {
           {sections.map((item, index) => (
             <div key={index} className="grid grid-cols-2 gap-[24px] items-center max-[768px]:grid-cols-1">
               <div>
-                <img
+                <img loading="lazy" decoding="async"
                   src={item.image}
                   alt={item.title}
                   className="w-full h-[200px] object-cover rounded-[16px] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]"

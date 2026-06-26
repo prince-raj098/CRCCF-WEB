@@ -139,14 +139,7 @@ export default function EducationServices() {
         variants={container} initial="hidden" animate="show"
         className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-16"
       >
-        <motion.nav variants={itemUp} className="mb-12">
-          <button
-            onClick={() => navigate('/services')}
-            className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 transition-colors font-bold text-sm bg-transparent border-none cursor-pointer p-0"
-          >
-            <ArrowLeft size={18} /> Back to Our Services
-          </button>
-        </motion.nav>
+        
 
         <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
           <motion.div variants={itemUp}>

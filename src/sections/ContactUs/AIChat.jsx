@@ -44,12 +44,7 @@ const AIChat = () => {
     <div className="max-w-4xl mx-auto h-[80vh] flex flex-col bg-white rounded-3xl shadow-sm border border-slate-100 animate-[fadeIn_0.3s_ease-out] overflow-hidden">
       {/* --- HEADER --- */}
       <div className="flex items-center gap-4 p-5 sm:p-6 border-b border-slate-100 bg-white z-10">
-        <button
-          onClick={() => window.history.back()}
-          className="p-2 bg-slate-50 text-slate-500 rounded-full hover:bg-primary hover:text-white transition-all shadow-sm"
-        >
-          <ArrowLeft size={20} />
-        </button>
+        
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
             <Bot size={24} />

@@ -241,12 +241,7 @@ const Review = () => {
 
       {/* Back Button */}
       <div className="flex justify-center mt-8 pb-10">
-        <button
-          onClick={() => window.history.back()}
-          className="flex items-center gap-2 px-6 py-3 bg-white text-slate-600 font-semibold rounded-full border border-slate-200 shadow-sm hover:shadow-md hover:text-primary hover:-translate-y-0.5 transition-all"
-        >
-          <ChevronLeft size={18} /> Back to Dashboard
-        </button>
+        
       </div>
     </div>
   );

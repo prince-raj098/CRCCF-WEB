@@ -260,7 +260,7 @@ const InsightCard = ({ allPages }) => {
           onClick={handleOpen}
         >
           <div className="w-[120px] h-[120px] rounded-[32px] flex items-center justify-center mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4">
-            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" className="w-full h-full object-contain" />
+            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" loading="lazy" decoding="async" width="100" height="100" className="w-full h-full object-contain" />
           </div>
 
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>
@@ -280,7 +280,7 @@ const InsightCard = ({ allPages }) => {
 
       {/* Scrubber */}
       <div className={`transition-all duration-500 ease-out mt-4 ${isOpen || showScrubber ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="flex flex-col gap-4 bg-white/50 backdrop-blur-sm p-6 rounded-[24px] border border-slate-100">
+        <div className="flex flex-col gap-4 bg-white/50 backdrop-blur-sm p-3 sm:p-4 md:p-6 rounded-[16px] sm:rounded-[24px] border border-slate-100">
           <div className="flex justify-between items-center">
             <div className="flex flex-col">
               <span className="text-[11px] sm:text-[12px] font-bold text-slate-700 mt-1 truncate max-w-[180px] sm:max-w-[300px]">{allPages[activePageIndex].heading}</span>
@@ -331,19 +331,12 @@ export default function OurLegalIdentity() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
-    <div className="bg-[#F8FAFC] min-h-screen pb-20">
+    <div className="bg-[#F8FAFC] min-h-screen pb-20 overflow-x-hidden">
       <motion.section
         variants={container} initial="hidden" animate="show"
         className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-16"
       >
-        <motion.nav variants={itemUp} className="mb-12">
-          <button
-            onClick={() => navigate('/about/legal-compliance')}
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors font-bold text-sm bg-transparent border-none cursor-pointer p-0"
-          >
-            <ArrowLeft size={18} /> Back to Compliance
-          </button>
-        </motion.nav>
+        
 
         <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
           <motion.div variants={itemUp}>

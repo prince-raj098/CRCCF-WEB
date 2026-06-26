@@ -13,7 +13,7 @@ const MarqueeContent = () => {
     <div className="flex items-center shrink-0">
       {marqueeItems.map((item, index) => (
         <div key={index} className="flex items-center mx-8 shrink-0">
-          <img
+          <img loading="lazy" decoding="async"
             src={logo}
             alt="CRCCF logo"
             className="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0"
@@ -23,7 +23,7 @@ const MarqueeContent = () => {
             {item}
           </span>
 
-          <img
+          <img loading="lazy" decoding="async"
             src={logo}
             alt="CRCCF logo"
             className="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0"

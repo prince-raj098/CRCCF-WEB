@@ -197,7 +197,7 @@ const InsightCard = ({ allPages }) => {
       <motion.article
         className={`
           relative bg-white border border-slate-200 rounded-[24px] 
-          h-[500px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
+          h-[340px] sm:h-[420px] md:h-[500px] w-full shadow-[0_4px_30px_rgba(0,0,0,0.06)] 
           [transform-style:preserve-3d] [perspective:2000px] 
           flex items-center justify-center transition-all duration-300 
           ${isOpen ? 'shadow-[0_30px_70px_rgba(0,0,0,0.15)]' : 'hover:shadow-[0_30px_70px_rgba(0,0,0,0.15)]'}
@@ -218,8 +218,7 @@ const InsightCard = ({ allPages }) => {
               key={pageIdx}
               style={{ zIndex: 100 - pageIdx }}
               className={`
-                absolute inset-0 p-10 flex flex-col w-full h-full justify-start 
-                pl-14 rounded-[24px] transition-all duration-[1s] 
+                absolute inset-0 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col w-full h-full justify-start pl-6 sm:pl-8 md:pl-10 lg:pl-14 rounded-[24px] transition-all duration-[1s] 
                 ease-[cubic-bezier(0.645,0.045,0.355,1)]
                 [transform-origin:left_center] [backface-visibility:hidden]
                 will-change-transform will-change-opacity
@@ -283,7 +282,7 @@ const InsightCard = ({ allPages }) => {
             absolute inset-0 w-full h-full rounded-[24px] cursor-pointer 
             transition-all duration-[1.3s] ease-[cubic-bezier(0.645,0.045,0.355,1)] 
             [transform-origin:left_center] shadow-[6px_0_30px_rgba(0,0,0,0.12)] 
-            flex flex-col items-center justify-center z-[110] p-12 text-center 
+            flex flex-col items-center justify-center z-[110] p-4 sm:p-6 md:p-8 lg:p-12 text-center 
             [backface-visibility:hidden] bg-white will-change-transform
             ${isOpen ? '[transform:rotateY(-145deg)_scale(0.95)_translateX(-30px)] opacity-0 pointer-events-none' : ''}
           `}
@@ -293,13 +292,13 @@ const InsightCard = ({ allPages }) => {
           }}
           onClick={handleOpen}
         >
-          <div className="w-[100px] h-[100px] rounded-[28px] flex items-center justify-center mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4">
-            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" className="w-full h-full object-contain filter drop-shadow-sm" />
+          <div className="w-14 h-14 sm:w-20 sm:h-20 lg:w-[100px] lg:h-[100px] rounded-[20px] sm:rounded-[24px] lg:rounded-[28px] flex items-center justify-center mb-4 sm:mb-6 lg:mb-10 shadow-sm bg-white/60 backdrop-blur-sm p-4">
+            <img src="https://res.cloudinary.com/dbwnbfdij/image/upload/v1779516223/Logo_iile24.png" alt="CRCCF Logo" loading="lazy" decoding="async" width="100" height="100" className="w-full h-full object-contain filter drop-shadow-sm" />
           </div>
 
           <style>{`@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');`}</style>
           
-          <h3 className="text-slate-900 leading-[1.1] mb-8 text-[32px] font-bold" style={{ fontFamily: "'Dancing Script', cursive" }}>
+          <h3 className="text-slate-900 leading-[1.1] mb-4 sm:mb-6 lg:mb-8 text-xl sm:text-2xl lg:text-[32px] font-bold" style={{ fontFamily: "'Dancing Script', cursive" }}>
             Purpose Chronicles
           </h3>
           
@@ -314,7 +313,7 @@ const InsightCard = ({ allPages }) => {
 
       {/* Scrubber */}
       <div className={`transition-all duration-500 ease-out mt-4 ${isOpen || showScrubber ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="flex flex-col gap-4 bg-white/50 backdrop-blur-sm p-6 rounded-[24px] border border-slate-100">
+        <div className="flex flex-col gap-4 bg-white/50 backdrop-blur-sm p-3 sm:p-4 md:p-6 rounded-[16px] sm:rounded-[24px] border border-slate-100">
           <div className="flex justify-between items-center">
             <div className="flex flex-col">
               <span className="text-[11px] sm:text-[12px] font-bold text-slate-700 mt-1 truncate max-w-[180px] sm:max-w-[300px]">{allPages[activePageIndex].heading}</span>
@@ -365,19 +364,12 @@ export default function Purpose() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
-    <div className="bg-[#FBFDFF] min-h-screen">
+    <div className="bg-[#FBFDFF] min-h-screen overflow-x-hidden">
       <motion.section
         variants={container} initial="hidden" animate="show"
         className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-16"
       >
-        <motion.nav variants={itemUp} className="mb-12">
-          <button
-            onClick={() => navigate('/about')}
-            className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 transition-colors font-bold text-sm bg-transparent border-none cursor-pointer p-0"
-          >
-            <ArrowLeft size={18} /> Back to About Us
-          </button>
-        </motion.nav>
+        
 
         <div ref={heroRef} className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
           <motion.div variants={itemUp}>

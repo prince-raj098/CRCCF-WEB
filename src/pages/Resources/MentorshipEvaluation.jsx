@@ -126,22 +126,6 @@ const MentorshipEvaluation = () => {
       
       <main className="pt-32 pb-24 px-4 relative">
         <div className="max-w-5xl mx-auto relative z-10">
-          {/* Back Button */}
-          <motion.button
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            whileHover={{ x: 5 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate(-1)}
-            className="group flex items-center gap-2 text-blue-600 font-black mb-10 transition-all relative py-2 pr-4 overflow-hidden rounded-full cursor-pointer"
-          >
-            <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 rounded-full" />
-            <ChevronLeft size={22} className="group-hover:-translate-x-1 transition-transform stroke-[3]" /> 
-            <span className="relative">
-              Back to Programs
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full" />
-            </span>
-          </motion.button>
 
           {/* Header Section */}
           <motion.div 

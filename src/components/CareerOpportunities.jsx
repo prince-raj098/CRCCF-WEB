@@ -57,10 +57,11 @@ export default function CareerOpportunities() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">
-            Career <span className="text-[#3B82F6]">Opportunities</span>
+          <p className="section-tag">Join Our Team</p>
+          <h2 className="section-title">
+            Career <span className="section-title-accent">Opportunities</span>
           </h2>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg font-medium leading-relaxed">
+          <p className="section-subtitle mx-auto">
             Explore opportunities to learn, contribute, and grow professionally through structured programs and practical experiences.
           </p>
         </motion.div>

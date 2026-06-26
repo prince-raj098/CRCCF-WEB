@@ -237,7 +237,7 @@ const DirectorySection = ({ title, Icon, data = [] }) => {
               className="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col group animate-[fadeInUp_0.4s_ease-out]"
             >
               <div className="h-48 w-full overflow-hidden bg-slate-100 relative">
-                <img
+                <img loading="lazy" decoding="async"
                   src={item.image}
                   alt={item.name}
                   className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-in-out"
@@ -311,7 +311,7 @@ const ProfileDetail = ({ person, onBack, title }) => {
         {/* Profile Image */}
         <div className="w-full lg:w-1/3 flex flex-col gap-4">
           <div className="w-full aspect-square rounded-3xl overflow-hidden shadow-md border-4 border-slate-50 relative">
-            <img
+            <img loading="lazy" decoding="async"
               src={person.image}
               alt={person.name}
               className="w-full h-full object-cover"

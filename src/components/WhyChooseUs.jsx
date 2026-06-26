@@ -120,15 +120,14 @@ export default function WhyChooseUs() {
         {/* ================= HEADER ================= */}
         {/* Reduced mb-14 to mb-8 to close the gap between text and cards */}
         <div className="text-center max-w-3xl mx-auto mb-8">
-          <motion.div
+          <motion.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-[11px] sm:text-xs font-bold tracking-[0.15em] uppercase mb-4"
+            className="section-tag"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
             Why Choose Us
-          </motion.div>
+          </motion.p>
 
           {/* Changed font-black to font-extrabold and slate-900 to slate-800 for a cleaner look */}
           <motion.h2
@@ -136,11 +135,11 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight leading-tight"
+            className="section-title"
           >
-            Building Trust Through <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">
-              Expertise & Innovation
+            Building Trust Through{" "}
+            <span className="section-title-accent">
+              Expertise &amp; Innovation
             </span>
           </motion.h2>
 
@@ -150,7 +149,7 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-600 text-base md:text-lg leading-relaxed max-w-2xl mx-auto"
+            className="section-subtitle mx-auto"
           >
             At CR Cyber Crime Foundation, we go beyond traditional learning by
             integrating cybersecurity, research, and real-world applications.

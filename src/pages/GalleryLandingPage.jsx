@@ -27,7 +27,11 @@ const categories = [
   { title: 'Success Stories Gallery', icon: Trophy, color: 'from-emerald-400 to-teal-500', count: 21 },
   { title: 'Work Highlights Gallery', icon: HeartHandshake, color: 'from-rose-400 to-pink-600', count: 33 },
   { title: 'Achievement Gallery', icon: Trophy, color: 'from-yellow-400 to-orange-500', count: 24 },
-  { title: 'Journey Gallery', icon: Map, color: 'from-indigo-400 to-violet-600', count: 15 }
+  { title: 'Journey Gallery', icon: Map, color: 'from-indigo-400 to-violet-600', count: 15 },
+  { title: 'Course Gallery', icon: BookOpen, color: 'from-blue-500 to-cyan-400', count: 42 },
+  { title: 'Student Gallery', icon: Users, color: 'from-green-500 to-teal-400', count: 85 },
+  { title: 'Internship Gallery', icon: Briefcase, color: 'from-purple-500 to-pink-400', count: 34 },
+  { title: 'Project Gallery', icon: FolderArchive, color: 'from-orange-500 to-amber-400', count: 56 }
 ];
 
 const floatingIcons = [
@@ -64,7 +68,7 @@ const getCategoryImage = (title) => {
   if (t.includes('cyber') || t.includes('awareness')) {
     return eventGalleryData.find(e => e.title.includes('Awareness'))?.photos?.[0]?.url;
   }
-  if (t.includes('workshop') || t.includes('training') || t.includes('student') || t.includes('internship')) {
+  if (t.includes('workshop') || t.includes('training') || t.includes('student') || t.includes('internship') || t.includes('course') || t.includes('project')) {
     return eventGalleryData.find(e => e.title.includes('Internship'))?.photos?.[0]?.url;
   }
   if (t.includes('celebration') || t.includes('moments') || t.includes('culture') || t.includes('workplace') || t.includes('employee')) {

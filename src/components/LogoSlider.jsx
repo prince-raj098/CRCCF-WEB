@@ -15,7 +15,7 @@ export default function LogoSlider({ logos }) {
 
         {loopLogos.map((logo, i) => (
           <div key={i} className="flex items-center justify-center mx-10">
-            <img
+            <img loading="lazy" decoding="async"
               src={logo}
               alt="logo"
               className="

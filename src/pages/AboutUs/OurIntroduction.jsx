@@ -9,13 +9,7 @@ const OurIntroduction = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 w-full">
-      <button
-        onClick={() => navigate('/about')}
-        className="mb-4 sm:mb-6 inline-flex items-center gap-2 text-[#2563EB] hover:text-[#1D4ED8] transition-colors font-medium text-sm sm:text-base border-none bg-transparent cursor-pointer p-0"
-      >
-        <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
-        Back to About Us
-      </button>
+      
 
       <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg sm:shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] p-4 sm:p-6 md:p-8 text-center">

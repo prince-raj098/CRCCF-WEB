@@ -27,14 +27,7 @@ const SkillDevelopmentDetail = () => {
     <div className="bg-[#F8FAFC] min-h-screen relative w-full overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
         
-        {/* Back Button */}
-        <button 
-          onClick={() => navigate('/skill-development')}
-          className="flex items-center gap-2 text-[#64748B] hover:text-[#2563EB] transition-colors mb-8 sm:mb-12 cursor-pointer bg-transparent border-none p-0"
-        >
-          <ArrowLeft size={20} />
-          <span className="font-medium">Back to Skill Development</span>
-        </button>
+        
 
         {/* Content Section */}
         <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg sm:shadow-xl p-8 sm:p-12 md:p-16 text-center max-w-3xl mx-auto border border-[#DBEAFE]">

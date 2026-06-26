@@ -289,7 +289,7 @@ function HeroIllustration({ department, vacancies, status, level, employmentType
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         className="w-full h-full relative z-10"
       >
-        <img 
+        <img loading="lazy" decoding="async" 
           src={heroImg}
           alt="3D Hero Illustration" 
           className="w-full h-full object-contain object-right"
@@ -1294,18 +1294,7 @@ const [viewMode,setViewMode]=useState("list");
     <div className="min-h-screen bg-white py-10 px-4 sm:px-6 lg:px-8 font-sans antialiased text-slate-800 selection:bg-blue-100 relative">
       <PageAmbientBackground />
 
-      {/* Back to Portal breadcrumb */}
-      <div className="relative z-20 max-w-[1400px] mx-auto mb-4">
-        <button
-          onClick={() => navigate('/recruitment/job-vacancy')}
-          className="flex items-center gap-2 bg-transparent border-none outline-none appearance-none cursor-pointer text-[13px] font-semibold text-slate-500 hover:bg-transparent hover:text-indigo-600 transition-all active:scale-95 group focus:outline-none"
-        >
-          <svg className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          Back to Job Portal
-        </button>
-      </div>
+
 
       {/* Premium Interactive Hero Section */}
       <div className="max-w-[1400px] w-full mx-auto px-4 lg:px-8 mb-12 relative z-10">

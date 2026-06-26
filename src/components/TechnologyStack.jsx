@@ -373,9 +373,9 @@ const TechStack = () => {
       <div className="tech-header">
         <div className="tech-badge">Our Tech Stack</div>
 
-      <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">
+      <h2 className="section-title">
             Technologies{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+            <span className="section-title-accent">
               We Work With
             </span>
           </h2>

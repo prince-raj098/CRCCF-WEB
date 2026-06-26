@@ -255,8 +255,9 @@ export default function Testimonials() {
         {/* ================= FILTER BAR (Centered at Top) ================= */}
         <div className="flex flex-col items-center mb-10">
           {/* 1. ADDED TOP HEADING HERE */}
-          <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 tracking-tight">
-            Testi <span className="text-blue-600">monials</span>
+          <p className="section-tag">Community Feedback</p>
+          <h2 className="section-title">
+            Testi<span className="section-title-accent">monials</span>
           </h2>
 
           <div className="flex bg-white p-1.5 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-slate-100 flex-wrap justify-center gap-1">
@@ -364,7 +365,11 @@ export default function Testimonials() {
                         <img
                           src={item.avatar}
                           className="w-full h-full rounded-full object-cover"
-                          alt=""
+                          alt={item.name}
+                          loading="lazy"
+                          decoding="async"
+                          width="48"
+                          height="48"
                         />
                       </div>
 

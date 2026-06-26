@@ -5,17 +5,10 @@ export default function ReportComingSoon({ title }) {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[#F8FAFC] min-h-screen relative w-full overflow-x-hidden pt-32 pb-16">
+    <div className="bg-[#F8FAFC] min-h-screen relative w-full overflow-x-hidden pt-4 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
-        {/* Back Button */}
-        <button 
-          onClick={() => navigate('/report-crime')}
-          className="flex items-center gap-2 text-[#64748B] hover:text-[#2563EB] transition-colors mb-12 cursor-pointer bg-transparent border-none p-0"
-        >
-          <ArrowLeft size={20} />
-          <span className="font-medium text-sm sm:text-base">Back to Report Crime</span>
-        </button>
+        
 
         {/* Coming Soon Card */}
         <div className="bg-white rounded-2xl sm:rounded-[24px] shadow-sm sm:shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-8 sm:p-16 md:p-24 text-center border border-slate-100">
